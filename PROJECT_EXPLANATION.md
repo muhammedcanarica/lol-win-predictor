@@ -209,6 +209,14 @@ Patch sürümleri metin olarak korunur. Ham dosyanın SHA-256 özeti `6f801f27ed
 python -m src.evaluate_esports --raw data/raw/chaincc-teams-2026.csv.gz --output-dir reports/esports
 ```
 
+### Elo ve Mahkeme deneyleri
+
+Elo, 10. dakika istatistiklerine takım gücü bağlamı ekler. Puanlar 1.500'den başlar ve yalnız maç gününden en az iki takvim günü önce oynanan karşılaşmalarla güncellenir. Takım gücü farkı ve ortalaması lojistik regresyona eklenir. Son 1.300 maçlık zaman diliminde beş girdili model %71,85, Elo ekli model %73,00 doğruluk verdi. Farkın seri bazlı %95 güven aralığı [−0,62, +2,90] yüzde puandı. Draft, ek 10. dakika verileri, 2025 verisi ve eşik ayarı aynı geliştirme protokolüyle ölçüldü. [Elo ve özellik karşılaştırması](reports/improvements/metrics.json)
+
+Mahkeme, iki lojistik regresyonun, Random Forest'ın ve XGBoost'un olasılıklarını birleştirir. İlk iki kat tahmin ettiği maçları eğitimde görmemiş uzmanlardan üst model eğitim verisi sağlar. Sonraki iki kat yöntem seçimini yapar ve beşinci kat dondurulan yöntemi değerlendirir. Tahmini seri grupları kat sınırlarında ayrılır. Sabit ağırlıklı ortalama seçimde en düşük log-loss'u verdi. Son zaman diliminde tekil Elo'ya göre 11 hatayı düzeltti ve 13 doğru kararı bozdu. Doğruluk farkının %95 güven aralığı [−0,93, +0,67] yüzde puandı.
+
+İki hâkim varyantı, uzmanların maç içi farklar tek tek eşitlendiğinde verdiği olasılık tepkilerinden öğrenilen kanıt puanlarını kullandı. Biri maç istatistiklerinden, diğeri uzman olasılıklarından kendi tahminini oluşturdu. Her ikisi de bu tahmini tarafların kanıtıyla birleştirdi. Son dönem önceki çalışmalarda görüldüğü için Elo ve Mahkeme sonuçları keşifseldir. Uygulama mevcut kayıtlı modeli kullanmaya devam eder. [Mahkeme metrikleri ve maç örnekleri](reports/court/metrics.json) · [Yerel çalıştırma komutları](README.md#takım-gücü-ve-diğer-özellikler-keşifsel)
+
 ## 12. Streamlit modeli nasıl kullanıyor?
 
 `app.py`:
@@ -266,7 +274,7 @@ C: Model seçimi tamamen CV ile yapıldı; test seti yalnızca son değerlendirm
 C: Altın farkı (permütasyon önemi 0.157); onu XP (0.028) ve CS (0.009) izliyor.
 
 **S: Projeyi nasıl geliştirirsiniz?**
-C: Draft/şampiyon bilgisi, takım Elo/geçmiş form, ejderha ve void grub gibi erken objektifler, lig bazlı etkiler; 15. dk modeli ile karşılaştırma.
+C: İlk adım Elo ve Mahkeme sonuçlarını daha önce görülmemiş bir maç döneminde doğrulamak. Draft ve ek 10. dakika özellikleri geliştirme katlarında zaten denendi. Elo izlenmeye değer bir aday, ancak son dönemdeki doğruluk farkının güven aralığı sıfırı içeriyor.
 
 **S: Neden ROC-AUC ile seçtiniz, accuracy ile değil?**
 C: Amacımız olasılık üretmek. ROC-AUC eşikten bağımsızdır ve sıralama kalitesini ölçer; accuracy 0.5 eşiğine bağlıdır.
@@ -280,6 +288,9 @@ C: Amacımız olasılık üretmek. ROC-AUC eşikten bağımsızdır ve sıralama
 | Temizleme, özellik listesi, bölme | `src/data.py` |
 | Modeller, ızgaralar, CV, metrikler, grafikler | `src/train.py` |
 | Tahmin fonksiyonu | `src/predict.py` |
+| Tarihsel Gold-only / Five-features kıyası | `src/evaluate_esports.py` |
+| Elo, draft ve eşik deneyleri | `src/evaluate_improvements.py`, `src/improvement_features.py` |
+| Mahkeme ve hâkim deneyleri | `src/evaluate_court.py`, `src/court.py` |
 | Arayüz | `app.py` |
 | EDA | `notebooks/01_eda.ipynb` |
 | Testler | `tests/` |

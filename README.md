@@ -7,6 +7,8 @@ Profesyonel LoL maçlarının ilk 10 dakikasındaki altın, XP, CS farkı ve kil
 
 > Konuyu baştan öğrenmek için: [PROJECT_EXPLANATION.md](PROJECT_EXPLANATION.md)
 
+Streamlit, kayıtlı beş girdili lojistik regresyonla tahmin üretir. Performans sekmesindeki tarihsel Gold-only / Five-features karşılaştırmasına ek olarak, takım gücü ve uzman birleştirme deneyleri yerel komutlarla çalıştırılabilir. [Elo deneyi](#takım-gücü-ve-diğer-özellikler-keşifsel) · [Mahkeme deneyi](#mahkeme-deneyi) · [Sunum notları](PRESENTATION_NOTES.md)
+
 ---
 
 ## İlk teslimin model seçimi (`reports/metrics.json`)
@@ -169,17 +171,25 @@ Hedef: `result` (1 = Blue kazandı). Maç sonu sütunları, `game_id`, takım ad
 LoL Win Predictor/
 ├── app.py                     # Streamlit arayüzü
 ├── data/raw/                  # ham veri (Git dışı)
-├── data/processed/            # blue_at10.csv (temiz veri, train.py üretir)
+├── data/processed/            # temiz veri ve yerel Elo aday modeli (Git dışı)
 ├── notebooks/
 │   ├── 01_eda.ipynb           # EDA (çalıştırılmış, çıktılı)
 │   └── build_eda_notebook.py  # notebook'u yeniden üretir
 ├── src/
 │   ├── data.py                # yükleme, temizleme, kronolojik bölme
 │   ├── train.py               # GridSearchCV, değerlendirme, grafikler, model kaydı
-│   └── predict.py             # kayıtlı modelle tahmin
+│   ├── predict.py             # kayıtlı modelle tahmin
+│   ├── evaluate_esports.py    # tarihsel Gold-only / Five-features deneyi
+│   ├── evaluate_improvements.py  # Elo ve diğer özellik deneyleri
+│   ├── improvement_features.py   # yalnız geçmişe dayalı özellikler
+│   ├── evaluate_court.py      # kronolojik Mahkeme değerlendirmesi
+│   └── court.py               # üst modeller ve kanıt puanlama
 ├── models/best_model.joblib   # Pipeline (ölçekleyici + model)
 ├── reports/metrics.json       # tüm metrikler (baseline, kalibrasyon, bootstrap GA dahil)
 ├── reports/group_performance.csv  # patch ve lig bazında test performansı
+├── reports/esports/esports_metrics.json  # tarihsel olasılık karşılaştırması
+├── reports/improvements/metrics.json    # keşifsel Elo ve özellik metrikleri
+├── reports/court/metrics.json           # uzmanlar, kalibrasyon ve maç örnekleri
 ├── reports/figures/*.png      # EDA ve model grafikleri
 ├── tests/                     # pytest testleri
 ├── requirements.txt           # doğrudan bağımlılıklar (sabit sürüm)

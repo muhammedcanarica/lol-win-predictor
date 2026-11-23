@@ -57,9 +57,16 @@ Ham dosya SHA-256 özeti `6f801f27ed58b0f5fc6e15f4556076c5fdd794179eb8548eac22ea
 python -m src.evaluate_esports --raw data/raw/chaincc-teams-2026.csv.gz --output-dir reports/esports
 ```
 
+### Ek slayt · Elo ve Mahkeme (süre uygunsa)
+
+- 1.300 maçlık son zaman diliminde beş girdili model %71,85, Elo ekli model %73,00 doğruluk verdi. **+1,15 yüzde puan** için %95 güven aralığı **[−0,62, +2,90]**. Elo'yu doğrulanmış yükseltme yerine keşifsel aday olarak sun.
+- Mahkeme seçim katlarında sabit ağırlıklı ortalamayı seçti. Son dönemde doğruluk %72,85 ve log-loss 0,53774 oldu. Tekil Elo'nun log-loss'u 0,54073'tü. Mahkeme Elo'ya göre 11 hatayı düzeltti, 13 doğru kararı bozdu ve farkın güven aralığı sıfırı içerdi.
+- Sızıntı önlemini bir cümlede anlat. Uzmanlar önceki maçlardan, üst model de önceki katların uzman tahminlerinden öğrenir. İlk teslimin 1.956 test maçı aday seçimine girmedi. Son 1.300 maçlık dönem önceden görülmüştü.
+- Demoda Streamlit'in mevcut modeli ve tarihsel olasılık karşılaştırmasını göster. Elo ve Mahkeme için kayıtlı deney tablolarını kullan. [Elo raporu](reports/improvements/metrics.json) · [Mahkeme raporu](reports/court/metrics.json)
+
 ## 8. Sınırlılıklar (1 dk)
-- Yalnızca 5 özellik; draft, takım gücü ve objektifler yok.
-- 10. dakikada maç hâlâ açık: ~%70 doğal bir tavan.
+- Yayındaki model beş girdi kullanır. Takım gücü ve draft keşifsel deneylerde ölçüldü.
+- İlk teslimde 10. dakika girdileriyle doğruluk %70,35 olarak ölçüldü.
 - Test dönemi sadece patch 16.16–16.23; ≥100 test maçı olan yalnızca 3 lig (LAS, EM, HC).
 - Model basit kurala göre anlamlı doğruluk üstünlüğü sağlamıyor; katkısı olasılık vermesi.
 
@@ -70,7 +77,7 @@ python -m src.evaluate_esports --raw data/raw/chaincc-teams-2026.csv.gz --output
 2. Hepsini 0 yap → ~%51 (Blue tarafının küçük avantajı), "dengeli" uyarısı.
 3. Blue 5, Red 1, +3000 altın, +1500 XP, +30 CS → ~%91 Blue.
 4. Blue 1, Red 6, −4000 altın, −2500 XP, −50 CS → ~%4 Blue, kazanan Red.
-5. **Performans** sekmesi → karşılaştırma tablosu, baseline ve kalibrasyon notu, grafikler.
+5. **Performans** sekmesi → ilk teslimin model tablosu, baseline ve kalibrasyon grafikleri, tarihsel Gold-only / Five-features tablosu.
 6. **Hakkında** sekmesi → veri kaynağı, sınırlılıklar, Riot yasal notu.
 
 Yedek plan: uygulama açılmazsa `.\.venv\Scripts\python.exe -m src.predict` ve `reports/figures/` grafikleri.
