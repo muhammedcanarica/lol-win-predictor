@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+# Ham/işlenmiş veri Git'e eklenmez (upstream yeniden dağıtım koşulları doğrulanmadı)
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+.claude/
+.streamlit/secrets.toml

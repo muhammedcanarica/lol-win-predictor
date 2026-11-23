@@ -1,0 +1,211 @@
+{
+  "cleaning": {
+    "raw_rows": 19902,
+    "raw_games": 9951,
+    "blue_games": 9951,
+    "dropped_all_zero_at10": 175,
+    "dropped_na": 0,
+    "final_games": 9776,
+    "blue_win_rate": 0.5369
+  },
+  "split": {
+    "train_games": 7820,
+    "test_games": 1956,
+    "train_period": [
+      "2026-01-08 17:08:27",
+      "2026-08-25 17:14:01"
+    ],
+    "test_period": [
+      "2026-08-25 17:19:21",
+      "2026-11-21 17:02:48"
+    ],
+    "train_blue_win_rate": 0.5399,
+    "test_blue_win_rate": 0.5251,
+    "test_games_whose_series_has_train_games": 7
+  },
+  "cv": {
+    "Logistic Regression": {
+      "best_params": {
+        "model__C": 1
+      },
+      "cv_roc_auc": 0.7787829180302431,
+      "cv_roc_auc_std": 0.012143651460023325
+    },
+    "Random Forest": {
+      "best_params": {
+        "model__max_depth": 4,
+        "model__min_samples_leaf": 20
+      },
+      "cv_roc_auc": 0.7764508649260838,
+      "cv_roc_auc_std": 0.01390949980445764
+    },
+    "XGBoost": {
+      "best_params": {
+        "model__learning_rate": 0.03,
+        "model__max_depth": 2,
+        "model__n_estimators": 200
+      },
+      "cv_roc_auc": 0.7754314888014172,
+      "cv_roc_auc_std": 0.013523183755809012
+    }
+  },
+  "test": {
+    "Logistic Regression": {
+      "accuracy": 0.7034764826175869,
+      "precision": 0.7004484304932735,
+      "recall": 0.7604673807205453,
+      "specificity": 0.6404736275565124,
+      "f1": 0.7292250233426704,
+      "roc_auc": 0.7794311396387945,
+      "brier": 0.19120889335387242,
+      "confusion_matrix": [
+        [
+          595,
+          334
+        ],
+        [
+          246,
+          781
+        ]
+      ]
+    },
+    "Random Forest": {
+      "accuracy": 0.6973415132924335,
+      "precision": 0.6961226330027052,
+      "recall": 0.7517039922103214,
+      "specificity": 0.6372443487621098,
+      "f1": 0.7228464419475655,
+      "roc_auc": 0.7770393141896459,
+      "brier": 0.19244835714947225,
+      "confusion_matrix": [
+        [
+          592,
+          337
+        ],
+        [
+          255,
+          772
+        ]
+      ]
+    },
+    "XGBoost": {
+      "accuracy": 0.6983640081799591,
+      "precision": 0.6959641255605381,
+      "recall": 0.7555988315481986,
+      "specificity": 0.635091496232508,
+      "f1": 0.7245564892623716,
+      "roc_auc": 0.7790920706060165,
+      "brier": 0.1913146674633026,
+      "confusion_matrix": [
+        [
+          590,
+          339
+        ],
+        [
+          251,
+          776
+        ]
+      ]
+    }
+  },
+  "best_model": "Logistic Regression",
+  "baselines": {
+    "always_blue_accuracy": 0.5250511247443763,
+    "golddiff_sign_accuracy": 0.6932515337423313,
+    "golddiff_only_roc_auc": 0.772114690231353,
+    "best_vs_sign_bootstrap": {
+      "accuracy_diff": 0.010224948875255602,
+      "accuracy_diff_ci95": [
+        -0.004601226993865004,
+        0.024539877300613466
+      ],
+      "roc_auc_diff": 0.007316449407441472,
+      "roc_auc_diff_ci95": [
+        -0.001065053707592084,
+        0.015453469092071846
+      ]
+    }
+  },
+  "calibration": {
+    "constant_prob": 0.5399,
+    "brier_constant": 0.24959286189270347,
+    "brier_model": 0.19120889335387242,
+    "logloss_constant": 0.6923345653105616,
+    "logloss_model": 0.5603095512563777,
+    "brier_skill_score": 0.23391681996069869,
+    "mean_predicted": 0.545925239346003,
+    "observed_rate": 0.5250511247443763
+  },
+  "feature_importance": {
+    "golddiffat10": 0.1565,
+    "xpdiffat10": 0.0279,
+    "csdiffat10": 0.0094,
+    "killsat10": 0.001,
+    "deathsat10": -0.0002
+  },
+  "groups_reliable": [
+    {
+      "group_by": "league",
+      "group": "LAS",
+      "n": 347,
+      "blue_win_rate": 0.5072,
+      "accuracy": 0.7493,
+      "sign_accuracy": 0.7493,
+      "roc_auc": 0.8424
+    },
+    {
+      "group_by": "league",
+      "group": "EM",
+      "n": 240,
+      "blue_win_rate": 0.5208,
+      "accuracy": 0.7125,
+      "sign_accuracy": 0.7292,
+      "roc_auc": 0.7994
+    },
+    {
+      "group_by": "league",
+      "group": "HC",
+      "n": 102,
+      "blue_win_rate": 0.4706,
+      "accuracy": 0.6078,
+      "sign_accuracy": 0.6275,
+      "roc_auc": 0.6836
+    },
+    {
+      "group_by": "patch",
+      "group": "16.17",
+      "n": 781,
+      "blue_win_rate": 0.507,
+      "accuracy": 0.6914,
+      "sign_accuracy": 0.6748,
+      "roc_auc": 0.764
+    },
+    {
+      "group_by": "patch",
+      "group": "16.18",
+      "n": 539,
+      "blue_win_rate": 0.4991,
+      "accuracy": 0.718,
+      "sign_accuracy": 0.718,
+      "roc_auc": 0.8053
+    },
+    {
+      "group_by": "patch",
+      "group": "16.20",
+      "n": 320,
+      "blue_win_rate": 0.5688,
+      "accuracy": 0.7156,
+      "sign_accuracy": 0.6969,
+      "roc_auc": 0.7814
+    },
+    {
+      "group_by": "patch",
+      "group": "16.16",
+      "n": 280,
+      "blue_win_rate": 0.5643,
+      "accuracy": 0.6857,
+      "sign_accuracy": 0.6786,
+      "roc_auc": 0.7599
+    }
+  ]
+}
