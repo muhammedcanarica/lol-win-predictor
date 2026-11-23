@@ -98,7 +98,7 @@ class EsportsEvaluationTests(unittest.TestCase):
             self.assertEqual(legacy.read_text(encoding="utf-8"), "ilk teslim")
             legacy_clean, _ = clean(load_raw(raw))
             self.assertNotIn("team_name", legacy_clean)
-            self.assertEqual(legacy_clean["patch"].nunique(), 1)
+            self.assertEqual(set(legacy_clean["patch"]), {"16.1", "16.10"})
 
             metrics = json.loads(first[0])
             self.assertEqual(metrics["snapshot"]["raw_sha256"], hashlib.sha256(raw.read_bytes()).hexdigest())

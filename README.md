@@ -9,7 +9,7 @@ Profesyonel LoL maçlarının ilk 10 dakikasındaki altın, XP, CS farkı ve kil
 
 ---
 
-## Sonuçlar (gerçek çalıştırma, `reports/metrics.json`)
+## İlk teslimin model seçimi (`reports/metrics.json`)
 
 | Model | CV ROC-AUC (5 kat) | Test Accuracy | Precision | Recall | Specificity | F1 | Test ROC-AUC | Brier |
 |---|---|---|---|---|---|---|---|---|
@@ -23,15 +23,28 @@ Profesyonel LoL maçlarının ilk 10 dakikasındaki altın, XP, CS farkı ve kil
 - Karışıklık matrisi (LR, test, 1956 maç): TN=595, FP=334, FN=246, TP=781.
 - **Kalibrasyon:** sabit olasılık referansı (her maça eğitimdeki Blue oranı 0.540) Brier 0.2496 / log-loss 0.692; model Brier 0.1912 / log-loss 0.560 → **Brier Skill Score 0.234**. Ortalama tahmin 0.546, gerçek oran 0.525: test döneminde Blue avantajı azaldığı için model Blue'yu ~2 puan fazla tahmin ediyor.
 
-## Teknik denetim (v1.1)
+## Tarihsel olasılık karşılaştırması (`reports/esports/esports_metrics.json`)
+
+İki lojistik regresyon modeli aynı maçlarda karşılaştırıldı. Yalnız altın modeli 10. dakika altın farkını, beş girdili model ayrıca XP, CS ve kill bilgilerini kullanır. Hiperparametre seçimi, beş kronolojik doğrulama katında ortalama Brier skoruna göre yapıldı.
+
+| Model | Brier ↓ | ROC-AUC ↑ | Log-loss ↓ |
+|---|---:|---:|---:|
+| Yalnız altın | 0,19397 | 0,77211 | 0,56671 |
+| Beş girdi | 0,19122 | 0,77944 | 0,56034 |
+
+1.956 test maçında Brier iyileşmesi **0,00276**, seri bazlı %95 güven aralığı **[−0,00055, +0,00606]**. Aralık sıfırı içeriyor. Bu dönemde beş girdinin istatistiksel olarak anlamlı ek faydası gösterilemedi.
+
+Tarihsel veri penceresi `2026-01-01 00:00:00`–`2026-11-21 17:02:48`, test başlangıcı `2026-08-25 17:19:21`. Testle aynı tahmini seriye düşen 10 maç eğitimden çıkarıldı ve 7.810 eğitim maçı kaldı. Seri eşleştirmesi lig, takvim günü ve takım çiftine dayanır. Gece yarısını aşan seriler ayrılabilir, aynı gün oynanan ayrı seriler birleşebilir. Bu test dönemi ilk teslimde de kullanıldı.
+
+## İlk teslimin teknik denetimi
 
 | # | Kontrol | Durum | Not |
 |---|---|---|---|
 | 1 | Yalnızca 10. dk özellikleri | PASS | 5 özelliğin hepsi `*at10`; maç sonu, kimlik, 15. dk sütunları yok (testli) |
 | 2 | Eksik sütun raporu | PASS | `bo_format`, `match_in_series`, `game_in_match` %100 boş; `split` 2.964 satır (EWC, LJL, MSI, Worlds, promotion…); ban'lar 315 satır / 233 maç. Hiçbiri kullanılmıyor → işlem yapılmadı |
 | 3a | Kronolojik bölme | PASS (düzeltildi) | 8 aynı zaman damgası vardı; sıralama `game_id` ile deterministik yapıldı ve bölme eşit zaman damgalarını ayırmayacak şekilde değiştirildi. Sonuç değişmedi (sınırda çakışma yoktu) |
-| 3b | TimeSeriesSplit sırası | PASS | Her katta eğitim tarihi ≤ doğrulama tarihi (testli) |
-| 3c | Seri (Bo3/Bo5) sızıntısı | PASS | Sınırı aşan yalnız 7 test maçı; model takım kimliği görmediği için seriyi ezberleyemez |
+| 3b | TimeSeriesSplit sırası | PASS | İlk teslimde eğitim tarihi ≤ doğrulama tarihi. Tarihsel deneyde eşit zaman damgaları aynı tarafta tutulur. |
+| 3c | Seri (Bo3/Bo5) çakışması | Saptandı | İlk teslimde yaklaşık seri anahtarıyla 7 test maçı eşleşti. Tarihsel deney sınırı aşan eşleşmeleri eğitimden çıkarır. |
 | 4 | 175 maçın çıkarılması | PASS | İki tarafta da aynı 175 maç, maç sonu verisi dolu; geçerli sıfırlar (5 maç altın farkı 0, 1.272 maç Blue kill 0) korundu |
 | 5 | Patch/lig performansı | PASS | `reports/group_performance.csv`; n ≥ 100 olan 4 patch ve 3 lig dışında sonuç çıkarılmadı |
 | 6 | Altın işaretiyle kıyas | PASS | Fark küçük ve anlamlı değil (yukarıda) |
@@ -41,6 +54,8 @@ Profesyonel LoL maçlarının ilk 10 dakikasındaki altın, XP, CS farkı ve kil
 
 - **Kaynak:** ChainCC Open LoL Esports Dataset 2026 – <https://chaincc.lol/free/data>
 - **Dosya:** `chaincc-teams-2026.csv.gz` → `data/raw/` altına konur
+- **SHA-256:** `6f801f27ed58b0f5fc6e15f4556076c5fdd794179eb8548eac22ea98c31919ed`
+- Patch sürümleri metin olarak okunur. `16.1` ve `16.10` ayrı sürümler olarak raporlanır.
 - **Lisans:** CC BY 4.0 (veri sağlayıcının beyanı). Atıf: *"Data: ChainCC Open LoL Esports Dataset 2026, chaincc.lol, CC BY 4.0"*
 - Doğrulanan boyut: 19.902 satır (maç başına Blue + Red), 9.951 maç, 74 sütun, 2026-01-01 – 2026-11-21.
 - Ham veri **Git'e eklenmez** (`.gitignore`), çünkü upstream yeniden dağıtım koşulları kesinleştirilmedi. Projeyi klonlayan kişi dosyayı kaynaktan indirip `data/raw/` içine koymalıdır.
@@ -103,6 +118,7 @@ Veri dosyasını `data\raw\chaincc-teams-2026.csv.gz` olarak yerleştirin, ardı
 ```powershell
 .\.venv\Scripts\python.exe -m src.train          # veri işleme + 3 model + metrikler + grafikler (~35 sn)
 .\.venv\Scripts\python.exe -m src.predict        # örnek tahminler
+.\.venv\Scripts\python.exe -m src.evaluate_esports --raw data/raw/chaincc-teams-2026.csv.gz --output-dir reports/esports
 .\.venv\Scripts\python.exe -m pytest -q -p no:cacheprovider   # testler
 .\.venv\Scripts\python.exe -m streamlit run app.py              # uygulama → http://localhost:8501
 ```

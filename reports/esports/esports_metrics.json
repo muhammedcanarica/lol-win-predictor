@@ -166,5 +166,5 @@
     "seed": 42,
     "five_features_improved": false
   },
-  "interpretation": "Güven aralığı bu tarihsel test döneminde beş girdinin Brier skorunu iyileştirdiğini göstermedi."
+  "interpretation": "Bu tarihsel testte beş girdinin Brier skoruna ek katkısı istatistiksel olarak anlamlı bulunmadı."
 }

@@ -19,7 +19,7 @@ cells = [
          "print('Taraf dağılımı:', df.side.value_counts().to_dict())\n"
          "print('Her maçta tam bir kazanan var mı?', (df.groupby('game_id').result.sum() == 1).all())\n"
          "df.dtypes.value_counts()"),
-    code("df.dtypes.to_frame('tip').T"),
+    code("df[['date', 'league', 'patch', 'result']].dtypes.to_frame('tip').T"),
     md("## 2. Eksik değerler ve tekrarlanan kayıtlar"),
     code("na = df.isna().sum(); na[na > 0].sort_values(ascending=False).to_frame('eksik')"),
     code("print('Tam tekrar eden satır:', df.duplicated().sum())\nprint('Tekrar eden (game_id, side):', df.duplicated(['game_id', 'side']).sum())"),
@@ -75,7 +75,7 @@ cells = [
     md("## 9. Tarih ve patch dağılımı"),
     code("fig, axes = plt.subplots(1, 2, figsize=(16, 4))\ndata.date.dt.strftime('%Y-%m').value_counts().sort_index().plot.bar(ax=axes[0], color='#0a6ebd', rot=45)\n"
          "axes[0].set_title('Aylara göre maç sayısı')\n"
-         "data.patch.map('{:.2f}'.format).value_counts().sort_index().plot.bar(ax=axes[1], color='#c89b3c'); axes[1].set_title('Patch dağılımı')\n"
+         "data.sort_values('date').groupby('patch', sort=False).size().plot.bar(ax=axes[1], color='#c89b3c'); axes[1].set_title('Patch dağılımı')\n"
          "plt.tight_layout(); plt.savefig(FIG/'date_patch.png', dpi=120); plt.show()"),
     code("data.league.value_counts().head(15).to_frame('maç')"),
     md("Veri 2026 Ocak–Kasım arasını kapsıyor. Meta değiştikçe (patch) ilişkiler değişebileceğinden modelde **kronolojik bölme** "

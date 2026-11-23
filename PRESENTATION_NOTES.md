@@ -45,6 +45,18 @@ Tüm sayılar `reports/metrics.json` dosyasından alınmıştır. Ayrıntılı a
 - Kalibrasyon: sabit olasılık referansına göre Brier Skill Score 0.234. **Yaklaşık kalibre, kusursuz değil:** ortalama tahmin 0.546, gerçek oran 0.525.
 - En önemli özellik: altın farkı (permütasyon önemi 0.157).
 
+### Tarihsel olasılık karşılaştırması
+
+Üç model ve ROC-AUC ile seçim ilk teslime ait. Tarihsel deney, yalnız altın farkını ve beş girdiyi kullanan iki lojistik regresyonu karşılaştırır. Beş kronolojik katta seçim Brier skoruyla yapılır ve sınırı aşan tahmini seri eşleşmeleri eğitimden çıkarılır. Seri anahtarı lig, gün ve takım çiftidir. Bu yaklaşık anahtar, gece yarısını aşan seriyi ayırabilir veya aynı gün oynanan ayrı serileri birleştirebilir.
+
+Veri penceresi `2026-01-01 00:00:00`–`2026-11-21 17:02:48`. İlk teslimde de görülen test dönemi `2026-08-25 17:19:21` tarihinde başlıyor ve 1.956 maç içeriyor. Brier skoru yalnız altınla **0,19397**, beş girdiyle **0,19122**. %95 güven aralığı **[−0,00055, +0,00606]** sıfırı içeriyor. Sonucu sunarken ek faydanın istatistiksel olarak gösterilemediğini söyle. Performans sekmesinde iki modelin ROC-AUC ve log-loss değerleri de yer alır.
+
+Ham dosya SHA-256 özeti `6f801f27ed58b0f5fc6e15f4556076c5fdd794179eb8548eac22ea98c31919ed`.
+
+```powershell
+python -m src.evaluate_esports --raw data/raw/chaincc-teams-2026.csv.gz --output-dir reports/esports
+```
+
 ## 8. Sınırlılıklar (1 dk)
 - Yalnızca 5 özellik; draft, takım gücü ve objektifler yok.
 - 10. dakikada maç hâlâ açık: ~%70 doğal bir tavan.

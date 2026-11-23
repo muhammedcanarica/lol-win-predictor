@@ -114,10 +114,20 @@ def test_paired_bootstrap_zero_diff_when_identical():
 
 
 def test_group_performance_flags_small_groups():
-    t = pd.DataFrame({"patch": [16.1] * 4 + [16.2] * 2, "league": ["A"] * 6,
+    t = pd.DataFrame({"patch": ["16.10"] * 4 + ["16.1"] * 2, "league": ["A"] * 6,
                       "golddiffat10": [1, -1, 1, -1, 1, -1], "result": [1, 0, 1, 0, 1, 0]})
     g = group_performance(t, pd.Series([.9, .1, .8, .2, .7, .3]).to_numpy(), min_n=4)
-    assert g.set_index("group").loc["16.10", "reliable"] and not g.set_index("group").loc["16.20", "reliable"]
+    assert g.set_index("group").loc["16.10", "reliable"] and not g.set_index("group").loc["16.1", "reliable"]
+
+
+def test_clean_rejects_fractional_match_result():
+    from src.data import AT10_COLS
+
+    row = dict.fromkeys(AT10_COLS, 1)
+    row.update(game_id="synthetic", date=pd.Timestamp("2026-02-01"), side="Blue", league="LCK",
+               patch="16.10", team_name="A", opponent_team_name="B", result=0.5)
+    with pytest.raises(ValueError, match="0 veya 1"):
+        clean(pd.DataFrame([row]))
 
 
 def test_calibration_beats_constant_reference_and_reports_exist():

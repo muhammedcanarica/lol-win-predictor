@@ -121,7 +121,7 @@ def group_performance(test: pd.DataFrame, probabilities: dict) -> pd.DataFrame:
 
 
 def evaluate_raw(raw_path: Path) -> tuple[dict, pd.DataFrame]:
-    raw = load_raw(raw_path, patch_as_text=True)
+    raw = load_raw(raw_path)
     with raw_path.open("rb") as source:
         digest = hashlib.file_digest(source, "sha256").hexdigest()
     data, cleaning = clean(raw, keep_team_names=True)
@@ -131,8 +131,6 @@ def evaluate_raw(raw_path: Path) -> tuple[dict, pd.DataFrame]:
     test = data_in_window.loc[data_in_window["date"] >= TEST_START]
     if earlier.empty or test.empty:
         raise ValueError("Sabit 2026 tarih aralığında hem eğitim hem test maçı bulunmalı.")
-    if not data_in_window[TARGET].isin([0, 1]).all():
-        raise ValueError("Maç sonucu 0 veya 1 olmalı.")
     train = purge_series(earlier, test)
     folds, fold_details = validation_folds(train)
 
@@ -177,7 +175,7 @@ def evaluate_raw(raw_path: Path) -> tuple[dict, pd.DataFrame]:
         "interpretation": (
             "Beş girdi bu tarihsel test döneminde Brier skorunu iyileştirdi."
             if comparison["five_features_improved"] else
-            "Güven aralığı bu tarihsel test döneminde beş girdinin Brier skorunu iyileştirdiğini göstermedi."
+            "Bu tarihsel testte beş girdinin Brier skoruna ek katkısı istatistiksel olarak anlamlı bulunmadı."
         ),
     }
     return metrics, group_performance(test, probabilities)
