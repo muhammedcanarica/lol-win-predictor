@@ -15,15 +15,14 @@ import pandas as pd
 from sklearn.calibration import calibration_curve
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.inspection import permutation_importance
-from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (ConfusionMatrixDisplay, accuracy_score, brier_score_loss, confusion_matrix,
                              f1_score, log_loss, precision_score, recall_score, roc_auc_score, roc_curve)
 from sklearn.model_selection import GridSearchCV, TimeSeriesSplit
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
 from xgboost import XGBClassifier
 
 from src.data import FEATURES, PROCESSED_PATH, ROOT, TARGET, chrono_split, clean, load_raw
+from src.logistic import LOGISTIC_C_GRID, logistic_pipeline
 
 SEED = 42
 MODEL_PATH = ROOT / "models" / "best_model.joblib"
@@ -34,10 +33,7 @@ MIN_GROUP_N = 100  # bundan küçük patch/lig gruplarından sonuç çıkarılma
 
 # Ölçekleme Pipeline içinde: her CV katında yalnızca eğitim katına fit edilir (sızıntı yok).
 CANDIDATES = {
-    "Logistic Regression": (
-        Pipeline([("scaler", StandardScaler()), ("model", LogisticRegression(max_iter=1000))]),
-        {"model__C": [0.001, 0.01, 0.1, 1, 10]},
-    ),
+    "Logistic Regression": (logistic_pipeline(), LOGISTIC_C_GRID),
     "Random Forest": (
         Pipeline([("model", RandomForestClassifier(n_estimators=300, random_state=SEED, n_jobs=-1))]),
         {"model__max_depth": [4, 6, 8, None], "model__min_samples_leaf": [1, 20, 50]},

@@ -1,0 +1,170 @@
+{
+  "snapshot": {
+    "raw_sha256": "6f801f27ed58b0f5fc6e15f4556076c5fdd794179eb8548eac22ea98c31919ed",
+    "window_start": "2026-01-01 00:00:00",
+    "window_end": "2026-11-21 17:02:48",
+    "cleaned_games_outside_window": 0,
+    "historical_test": true
+  },
+  "cleaning": {
+    "raw_rows": 19902,
+    "raw_games": 9951,
+    "blue_games": 9951,
+    "dropped_all_zero_at10": 175,
+    "dropped_na": 0,
+    "final_games": 9776,
+    "blue_win_rate": 0.5369
+  },
+  "split": {
+    "test_start": "2026-08-25 17:19:21",
+    "train": {
+      "games": 7810,
+      "start": "2026-01-08 17:08:27",
+      "end": "2026-08-25 17:14:01",
+      "missing_series_identity_games": 0
+    },
+    "test": {
+      "games": 1956,
+      "start": "2026-08-25 17:19:21",
+      "end": "2026-11-21 17:02:48",
+      "missing_series_identity_games": 0
+    },
+    "purged_train_games": 10,
+    "folds": [
+      {
+        "fold": 1,
+        "train": {
+          "games": 1301,
+          "start": "2026-01-08 17:08:27",
+          "end": "2026-02-18 19:07:35",
+          "missing_series_identity_games": 0
+        },
+        "validation": {
+          "games": 1300,
+          "start": "2026-02-18 19:10:37",
+          "end": "2026-04-07 22:08:12",
+          "missing_series_identity_games": 0
+        },
+        "purged_train_games": 6
+      },
+      {
+        "fold": 2,
+        "train": {
+          "games": 2605,
+          "start": "2026-01-08 17:08:27",
+          "end": "2026-04-07 21:48:19",
+          "missing_series_identity_games": 0
+        },
+        "validation": {
+          "games": 1302,
+          "start": "2026-04-07 22:26:13",
+          "end": "2026-05-02 11:33:39",
+          "missing_series_identity_games": 0
+        },
+        "purged_train_games": 2
+      },
+      {
+        "fold": 3,
+        "train": {
+          "games": 3907,
+          "start": "2026-01-08 17:08:27",
+          "end": "2026-05-02 11:33:39",
+          "missing_series_identity_games": 0
+        },
+        "validation": {
+          "games": 1301,
+          "start": "2026-05-02 11:52:31",
+          "end": "2026-05-28 18:41:00",
+          "missing_series_identity_games": 0
+        },
+        "purged_train_games": 2
+      },
+      {
+        "fold": 4,
+        "train": {
+          "games": 5206,
+          "start": "2026-01-08 17:08:27",
+          "end": "2026-05-28 18:41:00",
+          "missing_series_identity_games": 0
+        },
+        "validation": {
+          "games": 1300,
+          "start": "2026-05-28 19:06:06",
+          "end": "2026-07-27 14:07:10",
+          "missing_series_identity_games": 0
+        },
+        "purged_train_games": 4
+      },
+      {
+        "fold": 5,
+        "train": {
+          "games": 6510,
+          "start": "2026-01-08 17:08:27",
+          "end": "2026-07-27 14:07:10",
+          "missing_series_identity_games": 0
+        },
+        "validation": {
+          "games": 1300,
+          "start": "2026-07-27 15:13:47",
+          "end": "2026-08-25 17:14:01",
+          "missing_series_identity_games": 0
+        },
+        "purged_train_games": 0
+      }
+    ],
+    "series_definition": "Aynı lig, takvim günü ve sırasız takım çifti. Eksik kimlikte maç ayrı sayılır.",
+    "series_limitations": "Aynı gün oynanan ayrı seriler birleşebilir, gece yarısını aşan seriler ayrılabilir."
+  },
+  "selection_metric": "mean_cv_brier",
+  "models": {
+    "gold_only": {
+      "features": [
+        "golddiffat10"
+      ],
+      "best_c": 10,
+      "mean_cv_brier": 0.1955295529270898,
+      "test": {
+        "brier": 0.193973774786685,
+        "log_loss": 0.5667081123630514,
+        "roc_auc": 0.772114690231353
+      }
+    },
+    "five_features": {
+      "features": [
+        "golddiffat10",
+        "xpdiffat10",
+        "csdiffat10",
+        "killsat10",
+        "deathsat10"
+      ],
+      "best_c": 10,
+      "mean_cv_brier": 0.19045872502432415,
+      "test": {
+        "brier": 0.1912184072632355,
+        "log_loss": 0.5603403410914706,
+        "roc_auc": 0.7794384765266753
+      }
+    }
+  },
+  "references": {
+    "gold_sign_accuracy": 0.6932515337423313,
+    "constant_blue_probability": 0.5400768245838669,
+    "constant_test": {
+      "brier": 0.24959821280470815,
+      "log_loss": 0.6923453360239734,
+      "roc_auc": 0.5
+    }
+  },
+  "brier_comparison": {
+    "gold_only_minus_five_features": 0.002755367523449498,
+    "ci95": [
+      -0.0005534265377572318,
+      0.006061523301755343
+    ],
+    "series_groups": 762,
+    "bootstrap_samples": 2000,
+    "seed": 42,
+    "five_features_improved": false
+  },
+  "interpretation": "Güven aralığı bu tarihsel test döneminde beş girdinin Brier skorunu iyileştirdiğini göstermedi."
+}
