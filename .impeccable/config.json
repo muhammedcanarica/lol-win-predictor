@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "instrument serif",
+        "createdAt": "2026-11-23T22:35:49.547Z",
+        "reason": "Tasarım kararı: Instrument Serif yalnız LoL Win Predictor ana başlığında kullanılan yerel seriftir; kontroller ve gövde yazısı bu fontu kullanmaz."
+      }
+    ]
+  }
+}

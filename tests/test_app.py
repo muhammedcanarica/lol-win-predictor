@@ -20,7 +20,7 @@ def _pct(metric):
 def test_app_runs_with_defaults():
     at = AppTest.from_file(APP_PATH, default_timeout=60).run()
     assert not at.exception
-    assert [t.label for t in at.tabs] == ["🎯 Tahmin", "📊 Performans", "ℹ️ Hakkında"]
+    assert [t.label for t in at.tabs] == ["Tahmin", "Performans", "Hakkında"]
 
 
 @pytest.mark.parametrize("inputs", SCENARIOS)
@@ -28,7 +28,7 @@ def test_app_prediction_matches_model(inputs):
     at = AppTest.from_file(APP_PATH, default_timeout=60).run()
     for widget, value in zip(at.number_input, inputs):
         widget.set_value(value)
-    at.button[0].click().run()   # formun "Tahmin et" butonu
+    next(button for button in at.button if button.label == "Tahmin et").click().run()
     assert not at.exception
 
     blue, red = at.metric[0], at.metric[1]
@@ -67,3 +67,23 @@ def test_historical_comparison_reads_report_and_handles_missing_file(tmp_path, m
     assert table.loc["Beş girdi"].to_dict() == {"Brier ↓": 0.19, "ROC-AUC ↑": 0.75, "Log-loss ↓": 0.59}
     assert any("[-0.02000, +0.03000]" in item.value for item in at.caption)
     assert any(item.value == report["interpretation"] for item in at.markdown)
+
+
+def test_scenario_presets_compare_and_clear_reference():
+    at = AppTest.from_file(APP_PATH, default_timeout=60).run()
+    next(button for button in at.button if button.label == "Dengeli").click().run()
+    assert [widget.value for widget in at.number_input] == [2, 2, 0, 0, 0]
+    reference = _pct(at.metric[0])
+    at.button(key="pin-match").click().run()
+    next(button for button in at.button if button.label == "Blue önde").click().run()
+    assert not at.exception
+    assert [widget.value for widget in at.number_input] == [5, 1, 3000, 1500, 30]
+    assert _pct(at.metric[0]) > reference
+    comparison = next(metric for metric in at.metric if "Kaydedilen" in metric.label)
+    assert _pct(comparison) == reference
+    assert comparison.delta.startswith("+")
+    sensitivity = at.tabs[0].dataframe[0].value
+    assert set(sensitivity["Eşitlenen girdi"]) == {"Altın", "XP", "Minyon", "Kill"}
+    at.button(key="remove-reference").click().run()
+    assert not at.exception
+    assert not any("Kaydedilen" in metric.label for metric in at.metric)
