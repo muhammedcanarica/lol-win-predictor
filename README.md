@@ -36,6 +36,88 @@ Profesyonel LoL maçlarının ilk 10 dakikasındaki altın, XP, CS farkı ve kil
 
 Tarihsel veri penceresi `2026-01-01 00:00:00`–`2026-11-21 17:02:48`, test başlangıcı `2026-08-25 17:19:21`. Testle aynı tahmini seriye düşen 10 maç eğitimden çıkarıldı ve 7.810 eğitim maçı kaldı. Seri eşleştirmesi lig, takvim günü ve takım çiftine dayanır. Gece yarısını aşan seriler ayrılabilir, aynı gün oynanan ayrı seriler birleşebilir. Bu test dönemi ilk teslimde de kullanıldı.
 
+## Takım gücü ve diğer özellikler (keşifsel)
+
+İlk teslimin %70,35 doğruluğu, 25 Ağustos 2026 saat 17:19:21 ve sonrasındaki 1.956 maçtan ölçüldü. Yeni adayların seçiminde bu maçlar kullanılmadı. ChainCC'nin 23 Kasım 2026 tarihinde sunulan 2026 takım dosyası yerel kopyayla aynı SHA-256 özetine sahip. Ayrı bir yeni test dönemi bulunamadığı için bu sonuçlar keşifseldir. [ChainCC açık veri](https://chaincc.lol/free/data)
+
+İlk dört kronolojik doğrulama katı adayları seçmek için kullanıldı. Beşinci kat, 27 Temmuz–25 Ağustos arasındaki 1.300 maçta seçilen adayı ve referansları değerlendirdi. Bu dönem ilk teslimin doğrulamasında da yer alıyordu. Aynı lig, gün ve sırasız takım çiftiyle eşleşen tahmini seriler bölme sınırlarından ayıklandı. Güven aralıkları iki modelin aynı maçlardaki tahminlerini seri grupları halinde 2.000 kez yeniden örnekler. Aday taramasındaki aralıklar çoklu karşılaştırma için düzeltilmedi.
+
+Elo ve şampiyon güçleri yalnız maç gününden en az iki takvim günü önceki sonuçlardan hesaplandı. Böylece önceki gün dahil olmak üzere maç günü ve gelecekteki sonuçlar başlangıç özelliklerine girmez. Elo, 1.500 başlangıç puanı ve K=24 ile güncellenir. Şampiyon galibiyet oranları %50 önsel ortalamaya doğru 20 maç ağırlığıyla düzeltilir. Draft kodlaması, Blue ve Red'in seçtiği şampiyonların imzalı varlık göstergeleridir. Ek maç değişkenleri yalnız 10. dakika kaynaklarına dayanır. Geçmiş takım gücü ve draft bağlamı için araştırma örnekleri bulunur. [Profesyonel LoL maç önü tahmin modeli](https://arxiv.org/abs/2609.08060) · [Geçmiş performans ve draft çalışması](https://arxiv.org/abs/2001.11274)
+
+| Geliştirme, 5.203 maç | Doğruluk | ROC-AUC | F1 | Brier | Log-loss |
+|---|---:|---:|---:|---:|---:|
+| Beş girdi | %70,38 | 0,77635 | 0,72575 | 0,19167 | 0,56205 |
+| Beş girdi + Elo | %71,82 | 0,79253 | 0,74007 | 0,18511 | 0,54603 |
+| Beş girdi + draft seçimleri | %68,90 | 0,75256 | 0,71066 | 0,20715 | 0,63216 |
+| Beş girdi + geçmiş şampiyon gücü | %70,75 | 0,78045 | 0,72841 | 0,19001 | 0,55822 |
+| Beş girdi + ek 10. dk özellikleri | %70,33 | 0,77528 | 0,72300 | 0,19211 | 0,56289 |
+| Beş girdi + 2025 eğitim verisi | %70,34 | 0,77601 | 0,72743 | 0,19196 | 0,56266 |
+| Beş girdi + eşik ayarı | %70,44 | 0,77635 | 0,72368 | 0,19167 | 0,56205 |
+| Elo + eşik ayarı (ek kontrol) | %71,36 | 0,79253 | 0,73731 | 0,18511 | 0,54603 |
+
+2025 dosyasında 9.236 temiz maç vardı ve aynı beş girdinin 2026 eğitim verisine eklenmesi doğruluğu artırmadı. Eksik 10. dakika kaydı nedeniyle 2025'te 817/10.053, 2026'da 175/9.951 maç çıkarıldı. Sezonlar farklı yamaları kapsıyor. Eşikler her geliştirme katından önce yalnız önceki doğrulama tahminleriyle seçildi. Elo tek başına geliştirmede pozitif güven aralığına sahip tek özellik ailesiydi. Elo için ek eşik ayarı da 0,5 eşiğinden daha düşük doğruluk verdi.
+
+| Son zaman dilimi, 1.300 maç | Doğruluk | ROC-AUC | F1 | Brier | Log-loss |
+|---|---:|---:|---:|---:|---:|
+| Yalnız altın, lojistik regresyon | %70,54 | 0,77365 | 0,74951 | 0,19113 | 0,56099 |
+| Beş girdi, lojistik regresyon | %71,85 | 0,78732 | 0,75858 | 0,18568 | 0,54898 |
+| Beş girdi + Elo, lojistik regresyon | %73,00 | 0,79456 | 0,76490 | 0,18265 | 0,54073 |
+| Random Forest | %71,69 | 0,78618 | 0,75467 | 0,18646 | 0,55056 |
+| XGBoost | %71,77 | 0,78673 | 0,75615 | 0,18611 | 0,54961 |
+
+Ağaç modelleri ilk teslimin sabit ayarlarıyla aynı eğitim döneminde yeniden eğitildi ve aday seçiminde kullanılmadı. Elo'nun doğruluk farkı **+1,15 yüzde puan** ve seri bazlı %95 güven aralığı **[−0,62, +2,90] yüzde puan**. Gün bloklarıyla aralık **[−1,03, +3,11]**. Brier iyileşmesi **0,00303**, %95 güven aralığı **[−0,00278, +0,00840]**. Bu sonuçlarla mevcut Logistic Regression modelini kullanmaya devam ediyoruz. Elo yeni bir test dönemi için öncelikli aday. [Deney metrikleri](reports/improvements/metrics.json)
+
+ChainCC'nin 2025 ve 2026 takım dosyalarını `data/raw/` altında tutarak deneyi çalıştır. Oluşturulan yerel aday modeli `data/processed/exploratory_model.joblib` yoluna kaydedilir. Elo tahmininde 2026 takım dosyası, tahmin tarihinden önceki takım geçmişini hesaplamak için de kullanılır.
+
+```powershell
+python -m src.evaluate_improvements --tree-references
+python -m src.evaluate_improvements --predict-json match.json
+```
+
+Elo modeli için örnek `match.json`. Takım adları kaynak CSV ile uyumlu olmalı. Geçmişi bulunmayan takımlar 1.500 puanla başlar.
+
+```json
+{
+  "date": "2026-11-23", "team_name": "Gen.G", "opponent_team_name": "T1",
+  "golddiffat10": 1000, "xpdiffat10": 500, "csdiffat10": 10,
+  "killsat10": 3, "deathsat10": 2
+}
+```
+
+## Mahkeme deneyi
+
+Mahkeme, beş girdili lojistik regresyon, Elo'lu lojistik regresyon, Random Forest ve XGBoost olasılıklarını birleştirir. Elo, beş girdili lojistik regresyonla maçların %9,92'sinde ayrıştı. Ağaç modelleri birbirleriyle yalnız %2,08 ayrıştı ve olasılık korelasyonları 0,997 oldu. Yalnız altın modeli dört uzmanın tamamının yanıldığı 25 son dönem maçında doğruydu. Beşinci uzman olarak eklenmesi, seçim katlarında sabit ağırlıklı ortalamanın log-loss değerini 0,55778'den 0,55783'e çıkardı. Bu ek kontrol son dönemde yöntem seçmek için kullanılmadı.
+
+- Uzmanlar yalnız önceki maçlarla eğitildi. Mahkeme'nin ilk eğitimi için 2.598 kronolojik OOF tahmini kullanıldı. Sonraki iki katın 2.597 maçındaki log-loss yöntem seçimini belirledi. Her seçim katının üst modeli yalnız daha erken katların OOF tahminlerini gördü. Beşinci kattaki 1.300 maçta seçim dondurulduktan sonra ölçüm yapıldı.
+- Kat sınırlarında tahmini seriler ayrıldı. Elo, maç günü ve bir önceki günün sonuçlarını kullanmadı. Tarihsel 1.956 maç aday seçimine girmedi. 1.300 maçlık dönem önceki deneylerde görüldüğü için bütün sonuçlar keşifseldir.
+- Basit ortalama, Brier ile öğrenilen sabit ağırlıklar, lojistik stacking ve koşullu ağırlıklar karşılaştırıldı. Koşullu model, 10. dakika farkları, Elo ve uzmanlar arasındaki olasılık dağılımından maç başına softmax ağırlıkları çıkarır. Ağaç uzmanlarının hiperparametreleri ilk teslimden sabit alındı ve tekrarlanabilirlik için tek iş parçacığı kullanıldı. [Wolpert, Stacked Generalization](https://cafri-labs.github.io/lab-manual/papers/wolpert1992.pdf) · [Jacobs ve diğerleri, Adaptive Mixtures of Local Experts](https://people.eecs.berkeley.edu/~jordan/papers/mixtures-of-experts-bitmap.pdf)
+- Duruşmada Blue oyu verenler savunan, Red oyu verenler saldıran tarafı oluşturur. Her uzmanda altın, XP, CS, kill veya Elo farkı tek tek eşitlendiğinde tahminin ne kadar değiştiği ölçülür. Lojistik kanıt değerlendiricileri bu tepkilerden, maç koşullarından, oy güveninden ve desteğinden her uzmana 0–1 arasında güven katsayısı verir. Tarafların gücü `güven × |2p − 1|` değerlerinin toplamıdır. Bunlar model tepkileridir ve nedensel açıklama olarak yorumlanmaz. Bir hâkim kanıtı kendi maç istatistiği tahminiyle, diğeri stacking tahminiyle eşit ağırlıkta birleştirir. İkisi de tarafların kararını değiştirebilir.
+
+| Son dönem, 1.300 maç | Doğruluk | ROC-AUC | F1 | Brier ↓ | Log-loss ↓ | ECE ↓ |
+|---|---:|---:|---:|---:|---:|---:|
+| Lojistik regresyon, beş girdi | %71,85 | 0,78732 | 0,75858 | 0,18568 | 0,54898 | 0,03501 |
+| Lojistik regresyon, beş girdi + Elo | %73,00 | 0,79456 | 0,76490 | 0,18265 | 0,54073 | 0,04315 |
+| Lojistik regresyon, yalnız altın | %70,54 | 0,77365 | 0,74951 | 0,19113 | 0,56099 | 0,03976 |
+| Random Forest | %71,69 | 0,78618 | 0,75467 | 0,18646 | 0,55056 | 0,03861 |
+| XGBoost | %71,46 | 0,78698 | 0,75414 | 0,18612 | 0,54976 | 0,03164 |
+| Basit ortalama | %72,54 | 0,79400 | 0,76216 | 0,18304 | 0,54221 | 0,03524 |
+| Sabit ağırlıklı ortalama | %72,85 | 0,79696 | 0,76293 | 0,18144 | 0,53774 | 0,03327 |
+| Lojistik stacking | %72,92 | 0,79709 | 0,76596 | 0,18157 | 0,54040 | 0,03329 |
+| Koşullu ağırlık | %72,54 | 0,79474 | 0,76152 | 0,18275 | 0,54160 | 0,03237 |
+| Yalnız kanıt | %72,46 | 0,79450 | 0,76037 | 0,18289 | 0,54192 | 0,03408 |
+| Kanıt + maç istatistiği hâkimi | %72,92 | 0,79780 | 0,76439 | 0,18115 | 0,53729 | 0,03150 |
+| Kanıt + stacking hâkimi | %73,08 | 0,79734 | 0,76573 | 0,18148 | 0,53927 | 0,03349 |
+
+Seçim katlarında sabit ağırlıklı ortalama kazandı. Son dönem için öğrenilen ağırlıkların yaklaşık %74,6'sı Elo'ya, %17,0'ı Random Forest'a ve %8,5'i beş girdili lojistik regresyona gitti. Elo'ya göre 11 hatayı düzeltti ve 13 doğru kararı bozdu. Doğruluk farkı **−0,15 yüzde puan**, seri bazlı %95 güven aralığı **[−0,93, +0,67] yüzde puan**. Log-loss iyileşmesi **0,00299**, aralık **[−0,00076, +0,00706]**. Elo çıkarıldığında aynı yöntemin log-loss değeri 0,54873'e yükseldi. Elo'nun bu birliktelikte log-loss katkısı **0,01099**, aralık **[+0,00137, +0,02026]**.
+
+Dört uzman 278 maçta birlikte yanıldı. Maç istatistiği hâkimi bunlardan birini düzeltti ve genel olarak Elo'ya göre 21 maçı düzeltti, 22 maçı bozdu. Stacking hâkimi 27 maçı düzeltti, 26 maçı bozdu. 35 adet 2–2 bölünmede Elo 24, stacking hâkimi 25 maçı doğru bildi. Örneğin `LOLTMNT02_442438` maçında Blue Elo'da 125 puan önde ama 10. dakikada 1.504 altın gerideydi. Elo %52,0 Blue derken maç istatistiği hâkimi %47,1 Blue verdi ve Red kazandı. `LOLTMNT02_442117` maçında aynı hâkim %50,8 Blue vererek Elo'nun doğru Red kararını bozdu. [Kalibrasyon dilimleri, güven aralıkları ve örnek maçlar](reports/court/metrics.json)
+
+Mahkeme'nin tekil Elo'ya karşı tutarlı bir avantajı gösterilemedi. Üretimdeki Streamlit ve kayıtlı model korunuyor. Deney, yerel 2026 takım dosyasıyla çalıştırılabilir.
+
+```powershell
+python -m src.evaluate_court
+```
+
 ## İlk teslimin teknik denetimi
 
 | # | Kontrol | Durum | Not |
