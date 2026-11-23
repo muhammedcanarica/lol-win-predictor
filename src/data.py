@@ -13,13 +13,13 @@ AT10_COLS = ["goldat10", "killsat10", "deathsat10", "golddiffat10", "xpdiffat10"
 TARGET = "result"
 
 
-def load_raw(path=RAW_PATH) -> pd.DataFrame:
+def load_raw(path=RAW_PATH, *, patch_as_text=False) -> pd.DataFrame:
     if not Path(path).exists():
         raise FileNotFoundError(f"Ham veri bulunamadı: {path}. Dosyayı data/raw/ içine koyun.")
-    return pd.read_csv(path, parse_dates=["date"])
+    return pd.read_csv(path, parse_dates=["date"], dtype={"patch": "string"} if patch_as_text else None)
 
 
-def clean(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
+def clean(df: pd.DataFrame, *, keep_team_names=False) -> tuple[pd.DataFrame, dict]:
     """Blue satırlarını alır, eksik 10. dk kayıtlarını atar, tarihe göre sıralar.
 
     Dönen rapor her adımda kaç maç kaldığını gösterir (README/sunum için).
@@ -38,7 +38,10 @@ def clean(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     report["dropped_na"] = int(na.sum())
     blue = blue[~na]
 
-    out = blue[["game_id", "date", "league", "patch"] + FEATURES + [TARGET]].copy()
+    columns = ["game_id", "date", "league", "patch"] + FEATURES + [TARGET]
+    if keep_team_names:
+        columns += ["team_name", "opponent_team_name"]
+    out = blue[columns].copy()
     # Seri kimliği (aynı gün + aynı takım çifti) – özellik DEĞİL, yalnız sızıntı denetimi için.
     # shortcut: bo_format/match_in_series veride tamamen boş; gece yarısını aşan seriler iki seri sayılır.
     pair = blue[["team_name", "opponent_team_name"]].apply(lambda r: " vs ".join(sorted(r.astype(str))), axis=1)
