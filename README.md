@@ -165,11 +165,16 @@ Her maç **tek satır** (Blue bakış açısı). Kronolojik bölme: en eski %80 
 
 Hedef: `result` (1 = Blue kazandı). Maç sonu sütunları, `game_id`, takım adları ve 15. dk verileri **kullanılmadı** (sızıntı / genellenemezlik).
 
+## Tahmin ekranı
+
+Tahmin sekmesinde dengeli, Blue önde ve Red önde örnekleriyle başlayabilir veya 10. dakika verilerini kendin girebilirsin. Bir senaryoyu referans olarak kaydettiğinde yeni tahminin Blue olasılığı farkını ve değişen girdileri karşılaştırabilirsin. Girdi etkisi tablosu, her fark ayrı ayrı eşitlendiğinde kayıtlı modelin olasılığı nasıl değiştirdiğini gösterir. Performans sekmesi ilk teslimin metriklerini, tarihsel olasılık karşılaştırmasını ve Elo ile Mahkeme'nin keşifsel özetlerini içerir.
+
 ## Proje yapısı
 
 ```
 LoL Win Predictor/
 ├── app.py                     # Streamlit arayüzü
+├── assets/                    # arayüz stili ve yerel LoL görselleri
 ├── data/raw/                  # ham veri (Git dışı)
 ├── data/processed/            # temiz veri ve yerel Elo aday modeli (Git dışı)
 ├── notebooks/
@@ -238,4 +243,4 @@ Yeniden üretilebilirlik: `random_state=42`, sabit paket sürümleri, determinis
 
 Veri: **ChainCC Open LoL Esports Dataset 2026** (<https://chaincc.lol/free/data>), CC BY 4.0.
 
-LoL Win Predictor, Riot Games tarafından onaylanmamıştır ve Riot Games'in ya da League of Legends'ın üretiminde veya yönetiminde resmi olarak yer alan herhangi bir kişinin görüşlerini yansıtmaz. League of Legends ve Riot Games, Riot Games, Inc.'in ticari markaları veya tescilli ticari markalarıdır. Projede Riot Games'e ait görsel kullanılmamıştır.
+LoL Win Predictor, Riot Games tarafından onaylanmamıştır ve Riot Games'in ya da League of Legends'ın üretiminde veya yönetiminde resmi olarak yer alan herhangi bir kişinin görüşlerini yansıtmaz. League of Legends ve Riot Games, Riot Games, Inc.'in ticari markaları veya tescilli ticari markalarıdır. Altın, minyon ve skor ikonları ile Kindred görseli Riot Games Data Dragon'dan, XP ikonu CommunityDragon arşivinden alınmıştır. [Riot Data Dragon](https://developer.riotgames.com/docs/lol#data-dragon) · [CommunityDragon](https://communitydragon.org/docs/assets)
