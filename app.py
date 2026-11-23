@@ -7,6 +7,8 @@ import streamlit as st
 from src.predict import load_model, predict_blue_win
 from src.train import FIG_DIR, METRICS_PATH
 
+ESPORTS_METRICS_PATH = METRICS_PATH.parent / "esports" / "esports_metrics.json"
+
 st.set_page_config(page_title="LoL Win Predictor", page_icon="⚔️", layout="wide")
 
 st.markdown("""
@@ -108,6 +110,25 @@ with tab_perf:
     g3, g4 = st.columns(2)
     g3.image(str(FIG_DIR / "confusion_matrix.png"), caption="Karışıklık matrisi")
     g4.image(str(FIG_DIR / "calibration.png"), caption="Olasılık kalibrasyonu")
+
+    st.subheader("Tarihsel olasılık karşılaştırması")
+    try:
+        esports = json.loads(ESPORTS_METRICS_PATH.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        st.caption("Tarihsel değerlendirme raporu henüz mevcut değil.")
+    else:
+        historical_models = {"Yalnız altın": "gold_only", "Beş girdi": "five_features"}
+        historical_metrics = {"Brier ↓": "brier", "ROC-AUC ↑": "roc_auc", "Log-loss ↓": "log_loss"}
+        rows = []
+        for label, name in historical_models.items():
+            scores = esports["models"][name]["test"]
+            rows.append({"Model": label, **{title: scores[key] for title, key in historical_metrics.items()}})
+        st.dataframe(pd.DataFrame(rows).round(5), hide_index=True, width="stretch")
+        comparison = esports["brier_comparison"]
+        low, high = comparison["ci95"]
+        st.caption(f"{esports['split']['test']['games']:,} test maçı · Brier farkı (yalnız altın − beş girdi) "
+                   f"{comparison['gold_only_minus_five_features']:+.5f} · Seri bazlı %95 GA [{low:+.5f}, {high:+.5f}]")
+        st.write(esports["interpretation"])
 
 with tab_about:
     s, c = metrics["split"], metrics["cleaning"]

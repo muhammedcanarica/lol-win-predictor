@@ -13,10 +13,10 @@ AT10_COLS = ["goldat10", "killsat10", "deathsat10", "golddiffat10", "xpdiffat10"
 TARGET = "result"
 
 
-def load_raw(path=RAW_PATH, *, patch_as_text=False) -> pd.DataFrame:
+def load_raw(path=RAW_PATH) -> pd.DataFrame:
     if not Path(path).exists():
         raise FileNotFoundError(f"Ham veri bulunamadı: {path}. Dosyayı data/raw/ içine koyun.")
-    return pd.read_csv(path, parse_dates=["date"], dtype={"patch": "string"} if patch_as_text else None)
+    return pd.read_csv(path, parse_dates=["date"], dtype={"patch": "string"})
 
 
 def clean(df: pd.DataFrame, *, keep_team_names=False) -> tuple[pd.DataFrame, dict]:
@@ -46,6 +46,8 @@ def clean(df: pd.DataFrame, *, keep_team_names=False) -> tuple[pd.DataFrame, dic
     # shortcut: bo_format/match_in_series veride tamamen boş; gece yarısını aşan seriler iki seri sayılır.
     pair = blue[["team_name", "opponent_team_name"]].apply(lambda r: " vs ".join(sorted(r.astype(str))), axis=1)
     out["series"] = blue["date"].dt.strftime("%Y-%m-%d") + " " + pair
+    if not out[TARGET].isin([0, 1]).all():
+        raise ValueError("Maç sonucu 0 veya 1 olmalı.")
     out[TARGET] = out[TARGET].astype(int)
     # Aynı zaman damgalı maçlar var (8): game_id ikincil anahtar -> deterministik sıra.
     out = out.sort_values(["date", "game_id"], kind="stable").reset_index(drop=True)

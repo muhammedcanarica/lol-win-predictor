@@ -197,6 +197,18 @@ Patch'ler arasında belirgin bir bozulma yok. HC'deki düşük skor 102 maçla d
 - Ağaç modellerinin sığ ağaçları seçmesi de ilişkinin büyük ölçüde doğrusal/monoton olduğunu gösteriyor (altın farkı ↑ → kazanma ↑).
 - Permütasyon önemi (test ROC-AUC düşüşü): golddiff 0.157, xpdiff 0.028, csdiff 0.009, kills 0.001, deaths ≈ 0 → model esasen altın farkına dayanıyor.
 
+### Tarihsel olasılık karşılaştırması
+
+İlk teslim üç modeli doğrulama ROC-AUC'siyle seçti. Tarihsel deney iki lojistik regresyonu karşılaştırır. Birincisi yalnız 10. dakika altın farkını, ikincisi beş girdiyi kullanır. Beş ileri yürüyen doğrulama katında `C`, ortalama Brier skoruna göre seçilir. Eşit zaman damgaları birlikte tutulur. Lig, gün ve takım çiftiyle eşleşen seriler doğrulama ve test sınırlarında eğitimden çıkarılır. Gece yarısını aşan seriler ayrılabilir, aynı gün oynanan ayrı seriler birleşebilir.
+
+2026-01-01 00:00:00–2026-11-21 17:02:48 aralığında test başlangıcı 2026-08-25 17:19:21. Testte 1.956 maç var. Testle seri eşleşmesi nedeniyle eğitimden 10 maç çıkarıldı. Brier, ROC-AUC ve log-loss sırasıyla yalnız altın için **0,19397 / 0,77211 / 0,56671**, beş girdi için **0,19122 / 0,77944 / 0,56034**. Seri bazlı %95 güven aralığı **[−0,00055, +0,00606]** olduğu için Brier iyileşmesi istatistiksel olarak anlamlı bulunmadı. Test dönemi ilk teslimde de görüldü. [Tarihsel rapor](reports/esports/esports_metrics.json)
+
+Patch sürümleri metin olarak korunur. Ham dosyanın SHA-256 özeti `6f801f27ed58b0f5fc6e15f4556076c5fdd794179eb8548eac22ea98c31919ed`.
+
+```powershell
+python -m src.evaluate_esports --raw data/raw/chaincc-teams-2026.csv.gz --output-dir reports/esports
+```
+
 ## 12. Streamlit modeli nasıl kullanıyor?
 
 `app.py`:
@@ -227,7 +239,7 @@ C: (1) Sadece 10. dk'da bilinen özellikler; maç sonu sütunları yok. (2) Maç
 C: Doğrulukta +1 puan, ama bootstrap %95 güven aralığı 0'ı içeriyor; anlamlı değil. Modelin katkısı yaklaşık kalibre olasılık (Brier Skill Score 0.234; kusursuz değil, Blue ~2 puan fazla tahmin ediliyor). Bunu saklamak yerine açıkça raporladık.
 
 **S: Aynı Bo3/Bo5 serisinin maçları hem eğitimde hem testte olabilir mi?**
-C: Seriyi "aynı gün + aynı takım çifti" olarak tanımladık (veride seri sütunları tamamen boş). Kronolojik sınırı aşan yalnızca 7 test maçı var ve model takım adı/kimliği görmediği için seriyi ezberleyemez. Risk ihmal edilebilir.
+C: İlk teslimde gün ve takım çiftine göre 7 test maçının eğitimle eşleştiği görüldü. Tarihsel deney lig bilgisini de kullanır ve sınırı aşan eşleşmeleri eğitimden çıkarır. Kaynakta kesin seri kimliği bulunmadığı için bu ayrım yaklaşık kalır.
 
 **S: Neden random değil kronolojik bölme?**
 C: Gerçekte model geçmiş maçlarla eğitilip gelecek maçları tahmin eder. Meta/patch zamanla değişir; kronolojik bölme bu gerçek senaryoyu taklit eder ve daha dürüst bir skor verir.

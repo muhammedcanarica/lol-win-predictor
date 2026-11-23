@@ -19,7 +19,6 @@ from sklearn.metrics import (ConfusionMatrixDisplay, accuracy_score, brier_score
                              f1_score, log_loss, precision_score, recall_score, roc_auc_score, roc_curve)
 from sklearn.model_selection import GridSearchCV, TimeSeriesSplit
 from sklearn.pipeline import Pipeline
-from xgboost import XGBClassifier
 
 from src.data import FEATURES, PROCESSED_PATH, ROOT, TARGET, chrono_split, clean, load_raw
 from src.logistic import LOGISTIC_C_GRID, logistic_pipeline
@@ -37,10 +36,6 @@ CANDIDATES = {
     "Random Forest": (
         Pipeline([("model", RandomForestClassifier(n_estimators=300, random_state=SEED, n_jobs=-1))]),
         {"model__max_depth": [4, 6, 8, None], "model__min_samples_leaf": [1, 20, 50]},
-    ),
-    "XGBoost": (
-        Pipeline([("model", XGBClassifier(random_state=SEED, n_jobs=-1, eval_metric="logloss", subsample=0.8))]),
-        {"model__n_estimators": [200, 400], "model__max_depth": [2, 3, 4], "model__learning_rate": [0.03, 0.1]},
     ),
 }
 
@@ -81,7 +76,7 @@ def group_performance(test: pd.DataFrame, proba, min_n=MIN_GROUP_N) -> pd.DataFr
     for col in ["patch", "league"]:
         for g, d in t.groupby(col):
             both = d[TARGET].nunique() == 2
-            rows.append({"group_by": col, "group": f"{g:.2f}" if col == "patch" else g, "n": len(d),
+            rows.append({"group_by": col, "group": g, "n": len(d),
                          "blue_win_rate": d[TARGET].mean(), "accuracy": (d.pred == d[TARGET]).mean(),
                          "sign_accuracy": (d.sign == d[TARGET]).mean(),
                          "roc_auc": roc_auc_score(d[TARGET], d.p) if both else np.nan,
@@ -90,6 +85,15 @@ def group_performance(test: pd.DataFrame, proba, min_n=MIN_GROUP_N) -> pd.DataFr
 
 
 def main():
+    from xgboost import XGBClassifier
+
+    candidates = {
+        **CANDIDATES,
+        "XGBoost": (
+            Pipeline([("model", XGBClassifier(random_state=SEED, n_jobs=-1, eval_metric="logloss", subsample=0.8))]),
+            {"model__n_estimators": [200, 400], "model__max_depth": [2, 3, 4], "model__learning_rate": [0.03, 0.1]},
+        ),
+    }
     data, cleaning = clean(load_raw())
     PROCESSED_PATH.parent.mkdir(parents=True, exist_ok=True)
     data.to_csv(PROCESSED_PATH, index=False)
@@ -107,7 +111,7 @@ def main():
 
     cv = TimeSeriesSplit(n_splits=5)  # doğrulama katları her zaman eğitim katlarından sonra gelir
     fitted, cv_results, test_results = {}, {}, {}
-    for name, (pipe, grid) in CANDIDATES.items():
+    for name, (pipe, grid) in candidates.items():
         gs = GridSearchCV(pipe, grid, cv=cv, scoring="roc_auc", n_jobs=-1)
         gs.fit(X_tr, y_tr)
         fitted[name] = gs.best_estimator_
