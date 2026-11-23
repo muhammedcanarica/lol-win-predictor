@@ -1,0 +1,4229 @@
+{
+  "status": "exploratory",
+  "promotion": false,
+  "raw_sha256": "6f801f27ed58b0f5fc6e15f4556076c5fdd794179eb8548eac22ea98c31919ed",
+  "excluded_test_start": "2026-08-25 17:19:21",
+  "excluded_test_games": 1956,
+  "experts": [
+    "five_features",
+    "elo",
+    "random_forest",
+    "xgboost"
+  ],
+  "selected_method": "weighted",
+  "selection_metric": "log_loss",
+  "history_delay_days": 2,
+  "folds": [
+    {
+      "fold": 1,
+      "expert_train": {
+        "games": 1301,
+        "start": "2026-01-08 17:08:27",
+        "end": "2026-02-18 19:07:35",
+        "missing_series_identity_games": 0
+      },
+      "validation": {
+        "games": 1298,
+        "start": "2026-02-18 19:10:37",
+        "end": "2026-04-07 21:48:19",
+        "missing_series_identity_games": 0
+      },
+      "role": "meta_train"
+    },
+    {
+      "fold": 2,
+      "expert_train": {
+        "games": 2605,
+        "start": "2026-01-08 17:08:27",
+        "end": "2026-04-07 21:48:19",
+        "missing_series_identity_games": 0
+      },
+      "validation": {
+        "games": 1300,
+        "start": "2026-04-07 22:26:13",
+        "end": "2026-05-02 11:33:39",
+        "missing_series_identity_games": 0
+      },
+      "role": "meta_train"
+    },
+    {
+      "fold": 3,
+      "expert_train": {
+        "games": 3907,
+        "start": "2026-01-08 17:08:27",
+        "end": "2026-05-02 11:33:39",
+        "missing_series_identity_games": 0
+      },
+      "validation": {
+        "games": 1297,
+        "start": "2026-05-02 11:52:31",
+        "end": "2026-05-28 18:41:00",
+        "missing_series_identity_games": 0
+      },
+      "role": "selection"
+    },
+    {
+      "fold": 4,
+      "expert_train": {
+        "games": 5206,
+        "start": "2026-01-08 17:08:27",
+        "end": "2026-05-28 18:41:00",
+        "missing_series_identity_games": 0
+      },
+      "validation": {
+        "games": 1300,
+        "start": "2026-05-28 19:06:06",
+        "end": "2026-07-27 14:07:10",
+        "missing_series_identity_games": 0
+      },
+      "role": "selection"
+    },
+    {
+      "fold": 5,
+      "expert_train": {
+        "games": 6510,
+        "start": "2026-01-08 17:08:27",
+        "end": "2026-07-27 14:07:10",
+        "missing_series_identity_games": 0
+      },
+      "validation": {
+        "games": 1300,
+        "start": "2026-07-27 15:13:47",
+        "end": "2026-08-25 17:14:01",
+        "missing_series_identity_games": 0
+      },
+      "role": "exploratory_audit"
+    }
+  ],
+  "selection_metrics": {
+    "five_features": {
+      "accuracy": 0.6904120138621487,
+      "f1": 0.7134711332858161,
+      "brier": 0.19725850943036818,
+      "log_loss": 0.5758736166492592,
+      "roc_auc": 0.7628209487877953
+    },
+    "elo": {
+      "accuracy": 0.7119753561802079,
+      "f1": 0.7341862117981521,
+      "brier": 0.18987253826721479,
+      "log_loss": 0.5594038148264592,
+      "roc_auc": 0.7819308174074485
+    },
+    "gold_only": {
+      "accuracy": 0.6869464767038891,
+      "f1": 0.7130250617719732,
+      "brier": 0.20063353747074572,
+      "log_loss": 0.583169734266833,
+      "roc_auc": 0.7529653347269601
+    },
+    "random_forest": {
+      "accuracy": 0.6873315363881402,
+      "f1": 0.707492795389049,
+      "brier": 0.19875304082699904,
+      "log_loss": 0.5803240300548173,
+      "roc_auc": 0.7575256442839229
+    },
+    "xgboost": {
+      "accuracy": 0.6857912976511359,
+      "f1": 0.7058399423215573,
+      "brier": 0.19931940734386444,
+      "log_loss": 0.5826506018638611,
+      "roc_auc": 0.7569830485824501
+    },
+    "mean": {
+      "accuracy": 0.7019638043896804,
+      "f1": 0.7229778095919828,
+      "brier": 0.19367222341952545,
+      "log_loss": 0.5676930333122294,
+      "roc_auc": 0.7711325961906739
+    },
+    "weighted": {
+      "accuracy": 0.7139006546014632,
+      "f1": 0.7347375937165298,
+      "brier": 0.18963818122919007,
+      "log_loss": 0.5577790988009284,
+      "roc_auc": 0.7812781514399816
+    },
+    "stacking": {
+      "accuracy": 0.7115902964959568,
+      "f1": 0.7337362246711696,
+      "brier": 0.19089173576369262,
+      "log_loss": 0.5621952322961224,
+      "roc_auc": 0.7802418801552558
+    },
+    "gating": {
+      "accuracy": 0.7019638043896804,
+      "f1": 0.7237687366167024,
+      "brier": 0.19313427768604788,
+      "log_loss": 0.5665147149919626,
+      "roc_auc": 0.7725113083029372
+    },
+    "evidence_only": {
+      "accuracy": 0.7031189834424336,
+      "f1": 0.7245444801714899,
+      "brier": 0.1933190930861915,
+      "log_loss": 0.5670057163565634,
+      "roc_auc": 0.7720728169993832
+    },
+    "judge_context": {
+      "accuracy": 0.7108201771274547,
+      "f1": 0.7307278594478308,
+      "brier": 0.19043011646359156,
+      "log_loss": 0.5596848197871824,
+      "roc_auc": 0.7792169440198735
+    },
+    "judge_stacking": {
+      "accuracy": 0.7096649980747016,
+      "f1": 0.7309064953604568,
+      "brier": 0.19130847963460862,
+      "log_loss": 0.5626612852825986,
+      "roc_auc": 0.7774426948542001
+    },
+    "weighted_with_gold_sensitivity": {
+      "accuracy": 0.712360415864459,
+      "f1": 0.7333095323098894,
+      "brier": 0.18965120426596324,
+      "log_loss": 0.5578330659520079,
+      "roc_auc": 0.7810454825850345
+    }
+  },
+  "selection_diversity": {
+    "pairs": [
+      {
+        "experts": [
+          "five_features",
+          "elo"
+        ],
+        "probability_pearson": 0.9175297065571154,
+        "vote_disagreement": 0.12244897959183673,
+        "both_wrong": 617,
+        "first_only_correct": 131,
+        "second_only_correct": 187
+      },
+      {
+        "experts": [
+          "five_features",
+          "random_forest"
+        ],
+        "probability_pearson": 0.9872188594136322,
+        "vote_disagreement": 0.04851752021563342,
+        "both_wrong": 745,
+        "first_only_correct": 67,
+        "second_only_correct": 59
+      },
+      {
+        "experts": [
+          "five_features",
+          "xgboost"
+        ],
+        "probability_pearson": 0.9876994214717557,
+        "vote_disagreement": 0.04235656526761648,
+        "both_wrong": 755,
+        "first_only_correct": 61,
+        "second_only_correct": 49
+      },
+      {
+        "experts": [
+          "five_features",
+          "gold_only"
+        ],
+        "probability_pearson": 0.9475339766311317,
+        "vote_disagreement": 0.10204081632653061,
+        "both_wrong": 676,
+        "first_only_correct": 137,
+        "second_only_correct": 128
+      },
+      {
+        "experts": [
+          "elo",
+          "random_forest"
+        ],
+        "probability_pearson": 0.903446158467385,
+        "vote_disagreement": 0.1347708894878706,
+        "both_wrong": 605,
+        "first_only_correct": 207,
+        "second_only_correct": 143
+      },
+      {
+        "experts": [
+          "elo",
+          "xgboost"
+        ],
+        "probability_pearson": 0.9042464818521813,
+        "vote_disagreement": 0.13554100885637274,
+        "both_wrong": 606,
+        "first_only_correct": 210,
+        "second_only_correct": 142
+      },
+      {
+        "experts": [
+          "elo",
+          "gold_only"
+        ],
+        "probability_pearson": 0.865544179095993,
+        "vote_disagreement": 0.16056988833269156,
+        "both_wrong": 572,
+        "first_only_correct": 241,
+        "second_only_correct": 176
+      },
+      {
+        "experts": [
+          "random_forest",
+          "xgboost"
+        ],
+        "probability_pearson": 0.9950329290323678,
+        "vote_disagreement": 0.023103581055063535,
+        "both_wrong": 784,
+        "first_only_correct": 32,
+        "second_only_correct": 28
+      },
+      {
+        "experts": [
+          "random_forest",
+          "gold_only"
+        ],
+        "probability_pearson": 0.9431437353388131,
+        "vote_disagreement": 0.11282248748556026,
+        "both_wrong": 666,
+        "first_only_correct": 147,
+        "second_only_correct": 146
+      },
+      {
+        "experts": [
+          "xgboost",
+          "gold_only"
+        ],
+        "probability_pearson": 0.9437757809296136,
+        "vote_disagreement": 0.10974201001155179,
+        "both_wrong": 672,
+        "first_only_correct": 141,
+        "second_only_correct": 144
+      }
+    ],
+    "unanimously_wrong": 584,
+    "all_experts_correct": 1601,
+    "only_correct": {
+      "five_features": 11,
+      "elo": 152,
+      "random_forest": 7,
+      "xgboost": 6
+    },
+    "gold_only_rescues_when_all_four_wrong": 62
+  },
+  "gold_sensitivity_selection_weights": [
+    {
+      "five_features": 0.06609093132339589,
+      "elo": 0.7224930191086135,
+      "random_forest": 0.21141604956799068,
+      "xgboost": 0.0,
+      "gold_only": 0.0
+    },
+    {
+      "five_features": 8.697334302407156e-18,
+      "elo": 0.7750378489131927,
+      "random_forest": 0.11630723696718674,
+      "xgboost": 0.0,
+      "gold_only": 0.10865491411962058
+    }
+  ],
+  "audit_metrics": {
+    "five_features": {
+      "accuracy": 0.7184615384615385,
+      "f1": 0.758575197889182,
+      "brier": 0.18567802905482514,
+      "log_loss": 0.548980197400163,
+      "roc_auc": 0.7873248019500305,
+      "calibration": {
+        "mean_prediction": 0.5504692655555476,
+        "blue_win_rate": 0.5792307692307692,
+        "ece_10_bins": 0.03500881590843241,
+        "bins": [
+          {
+            "start": 0.0,
+            "end": 0.1,
+            "n": 34,
+            "predicted": 0.06551742306292883,
+            "observed": 0.058823529411764705
+          },
+          {
+            "start": 0.1,
+            "end": 0.2,
+            "n": 82,
+            "predicted": 0.1504761555523397,
+            "observed": 0.23170731707317074
+          },
+          {
+            "start": 0.2,
+            "end": 0.3,
+            "n": 109,
+            "predicted": 0.25643547719411186,
+            "observed": 0.24770642201834864
+          },
+          {
+            "start": 0.3,
+            "end": 0.4,
+            "n": 164,
+            "predicted": 0.35043918325795365,
+            "observed": 0.38414634146341464
+          },
+          {
+            "start": 0.4,
+            "end": 0.5,
+            "n": 148,
+            "predicted": 0.45072051724173895,
+            "observed": 0.4527027027027027
+          },
+          {
+            "start": 0.5,
+            "end": 0.6,
+            "n": 162,
+            "predicted": 0.5477740039504542,
+            "observed": 0.5925925925925926
+          },
+          {
+            "start": 0.6,
+            "end": 0.7,
+            "n": 195,
+            "predicted": 0.6506753515553296,
+            "observed": 0.6358974358974359
+          },
+          {
+            "start": 0.7,
+            "end": 0.8,
+            "n": 187,
+            "predicted": 0.748544783795058,
+            "observed": 0.8128342245989305
+          },
+          {
+            "start": 0.8,
+            "end": 0.9,
+            "n": 137,
+            "predicted": 0.8506578134981725,
+            "observed": 0.8905109489051095
+          },
+          {
+            "start": 0.9,
+            "end": 1.0,
+            "n": 82,
+            "predicted": 0.9362707469555154,
+            "observed": 0.9878048780487805
+          }
+        ]
+      },
+      "vs_elo": {
+        "accuracy_candidate_minus_reference": -0.011538461538461539,
+        "accuracy_ci95": [
+          -0.029017857142857144,
+          0.006222058629952654
+        ],
+        "brier_reference_minus_candidate": -0.003028604173280304,
+        "brier_ci95": [
+          -0.008402901613848074,
+          0.0027789083937898246
+        ],
+        "log_loss_reference_minus_candidate": -0.00825153671868375,
+        "log_loss_ci95": [
+          -0.021414058437180805,
+          0.005102201802746375
+        ],
+        "series_groups": 603,
+        "bootstrap_samples": 2000
+      }
+    },
+    "elo": {
+      "accuracy": 0.73,
+      "f1": 0.7649028801071668,
+      "brier": 0.18264942488154484,
+      "log_loss": 0.5407286606814793,
+      "roc_auc": 0.7945645814062459,
+      "calibration": {
+        "mean_prediction": 0.5453690552355522,
+        "blue_win_rate": 0.5792307692307692,
+        "ece_10_bins": 0.04314866676601128,
+        "bins": [
+          {
+            "start": 0.0,
+            "end": 0.1,
+            "n": 60,
+            "predicted": 0.060697688656557676,
+            "observed": 0.13333333333333333
+          },
+          {
+            "start": 0.1,
+            "end": 0.2,
+            "n": 94,
+            "predicted": 0.15386029853007133,
+            "observed": 0.18085106382978725
+          },
+          {
+            "start": 0.2,
+            "end": 0.3,
+            "n": 145,
+            "predicted": 0.251666316631088,
+            "observed": 0.3448275862068966
+          },
+          {
+            "start": 0.3,
+            "end": 0.4,
+            "n": 121,
+            "predicted": 0.3504810247594365,
+            "observed": 0.35537190082644626
+          },
+          {
+            "start": 0.4,
+            "end": 0.5,
+            "n": 140,
+            "predicted": 0.4488558485362875,
+            "observed": 0.45714285714285713
+          },
+          {
+            "start": 0.5,
+            "end": 0.6,
+            "n": 141,
+            "predicted": 0.5510898871985795,
+            "observed": 0.6028368794326241
+          },
+          {
+            "start": 0.6,
+            "end": 0.7,
+            "n": 166,
+            "predicted": 0.6508561985717706,
+            "observed": 0.7469879518072289
+          },
+          {
+            "start": 0.7,
+            "end": 0.8,
+            "n": 164,
+            "predicted": 0.7502226786647334,
+            "observed": 0.7134146341463414
+          },
+          {
+            "start": 0.8,
+            "end": 0.9,
+            "n": 140,
+            "predicted": 0.8477103770651084,
+            "observed": 0.8571428571428571
+          },
+          {
+            "start": 0.9,
+            "end": 1.0,
+            "n": 129,
+            "predicted": 0.9432064230579286,
+            "observed": 0.9689922480620154
+          }
+        ]
+      },
+      "vs_elo": {
+        "accuracy_candidate_minus_reference": 0.0,
+        "accuracy_ci95": [
+          0.0,
+          0.0
+        ],
+        "brier_reference_minus_candidate": 0.0,
+        "brier_ci95": [
+          0.0,
+          0.0
+        ],
+        "log_loss_reference_minus_candidate": 0.0,
+        "log_loss_ci95": [
+          0.0,
+          0.0
+        ],
+        "series_groups": 603,
+        "bootstrap_samples": 2000
+      }
+    },
+    "gold_only": {
+      "accuracy": 0.7053846153846154,
+      "f1": 0.749509483322433,
+      "brier": 0.1911263638583339,
+      "log_loss": 0.560986705479472,
+      "roc_auc": 0.7736549232685346,
+      "calibration": {
+        "mean_prediction": 0.5559467253233266,
+        "blue_win_rate": 0.5792307692307692,
+        "ece_10_bins": 0.03975683468357887,
+        "bins": [
+          {
+            "start": 0.0,
+            "end": 0.1,
+            "n": 25,
+            "predicted": 0.06697433137578242,
+            "observed": 0.08
+          },
+          {
+            "start": 0.1,
+            "end": 0.2,
+            "n": 61,
+            "predicted": 0.1539383727843179,
+            "observed": 0.19672131147540983
+          },
+          {
+            "start": 0.2,
+            "end": 0.3,
+            "n": 112,
+            "predicted": 0.2519993473373442,
+            "observed": 0.3482142857142857
+          },
+          {
+            "start": 0.3,
+            "end": 0.4,
+            "n": 162,
+            "predicted": 0.3531881288402116,
+            "observed": 0.32098765432098764
+          },
+          {
+            "start": 0.4,
+            "end": 0.5,
+            "n": 164,
+            "predicted": 0.4492322605832658,
+            "observed": 0.4573170731707317
+          },
+          {
+            "start": 0.5,
+            "end": 0.6,
+            "n": 186,
+            "predicted": 0.5473390131499863,
+            "observed": 0.5645161290322581
+          },
+          {
+            "start": 0.6,
+            "end": 0.7,
+            "n": 176,
+            "predicted": 0.6505161200703081,
+            "observed": 0.6193181818181818
+          },
+          {
+            "start": 0.7,
+            "end": 0.8,
+            "n": 203,
+            "predicted": 0.7479768056004734,
+            "observed": 0.812807881773399
+          },
+          {
+            "start": 0.8,
+            "end": 0.9,
+            "n": 148,
+            "predicted": 0.8484599571588595,
+            "observed": 0.8918918918918919
+          },
+          {
+            "start": 0.9,
+            "end": 1.0,
+            "n": 63,
+            "predicted": 0.9340379462199229,
+            "observed": 0.9841269841269841
+          }
+        ]
+      },
+      "vs_elo": {
+        "accuracy_candidate_minus_reference": -0.024615384615384615,
+        "accuracy_ci95": [
+          -0.044446614583333335,
+          -0.0030905974720512827
+        ],
+        "brier_reference_minus_candidate": -0.008476938976789075,
+        "brier_ci95": [
+          -0.015109574317453174,
+          -0.0016792477705150032
+        ],
+        "log_loss_reference_minus_candidate": -0.020258044797992786,
+        "log_loss_ci95": [
+          -0.03586593124404106,
+          -0.004260786814729891
+        ],
+        "series_groups": 603,
+        "bootstrap_samples": 2000
+      }
+    },
+    "random_forest": {
+      "accuracy": 0.7169230769230769,
+      "f1": 0.7546666666666667,
+      "brier": 0.18645996763145262,
+      "log_loss": 0.5505574925891039,
+      "roc_auc": 0.7861825094503158,
+      "calibration": {
+        "mean_prediction": 0.548239721797778,
+        "blue_win_rate": 0.5792307692307692,
+        "ece_10_bins": 0.03861312919242607,
+        "bins": [
+          {
+            "start": 0.0,
+            "end": 0.1,
+            "n": 13,
+            "predicted": 0.08194299624468965,
+            "observed": 0.07692307692307693
+          },
+          {
+            "start": 0.1,
+            "end": 0.2,
+            "n": 95,
+            "predicted": 0.14994690866425947,
+            "observed": 0.17894736842105263
+          },
+          {
+            "start": 0.2,
+            "end": 0.3,
+            "n": 94,
+            "predicted": 0.25944135121295436,
+            "observed": 0.2978723404255319
+          },
+          {
+            "start": 0.3,
+            "end": 0.4,
+            "n": 150,
+            "predicted": 0.35551879178758505,
+            "observed": 0.36
+          },
+          {
+            "start": 0.4,
+            "end": 0.5,
+            "n": 201,
+            "predicted": 0.449706224493949,
+            "observed": 0.43283582089552236
+          },
+          {
+            "start": 0.5,
+            "end": 0.6,
+            "n": 179,
+            "predicted": 0.5482779646511375,
+            "observed": 0.6312849162011173
+          },
+          {
+            "start": 0.6,
+            "end": 0.7,
+            "n": 200,
+            "predicted": 0.6424907153458399,
+            "observed": 0.635
+          },
+          {
+            "start": 0.7,
+            "end": 0.8,
+            "n": 159,
+            "predicted": 0.7505577087640025,
+            "observed": 0.8427672955974843
+          },
+          {
+            "start": 0.8,
+            "end": 0.9,
+            "n": 144,
+            "predicted": 0.8537415889680303,
+            "observed": 0.8888888888888888
+          },
+          {
+            "start": 0.9,
+            "end": 1.0,
+            "n": 65,
+            "predicted": 0.9288892755506506,
+            "observed": 0.9846153846153847
+          }
+        ]
+      },
+      "vs_elo": {
+        "accuracy_candidate_minus_reference": -0.013076923076923076,
+        "accuracy_ci95": [
+          -0.030490720697184018,
+          0.006121239573603201
+        ],
+        "brier_reference_minus_candidate": -0.0038105427499077757,
+        "brier_ci95": [
+          -0.009379313688349808,
+          0.0021803266538832963
+        ],
+        "log_loss_reference_minus_candidate": -0.009828831907624675,
+        "log_loss_ci95": [
+          -0.023359357562708877,
+          0.004414235619955816
+        ],
+        "series_groups": 603,
+        "bootstrap_samples": 2000
+      }
+    },
+    "xgboost": {
+      "accuracy": 0.7146153846153847,
+      "f1": 0.7541418157720344,
+      "brier": 0.18612132966518402,
+      "log_loss": 0.5497618913650513,
+      "roc_auc": 0.7869751948937947,
+      "calibration": {
+        "mean_prediction": 0.5475934147834778,
+        "blue_win_rate": 0.5792307692307692,
+        "ece_10_bins": 0.03163733726510636,
+        "bins": [
+          {
+            "start": 0.0,
+            "end": 0.1,
+            "n": 42,
+            "predicted": 0.07341689616441727,
+            "observed": 0.11904761904761904
+          },
+          {
+            "start": 0.1,
+            "end": 0.2,
+            "n": 79,
+            "predicted": 0.15206614136695862,
+            "observed": 0.189873417721519
+          },
+          {
+            "start": 0.2,
+            "end": 0.3,
+            "n": 95,
+            "predicted": 0.26084092259407043,
+            "observed": 0.30526315789473685
+          },
+          {
+            "start": 0.3,
+            "end": 0.4,
+            "n": 147,
+            "predicted": 0.35307490825653076,
+            "observed": 0.35374149659863946
+          },
+          {
+            "start": 0.4,
+            "end": 0.5,
+            "n": 181,
+            "predicted": 0.45090779662132263,
+            "observed": 0.4585635359116022
+          },
+          {
+            "start": 0.5,
+            "end": 0.6,
+            "n": 186,
+            "predicted": 0.5484068393707275,
+            "observed": 0.5860215053763441
+          },
+          {
+            "start": 0.6,
+            "end": 0.7,
+            "n": 200,
+            "predicted": 0.6437201499938965,
+            "observed": 0.655
+          },
+          {
+            "start": 0.7,
+            "end": 0.8,
+            "n": 153,
+            "predicted": 0.7478868365287781,
+            "observed": 0.8496732026143791
+          },
+          {
+            "start": 0.8,
+            "end": 0.9,
+            "n": 124,
+            "predicted": 0.8516360521316528,
+            "observed": 0.8709677419354839
+          },
+          {
+            "start": 0.9,
+            "end": 1.0,
+            "n": 93,
+            "predicted": 0.9430242776870728,
+            "observed": 0.978494623655914
+          }
+        ]
+      },
+      "vs_elo": {
+        "accuracy_candidate_minus_reference": -0.015384615384615385,
+        "accuracy_ci95": [
+          -0.032799717534324944,
+          0.0038731169239330106
+        ],
+        "brier_reference_minus_candidate": -0.0034719156100650817,
+        "brier_ci95": [
+          -0.008908184101944445,
+          0.0023133039927794555
+        ],
+        "log_loss_reference_minus_candidate": -0.009033201638974107,
+        "log_loss_ci95": [
+          -0.022357700128893696,
+          0.00466792200310027
+        ],
+        "series_groups": 603,
+        "bootstrap_samples": 2000
+      }
+    },
+    "mean": {
+      "accuracy": 0.7253846153846154,
+      "f1": 0.7621585609593604,
+      "brier": 0.18303637232308737,
+      "log_loss": 0.5422144842025138,
+      "roc_auc": 0.794003753420201,
+      "calibration": {
+        "mean_prediction": 0.547917866886316,
+        "blue_win_rate": 0.5792307692307692,
+        "ece_10_bins": 0.035243557825240475,
+        "bins": [
+          {
+            "start": 0.0,
+            "end": 0.1,
+            "n": 33,
+            "predicted": 0.07230747846948052,
+            "observed": 0.09090909090909091
+          },
+          {
+            "start": 0.1,
+            "end": 0.2,
+            "n": 83,
+            "predicted": 0.14950600191572802,
+            "observed": 0.1927710843373494
+          },
+          {
+            "start": 0.2,
+            "end": 0.3,
+            "n": 109,
+            "predicted": 0.2579165377766085,
+            "observed": 0.29357798165137616
+          },
+          {
+            "start": 0.3,
+            "end": 0.4,
+            "n": 157,
+            "predicted": 0.352609698459659,
+            "observed": 0.35668789808917195
+          },
+          {
+            "start": 0.4,
+            "end": 0.5,
+            "n": 170,
+            "predicted": 0.44981056703731265,
+            "observed": 0.43529411764705883
+          },
+          {
+            "start": 0.5,
+            "end": 0.6,
+            "n": 167,
+            "predicted": 0.5530336958492944,
+            "observed": 0.6227544910179641
+          },
+          {
+            "start": 0.6,
+            "end": 0.7,
+            "n": 197,
+            "predicted": 0.6501884754627845,
+            "observed": 0.649746192893401
+          },
+          {
+            "start": 0.7,
+            "end": 0.8,
+            "n": 163,
+            "predicted": 0.7473707766347437,
+            "observed": 0.8220858895705522
+          },
+          {
+            "start": 0.8,
+            "end": 0.9,
+            "n": 133,
+            "predicted": 0.8493606267894005,
+            "observed": 0.9022556390977443
+          },
+          {
+            "start": 0.9,
+            "end": 1.0,
+            "n": 88,
+            "predicted": 0.9355398125465723,
+            "observed": 0.9772727272727273
+          }
+        ]
+      },
+      "vs_elo": {
+        "accuracy_candidate_minus_reference": -0.004615384615384616,
+        "accuracy_ci95": [
+          -0.018124864830600114,
+          0.01000213343677268
+        ],
+        "brier_reference_minus_candidate": -0.00038694744154254396,
+        "brier_ci95": [
+          -0.004526531830917927,
+          0.004041278891546602
+        ],
+        "log_loss_reference_minus_candidate": -0.0014858235210345307,
+        "log_loss_ci95": [
+          -0.01154632810781972,
+          0.008915346558528976
+        ],
+        "series_groups": 603,
+        "bootstrap_samples": 2000
+      }
+    },
+    "weighted": {
+      "accuracy": 0.7284615384615385,
+      "f1": 0.7629281396910679,
+      "brier": 0.1814410102354995,
+      "log_loss": 0.537735875686419,
+      "roc_auc": 0.7969608464375284,
+      "calibration": {
+        "mean_prediction": 0.5462876510961134,
+        "blue_win_rate": 0.5792307692307692,
+        "ece_10_bins": 0.033270958324583114,
+        "bins": [
+          {
+            "start": 0.0,
+            "end": 0.1,
+            "n": 48,
+            "predicted": 0.06693950257193201,
+            "observed": 0.0625
+          },
+          {
+            "start": 0.1,
+            "end": 0.2,
+            "n": 82,
+            "predicted": 0.15317155275602026,
+            "observed": 0.2073170731707317
+          },
+          {
+            "start": 0.2,
+            "end": 0.3,
+            "n": 136,
+            "predicted": 0.25187526550970374,
+            "observed": 0.3014705882352941
+          },
+          {
+            "start": 0.3,
+            "end": 0.4,
+            "n": 139,
+            "predicted": 0.3484545065193336,
+            "observed": 0.35251798561151076
+          },
+          {
+            "start": 0.4,
+            "end": 0.5,
+            "n": 159,
+            "predicted": 0.4491830875956744,
+            "observed": 0.4716981132075472
+          },
+          {
+            "start": 0.5,
+            "end": 0.6,
+            "n": 144,
+            "predicted": 0.5542583722564459,
+            "observed": 0.6041666666666666
+          },
+          {
+            "start": 0.6,
+            "end": 0.7,
+            "n": 176,
+            "predicted": 0.6521117216106201,
+            "observed": 0.7045454545454546
+          },
+          {
+            "start": 0.7,
+            "end": 0.8,
+            "n": 170,
+            "predicted": 0.7492242572328246,
+            "observed": 0.7647058823529411
+          },
+          {
+            "start": 0.8,
+            "end": 0.9,
+            "n": 138,
+            "predicted": 0.8479886591602197,
+            "observed": 0.8840579710144928
+          },
+          {
+            "start": 0.9,
+            "end": 1.0,
+            "n": 108,
+            "predicted": 0.9381021502795728,
+            "observed": 0.9722222222222222
+          }
+        ]
+      },
+      "vs_elo": {
+        "accuracy_candidate_minus_reference": -0.0015384615384615385,
+        "accuracy_ci95": [
+          -0.009274109068009774,
+          0.00669973105896378
+        ],
+        "brier_reference_minus_candidate": 0.001208414646045359,
+        "brier_ci95": [
+          -0.00020852492660269512,
+          0.0027481231746080068
+        ],
+        "log_loss_reference_minus_candidate": 0.0029927849950601663,
+        "log_loss_ci95": [
+          -0.0007557750320606658,
+          0.00705656095796891
+        ],
+        "series_groups": 603,
+        "bootstrap_samples": 2000
+      }
+    },
+    "stacking": {
+      "accuracy": 0.7292307692307692,
+      "f1": 0.7659574468085106,
+      "brier": 0.18156508293847012,
+      "log_loss": 0.5404003672433407,
+      "roc_auc": 0.7970895212568374,
+      "calibration": {
+        "mean_prediction": 0.5502914700838563,
+        "blue_win_rate": 0.5792307692307692,
+        "ece_10_bins": 0.03328846001963991,
+        "bins": [
+          {
+            "start": 0.0,
+            "end": 0.1,
+            "n": 6,
+            "predicted": 0.09747104701548774,
+            "observed": 0.0
+          },
+          {
+            "start": 0.1,
+            "end": 0.2,
+            "n": 129,
+            "predicted": 0.15109403045015313,
+            "observed": 0.17829457364341086
+          },
+          {
+            "start": 0.2,
+            "end": 0.3,
+            "n": 157,
+            "predicted": 0.25017072401815316,
+            "observed": 0.2802547770700637
+          },
+          {
+            "start": 0.3,
+            "end": 0.4,
+            "n": 134,
+            "predicted": 0.3519817812791301,
+            "observed": 0.3880597014925373
+          },
+          {
+            "start": 0.4,
+            "end": 0.5,
+            "n": 123,
+            "predicted": 0.4493179458372118,
+            "observed": 0.4715447154471545
+          },
+          {
+            "start": 0.5,
+            "end": 0.6,
+            "n": 123,
+            "predicted": 0.550682860886561,
+            "observed": 0.5772357723577236
+          },
+          {
+            "start": 0.6,
+            "end": 0.7,
+            "n": 163,
+            "predicted": 0.6539448444903098,
+            "observed": 0.7055214723926381
+          },
+          {
+            "start": 0.7,
+            "end": 0.8,
+            "n": 193,
+            "predicted": 0.7525498874879775,
+            "observed": 0.7409326424870466
+          },
+          {
+            "start": 0.8,
+            "end": 0.9,
+            "n": 244,
+            "predicted": 0.855108844891576,
+            "observed": 0.9016393442622951
+          },
+          {
+            "start": 0.9,
+            "end": 1.0,
+            "n": 28,
+            "predicted": 0.9063856149617282,
+            "observed": 0.9642857142857143
+          }
+        ]
+      },
+      "vs_elo": {
+        "accuracy_candidate_minus_reference": -0.0007692307692307692,
+        "accuracy_ci95": [
+          -0.00876628546612623,
+          0.007776656322862554
+        ],
+        "brier_reference_minus_candidate": 0.0010843419430747144,
+        "brier_ci95": [
+          -0.000433310674062149,
+          0.002690195852950528
+        ],
+        "log_loss_reference_minus_candidate": 0.0003282934381385243,
+        "log_loss_ci95": [
+          -0.004538946076788598,
+          0.005306075522314188
+        ],
+        "series_groups": 603,
+        "bootstrap_samples": 2000
+      }
+    },
+    "gating": {
+      "accuracy": 0.7253846153846154,
+      "f1": 0.7615230460921844,
+      "brier": 0.1827484945509564,
+      "log_loss": 0.5415986054366317,
+      "roc_auc": 0.7947393849343637,
+      "calibration": {
+        "mean_prediction": 0.5475780081567199,
+        "blue_win_rate": 0.5792307692307692,
+        "ece_10_bins": 0.03237436187083276,
+        "bins": [
+          {
+            "start": 0.0,
+            "end": 0.1,
+            "n": 34,
+            "predicted": 0.07280508148283736,
+            "observed": 0.08823529411764706
+          },
+          {
+            "start": 0.1,
+            "end": 0.2,
+            "n": 83,
+            "predicted": 0.15036653766424998,
+            "observed": 0.1927710843373494
+          },
+          {
+            "start": 0.2,
+            "end": 0.3,
+            "n": 108,
+            "predicted": 0.25685239748638505,
+            "observed": 0.28703703703703703
+          },
+          {
+            "start": 0.3,
+            "end": 0.4,
+            "n": 163,
+            "predicted": 0.35257080072336955,
+            "observed": 0.3496932515337423
+          },
+          {
+            "start": 0.4,
+            "end": 0.5,
+            "n": 168,
+            "predicted": 0.451629148507996,
+            "observed": 0.4523809523809524
+          },
+          {
+            "start": 0.5,
+            "end": 0.6,
+            "n": 156,
+            "predicted": 0.5518447250850509,
+            "observed": 0.6089743589743589
+          },
+          {
+            "start": 0.6,
+            "end": 0.7,
+            "n": 201,
+            "predicted": 0.649068324208623,
+            "observed": 0.6666666666666666
+          },
+          {
+            "start": 0.7,
+            "end": 0.8,
+            "n": 166,
+            "predicted": 0.7467033457774502,
+            "observed": 0.8132530120481928
+          },
+          {
+            "start": 0.8,
+            "end": 0.9,
+            "n": 132,
+            "predicted": 0.8492682139546688,
+            "observed": 0.9015151515151515
+          },
+          {
+            "start": 0.9,
+            "end": 1.0,
+            "n": 89,
+            "predicted": 0.9349005493385428,
+            "observed": 0.9775280898876404
+          }
+        ]
+      },
+      "vs_elo": {
+        "accuracy_candidate_minus_reference": -0.004615384615384616,
+        "accuracy_ci95": [
+          -0.01822540094081748,
+          0.009909294118743936
+        ],
+        "brier_reference_minus_candidate": -9.906966941156192e-05,
+        "brier_ci95": [
+          -0.003993715859371474,
+          0.004051571082559098
+        ],
+        "log_loss_reference_minus_candidate": -0.0008699447551524687,
+        "log_loss_ci95": [
+          -0.010437197988019516,
+          0.008797102883987393
+        ],
+        "series_groups": 603,
+        "bootstrap_samples": 2000
+      }
+    },
+    "evidence_only": {
+      "accuracy": 0.7246153846153847,
+      "f1": 0.7603748326639893,
+      "brier": 0.1828906948189724,
+      "log_loss": 0.5419185281906791,
+      "roc_auc": 0.7944990300832017,
+      "calibration": {
+        "mean_prediction": 0.547400788034421,
+        "blue_win_rate": 0.5792307692307692,
+        "ece_10_bins": 0.03407963309832202,
+        "bins": [
+          {
+            "start": 0.0,
+            "end": 0.1,
+            "n": 33,
+            "predicted": 0.07229571120194515,
+            "observed": 0.09090909090909091
+          },
+          {
+            "start": 0.1,
+            "end": 0.2,
+            "n": 83,
+            "predicted": 0.1495153935907448,
+            "observed": 0.1927710843373494
+          },
+          {
+            "start": 0.2,
+            "end": 0.3,
+            "n": 109,
+            "predicted": 0.25819326584695,
+            "observed": 0.29357798165137616
+          },
+          {
+            "start": 0.3,
+            "end": 0.4,
+            "n": 156,
+            "predicted": 0.3526382529714092,
+            "observed": 0.3525641025641026
+          },
+          {
+            "start": 0.4,
+            "end": 0.5,
+            "n": 178,
+            "predicted": 0.4485366493082009,
+            "observed": 0.4438202247191011
+          },
+          {
+            "start": 0.5,
+            "end": 0.6,
+            "n": 159,
+            "predicted": 0.5542426532164996,
+            "observed": 0.6289308176100629
+          },
+          {
+            "start": 0.6,
+            "end": 0.7,
+            "n": 198,
+            "predicted": 0.649551427756987,
+            "observed": 0.6464646464646465
+          },
+          {
+            "start": 0.7,
+            "end": 0.8,
+            "n": 164,
+            "predicted": 0.7475823450171544,
+            "observed": 0.823170731707317
+          },
+          {
+            "start": 0.8,
+            "end": 0.9,
+            "n": 131,
+            "predicted": 0.8493396171842729,
+            "observed": 0.9007633587786259
+          },
+          {
+            "start": 0.9,
+            "end": 1.0,
+            "n": 89,
+            "predicted": 0.9351524977311721,
+            "observed": 0.9775280898876404
+          }
+        ]
+      },
+      "vs_elo": {
+        "accuracy_candidate_minus_reference": -0.005384615384615384,
+        "accuracy_ci95": [
+          -0.01867808683353713,
+          0.008547008547008548
+        ],
+        "brier_reference_minus_candidate": -0.00024126993742757132,
+        "brier_ci95": [
+          -0.004248940656994801,
+          0.003930312174027725
+        ],
+        "log_loss_reference_minus_candidate": -0.0011898675091998152,
+        "log_loss_ci95": [
+          -0.010976325426980824,
+          0.008677556442704777
+        ],
+        "series_groups": 603,
+        "bootstrap_samples": 2000
+      }
+    },
+    "judge_context": {
+      "accuracy": 0.7292307692307692,
+      "f1": 0.7643908969210174,
+      "brier": 0.18115205696625147,
+      "log_loss": 0.5372919733060663,
+      "roc_auc": 0.7978008745032059,
+      "calibration": {
+        "mean_prediction": 0.5485996345622737,
+        "blue_win_rate": 0.5792307692307692,
+        "ece_10_bins": 0.031496516344031354,
+        "bins": [
+          {
+            "start": 0.0,
+            "end": 0.1,
+            "n": 44,
+            "predicted": 0.06726346560074527,
+            "observed": 0.06818181818181818
+          },
+          {
+            "start": 0.1,
+            "end": 0.2,
+            "n": 78,
+            "predicted": 0.15282255606966763,
+            "observed": 0.19230769230769232
+          },
+          {
+            "start": 0.2,
+            "end": 0.3,
+            "n": 126,
+            "predicted": 0.2543915499219459,
+            "observed": 0.29365079365079366
+          },
+          {
+            "start": 0.3,
+            "end": 0.4,
+            "n": 150,
+            "predicted": 0.3504166539273218,
+            "observed": 0.3466666666666667
+          },
+          {
+            "start": 0.4,
+            "end": 0.5,
+            "n": 161,
+            "predicted": 0.4508573535557655,
+            "observed": 0.4658385093167702
+          },
+          {
+            "start": 0.5,
+            "end": 0.6,
+            "n": 137,
+            "predicted": 0.553080634748456,
+            "observed": 0.6058394160583942
+          },
+          {
+            "start": 0.6,
+            "end": 0.7,
+            "n": 191,
+            "predicted": 0.6492781001341326,
+            "observed": 0.6910994764397905
+          },
+          {
+            "start": 0.7,
+            "end": 0.8,
+            "n": 178,
+            "predicted": 0.7466875794508168,
+            "observed": 0.7752808988764045
+          },
+          {
+            "start": 0.8,
+            "end": 0.9,
+            "n": 133,
+            "predicted": 0.847908955103974,
+            "observed": 0.8872180451127819
+          },
+          {
+            "start": 0.9,
+            "end": 1.0,
+            "n": 102,
+            "predicted": 0.9375437403148575,
+            "observed": 0.9803921568627451
+          }
+        ]
+      },
+      "vs_elo": {
+        "accuracy_candidate_minus_reference": -0.0007692307692307692,
+        "accuracy_ci95": [
+          -0.010566837587305216,
+          0.009111790405106936
+        ],
+        "brier_reference_minus_candidate": 0.0014973679152933258,
+        "brier_ci95": [
+          -0.0007871654035675968,
+          0.0038946982643039947
+        ],
+        "log_loss_reference_minus_candidate": 0.0034366873754130196,
+        "log_loss_ci95": [
+          -0.002482734791307966,
+          0.00963552180296781
+        ],
+        "series_groups": 603,
+        "bootstrap_samples": 2000
+      }
+    },
+    "judge_stacking": {
+      "accuracy": 0.7307692307692307,
+      "f1": 0.7657295850066934,
+      "brier": 0.18147677129184536,
+      "log_loss": 0.5392686958848504,
+      "roc_auc": 0.7973395874151171,
+      "calibration": {
+        "mean_prediction": 0.5488461290591388,
+        "blue_win_rate": 0.5792307692307692,
+        "ece_10_bins": 0.03349453367926777,
+        "bins": [
+          {
+            "start": 0.0,
+            "end": 0.1,
+            "n": 20,
+            "predicted": 0.0820322878280733,
+            "observed": 0.1
+          },
+          {
+            "start": 0.1,
+            "end": 0.2,
+            "n": 103,
+            "predicted": 0.15027323152998873,
+            "observed": 0.18446601941747573
+          },
+          {
+            "start": 0.2,
+            "end": 0.3,
+            "n": 134,
+            "predicted": 0.25646051933503927,
+            "observed": 0.27611940298507465
+          },
+          {
+            "start": 0.3,
+            "end": 0.4,
+            "n": 153,
+            "predicted": 0.35308124692787074,
+            "observed": 0.33986928104575165
+          },
+          {
+            "start": 0.4,
+            "end": 0.5,
+            "n": 149,
+            "predicted": 0.4512583885412514,
+            "observed": 0.47651006711409394
+          },
+          {
+            "start": 0.5,
+            "end": 0.6,
+            "n": 123,
+            "predicted": 0.5517284993439997,
+            "observed": 0.6097560975609756
+          },
+          {
+            "start": 0.6,
+            "end": 0.7,
+            "n": 192,
+            "predicted": 0.6502311012946358,
+            "observed": 0.6875
+          },
+          {
+            "start": 0.7,
+            "end": 0.8,
+            "n": 193,
+            "predicted": 0.7492844932972003,
+            "observed": 0.772020725388601
+          },
+          {
+            "start": 0.8,
+            "end": 0.9,
+            "n": 162,
+            "predicted": 0.852221495564502,
+            "observed": 0.9012345679012346
+          },
+          {
+            "start": 0.9,
+            "end": 1.0,
+            "n": 71,
+            "predicted": 0.9208136979370858,
+            "observed": 0.9859154929577465
+          }
+        ]
+      },
+      "vs_elo": {
+        "accuracy_candidate_minus_reference": 0.0007692307692307692,
+        "accuracy_ci95": [
+          -0.010148519833138175,
+          0.012160382057094436
+        ],
+        "brier_reference_minus_candidate": 0.0011726535896994562,
+        "brier_ci95": [
+          -0.0014011369164622228,
+          0.003944011837716919
+        ],
+        "log_loss_reference_minus_candidate": 0.001459964796628832,
+        "log_loss_ci95": [
+          -0.005739101483924645,
+          0.008508048989918096
+        ],
+        "series_groups": 603,
+        "bootstrap_samples": 2000
+      }
+    }
+  },
+  "audit_diversity": {
+    "pairs": [
+      {
+        "experts": [
+          "five_features",
+          "elo"
+        ],
+        "probability_pearson": 0.9245593279321651,
+        "vote_disagreement": 0.09923076923076923,
+        "both_wrong": 294,
+        "first_only_correct": 57,
+        "second_only_correct": 72
+      },
+      {
+        "experts": [
+          "five_features",
+          "random_forest"
+        ],
+        "probability_pearson": 0.9916767238541135,
+        "vote_disagreement": 0.043076923076923075,
+        "both_wrong": 339,
+        "first_only_correct": 29,
+        "second_only_correct": 27
+      },
+      {
+        "experts": [
+          "five_features",
+          "xgboost"
+        ],
+        "probability_pearson": 0.9928516295419362,
+        "vote_disagreement": 0.036153846153846154,
+        "both_wrong": 345,
+        "first_only_correct": 26,
+        "second_only_correct": 21
+      },
+      {
+        "experts": [
+          "five_features",
+          "gold_only"
+        ],
+        "probability_pearson": 0.9535214068790977,
+        "vote_disagreement": 0.09461538461538462,
+        "both_wrong": 313,
+        "first_only_correct": 70,
+        "second_only_correct": 53
+      },
+      {
+        "experts": [
+          "elo",
+          "random_forest"
+        ],
+        "probability_pearson": 0.9149791898974993,
+        "vote_disagreement": 0.10692307692307693,
+        "both_wrong": 290,
+        "first_only_correct": 78,
+        "second_only_correct": 61
+      },
+      {
+        "experts": [
+          "elo",
+          "xgboost"
+        ],
+        "probability_pearson": 0.9168259359564106,
+        "vote_disagreement": 0.11076923076923077,
+        "both_wrong": 289,
+        "first_only_correct": 82,
+        "second_only_correct": 62
+      },
+      {
+        "experts": [
+          "elo",
+          "gold_only"
+        ],
+        "probability_pearson": 0.8737579573649508,
+        "vote_disagreement": 0.1476923076923077,
+        "both_wrong": 271,
+        "first_only_correct": 112,
+        "second_only_correct": 80
+      },
+      {
+        "experts": [
+          "random_forest",
+          "xgboost"
+        ],
+        "probability_pearson": 0.9965622281917044,
+        "vote_disagreement": 0.02076923076923077,
+        "both_wrong": 356,
+        "first_only_correct": 15,
+        "second_only_correct": 12
+      },
+      {
+        "experts": [
+          "random_forest",
+          "gold_only"
+        ],
+        "probability_pearson": 0.9477748483686508,
+        "vote_disagreement": 0.09,
+        "both_wrong": 317,
+        "first_only_correct": 66,
+        "second_only_correct": 51
+      },
+      {
+        "experts": [
+          "xgboost",
+          "gold_only"
+        ],
+        "probability_pearson": 0.9486539490476098,
+        "vote_disagreement": 0.07692307692307693,
+        "both_wrong": 327,
+        "first_only_correct": 56,
+        "second_only_correct": 44
+      }
+    ],
+    "unanimously_wrong": 278,
+    "all_experts_correct": 853,
+    "only_correct": {
+      "five_features": 8,
+      "elo": 56,
+      "random_forest": 3,
+      "xgboost": 3
+    },
+    "gold_only_rescues_when_all_four_wrong": 25
+  },
+  "fixed_weights": {
+    "five_features": 0.08453837858617828,
+    "elo": 0.7456640015598662,
+    "random_forest": 0.16979761985395544,
+    "xgboost": 0.0
+  },
+  "mean_audit_gating_weights": {
+    "five_features": 0.24644382842257717,
+    "elo": 0.2629713650409497,
+    "random_forest": 0.24576772282428505,
+    "xgboost": 0.24481708371218863
+  },
+  "evidence_evaluator_features": [
+    "confidence",
+    "blue_vote",
+    "other_supporting_votes",
+    "aligned_golddiffat10",
+    "aligned_xpdiffat10",
+    "aligned_csdiffat10",
+    "aligned_kill_diff",
+    "aligned_elo_diff",
+    "aligned_model_response_golddiffat10",
+    "aligned_model_response_xpdiffat10",
+    "aligned_model_response_csdiffat10",
+    "aligned_model_response_kill_diff",
+    "aligned_model_response_elo_diff"
+  ],
+  "standardized_evidence_coefficients": {
+    "five_features": [
+      0.01738614004932315,
+      0.06455178898595353,
+      -0.0022387658971931654,
+      0.6332705090278032,
+      0.3507276918756685,
+      0.11482942762978386,
+      -0.05352192474966106,
+      0.4424243558122727,
+      -0.1261099058592318,
+      -0.06076012407744608,
+      -0.03212522536343638,
+      -0.007075936074224251,
+      0.0
+    ],
+    "elo": [
+      0.4191354198556759,
+      0.023901388211924637,
+      -0.0012549055426949104,
+      0.6161145128713099,
+      0.249970829570831,
+      0.08241206703357466,
+      -0.0368412060983058,
+      0.11809536032901105,
+      -0.3780985837266959,
+      -0.10664620650816839,
+      -0.10773981895221378,
+      -0.018901023410574588,
+      -0.11897868086257012
+    ],
+    "random_forest": [
+      -0.19118459492087947,
+      0.015922754036656633,
+      0.006696407892454297,
+      0.5008052040552043,
+      0.3506811005693667,
+      0.16541199248324998,
+      -0.042719255780045234,
+      0.43995787155329535,
+      0.16989864321648288,
+      0.03044124840464419,
+      -0.005888261535693601,
+      -0.021626302105217633,
+      0.0
+    ],
+    "xgboost": [
+      -0.07683743966707961,
+      0.04895705133137937,
+      0.012870319605689766,
+      0.5557752660100436,
+      0.34064033305966135,
+      0.14878723491535883,
+      -0.05746770358685237,
+      0.4387581876300511,
+      0.02857204445578693,
+      -0.011184207449093337,
+      -0.010159586853003574,
+      -0.03602669752629724,
+      0.0
+    ]
+  },
+  "selected_without_elo": {
+    "accuracy": 0.7192307692307692,
+    "f1": 0.7577969475779694,
+    "brier": 0.18569488231539374,
+    "log_loss": 0.5487271975108724,
+    "roc_auc": 0.7874753272103541,
+    "effect_of_elo": {
+      "accuracy_candidate_minus_reference": 0.009230769230769232,
+      "accuracy_ci95": [
+        -0.006177606177606178,
+        0.02431468046763088
+      ],
+      "brier_reference_minus_candidate": 0.004253872079894266,
+      "brier_ci95": [
+        -0.00010949079069576324,
+        0.008262517362853874
+      ],
+      "log_loss_reference_minus_candidate": 0.01099132182445322,
+      "log_loss_ci95": [
+        0.0013727068347402019,
+        0.02025584716866588
+      ],
+      "series_groups": 603,
+      "bootstrap_samples": 2000
+    }
+  },
+  "audit_cases": {
+    "scenarios": {
+      "unanimous": {
+        "games": 1131,
+        "elo_correct": 853,
+        "expert_correct": {
+          "five_features": 853,
+          "elo": 853,
+          "random_forest": 853,
+          "xgboost": 853
+        },
+        "mean_gating_weights": {
+          "five_features": 0.24735847781382003,
+          "elo": 0.25949604661749764,
+          "random_forest": 0.24705401128101573,
+          "xgboost": 0.24609146428766668
+        },
+        "court_correct": {
+          "mean": 853,
+          "weighted": 853,
+          "stacking": 854,
+          "gating": 853,
+          "evidence_only": 853,
+          "judge_context": 854,
+          "judge_stacking": 853
+        }
+      },
+      "split_3_1": {
+        "games": 134,
+        "elo_correct": 72,
+        "expert_correct": {
+          "five_features": 66,
+          "elo": 72,
+          "random_forest": 61,
+          "xgboost": 63
+        },
+        "mean_gating_weights": {
+          "five_features": 0.24009338636007027,
+          "elo": 0.28735952821343996,
+          "random_forest": 0.23671473704650892,
+          "xgboost": 0.23583234837998077
+        },
+        "court_correct": {
+          "mean": 66,
+          "weighted": 70,
+          "stacking": 69,
+          "gating": 66,
+          "evidence_only": 65,
+          "judge_context": 70,
+          "judge_stacking": 72
+        }
+      },
+      "tie_2_2": {
+        "games": 35,
+        "elo_correct": 24,
+        "expert_correct": {
+          "five_features": 15,
+          "elo": 24,
+          "random_forest": 18,
+          "xgboost": 13
+        },
+        "mean_gating_weights": {
+          "five_features": 0.2412007077048696,
+          "elo": 0.28190197280696155,
+          "random_forest": 0.2388622328145431,
+          "xgboost": 0.23803508667362577
+        },
+        "court_correct": {
+          "mean": 24,
+          "weighted": 24,
+          "stacking": 25,
+          "gating": 24,
+          "evidence_only": 24,
+          "judge_context": 24,
+          "judge_stacking": 25
+        }
+      },
+      "close_gold_under_1000": {
+        "games": 638,
+        "elo_correct": 407,
+        "expert_correct": {
+          "five_features": 392,
+          "elo": 407,
+          "random_forest": 391,
+          "xgboost": 386
+        },
+        "mean_gating_weights": {
+          "five_features": 0.24423382034860994,
+          "elo": 0.27213822291008344,
+          "random_forest": 0.24229370766032832,
+          "xgboost": 0.24133424908097773
+        },
+        "court_correct": {
+          "mean": 399,
+          "weighted": 403,
+          "stacking": 404,
+          "gating": 399,
+          "evidence_only": 399,
+          "judge_context": 404,
+          "judge_stacking": 405
+        }
+      },
+      "gold_vs_elo_disagree": {
+        "games": 502,
+        "elo_correct": 320,
+        "expert_correct": {
+          "five_features": 309,
+          "elo": 320,
+          "random_forest": 303,
+          "xgboost": 305
+        },
+        "mean_gating_weights": {
+          "five_features": 0.24539301891619114,
+          "elo": 0.26674484554343575,
+          "random_forest": 0.24439984140243332,
+          "xgboost": 0.24346229413794018
+        },
+        "court_correct": {
+          "mean": 314,
+          "weighted": 317,
+          "stacking": 319,
+          "gating": 315,
+          "evidence_only": 314,
+          "judge_context": 321,
+          "judge_stacking": 322
+        }
+      }
+    },
+    "changes": {
+      "mean": {
+        "rescued_vs_elo": 40,
+        "spoiled_vs_elo": 46,
+        "rescued_all_expert_errors": 0,
+        "majority_overruled": 20
+      },
+      "weighted": {
+        "rescued_vs_elo": 11,
+        "spoiled_vs_elo": 13,
+        "rescued_all_expert_errors": 0,
+        "majority_overruled": 80
+      },
+      "stacking": {
+        "rescued_vs_elo": 14,
+        "spoiled_vs_elo": 15,
+        "rescued_all_expert_errors": 1,
+        "majority_overruled": 78
+      },
+      "gating": {
+        "rescued_vs_elo": 38,
+        "spoiled_vs_elo": 44,
+        "rescued_all_expert_errors": 0,
+        "majority_overruled": 24
+      },
+      "evidence_only": {
+        "rescued_vs_elo": 35,
+        "spoiled_vs_elo": 42,
+        "rescued_all_expert_errors": 0,
+        "majority_overruled": 29
+      },
+      "judge_context": {
+        "rescued_vs_elo": 21,
+        "spoiled_vs_elo": 22,
+        "rescued_all_expert_errors": 1,
+        "majority_overruled": 63
+      },
+      "judge_stacking": {
+        "rescued_vs_elo": 27,
+        "spoiled_vs_elo": 26,
+        "rescued_all_expert_errors": 0,
+        "majority_overruled": 52
+      }
+    },
+    "examples": {
+      "all_experts_wrong": [
+        {
+          "game_id": "LOLTMNT05_213304",
+          "date": "2026-07-27 17:05:25",
+          "blue_win": 1,
+          "evidence_inputs": {
+            "golddiffat10": -1727.0,
+            "xpdiffat10": 5.0,
+            "csdiffat10": -15.0,
+            "kill_diff": -4.0,
+            "elo_diff": 19.787045948806963
+          },
+          "blue_side": [],
+          "red_side": [
+            "five_features",
+            "elo",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.31166868157756117,
+            "elo": 0.3327134433087239,
+            "random_forest": 0.3500606553485936,
+            "xgboost": 0.3152501881122589
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.22757405691672467,
+              "xpdiffat10": 0.0003797771385766202,
+              "csdiffat10": -0.025163751529167666,
+              "kill_diff": 0.040413490361313587,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.21329219522343634,
+              "xpdiffat10": 0.000384688590312654,
+              "csdiffat10": -0.017552103396899388,
+              "kill_diff": 0.026006782431103215,
+              "elo_diff": 0.020162565799872467
+            },
+            "random_forest": {
+              "golddiffat10": -0.10309473674778857,
+              "xpdiffat10": 0.0,
+              "csdiffat10": -0.00858879096779136,
+              "kill_diff": -0.01415954456954932,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.15728935599327087,
+              "xpdiffat10": 0.0,
+              "csdiffat10": -0.027744710445404053,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.6461629349769364,
+            "elo": 0.6394840775293923,
+            "random_forest": 0.6581453541062429,
+            "xgboost": 0.6650177211077478
+          },
+          "blue_evidence": 0.0,
+          "red_evidence": 0.9004271776108734,
+          "judge_context_independent": 0.33878755835003943,
+          "court_probabilities": {
+            "mean": 0.3274232420867844,
+            "weighted": 0.33387986858971064,
+            "stacking": 0.32063026795727645,
+            "gating": 0.3274853555335365,
+            "evidence_only": 0.3274256946013073,
+            "judge_context": 0.33310662647567335,
+            "judge_stacking": 0.3240279812792919
+          }
+        },
+        {
+          "game_id": "LOLTMNT05_213322",
+          "date": "2026-07-27 19:11:54",
+          "blue_win": 1,
+          "evidence_inputs": {
+            "golddiffat10": -1781.0,
+            "xpdiffat10": -353.0,
+            "csdiffat10": -19.0,
+            "kill_diff": -4.0,
+            "elo_diff": -51.073840262273734
+          },
+          "blue_side": [],
+          "red_side": [
+            "five_features",
+            "elo",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.2840349132302045,
+            "elo": 0.24592351715289062,
+            "random_forest": 0.2926492883878096,
+            "xgboost": 0.2835167646408081
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.22965734798310683,
+              "xpdiffat10": -0.02609503281390907,
+              "csdiffat10": -0.030498353252041144,
+              "kill_diff": 0.03811047069082002,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.20116045753646478,
+              "xpdiffat10": -0.023390018192697537,
+              "csdiffat10": -0.018794314192293937,
+              "kill_diff": 0.02150435290335609,
+              "elo_diff": -0.04678290532100299
+            },
+            "random_forest": {
+              "golddiffat10": -0.1369674498680052,
+              "xpdiffat10": -0.03344414859649719,
+              "csdiffat10": -0.016384199892062745,
+              "kill_diff": -0.0022043547439341005,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.16014963388442993,
+              "xpdiffat10": -0.012810289859771729,
+              "csdiffat10": -0.030079901218414307,
+              "kill_diff": -0.0016157925128936768,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.7467966789950196,
+            "elo": 0.7243427051582865,
+            "random_forest": 0.7697825497354315,
+            "xgboost": 0.7642412021000557
+          },
+          "blue_evidence": 0.0,
+          "red_evidence": 1.3407616479616775,
+          "judge_context_independent": 0.2380020114108002,
+          "court_probabilities": {
+            "mean": 0.2765311208529282,
+            "weighted": 0.257079317524452,
+            "stacking": 0.243419323544696,
+            "gating": 0.27629389045477315,
+            "evidence_only": 0.2769236498502893,
+            "judge_context": 0.25746283063054476,
+            "judge_stacking": 0.2601714866974926
+          }
+        }
+      ],
+      "mean_rescued": [
+        {
+          "game_id": "LOLTMNT02_442438",
+          "date": "2026-07-28 14:04:16",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": -1504.0,
+            "xpdiffat10": 191.0,
+            "csdiffat10": -1.0,
+            "kill_diff": -4.0,
+            "elo_diff": 125.18409679427464
+          },
+          "blue_side": [
+            "elo"
+          ],
+          "red_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.37511518644523584,
+            "elo": 0.5197271195374156,
+            "random_forest": 0.41643863297101036,
+            "xgboost": 0.39323073625564575
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.20339706927470796,
+              "xpdiffat10": 0.015717856676423836,
+              "csdiffat10": -0.0017970471462483983,
+              "kill_diff": 0.044691226540891915,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.17994543711951416,
+              "xpdiffat10": 0.01654200662553662,
+              "csdiffat10": -0.0012989352180845515,
+              "kill_diff": 0.029894208964728886,
+              "elo_diff": 0.14333317886623942
+            },
+            "random_forest": {
+              "golddiffat10": -0.06530464389377122,
+              "xpdiffat10": 0.053786860970196415,
+              "csdiffat10": -0.00327905053861155,
+              "kill_diff": -0.017116884062925053,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.13281488418579102,
+              "xpdiffat10": 0.041685253381729126,
+              "csdiffat10": -0.0028788745403289795,
+              "kill_diff": 0.0007279813289642334,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.47863089982896473,
+            "elo": 0.5305428458746764,
+            "random_forest": 0.4687045991875007,
+            "xgboost": 0.48927794184605067
+          },
+          "blue_evidence": 0.020932164280580774,
+          "red_evidence": 0.3023583466896546,
+          "judge_context_independent": 0.5134273356485627,
+          "court_probabilities": {
+            "mean": 0.42612791880232687,
+            "weighted": 0.4899637220122969,
+            "stacking": 0.4989032733223903,
+            "gating": 0.4297219823355578,
+            "evidence_only": 0.4284687789408286,
+            "judge_context": 0.47094805729469563,
+            "judge_stacking": 0.4636860261316095
+          }
+        },
+        {
+          "game_id": "LOLTMNT05_214624",
+          "date": "2026-07-29 17:49:26",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": -948.0,
+            "xpdiffat10": -487.0,
+            "csdiffat10": 17.0,
+            "kill_diff": -3.0,
+            "elo_diff": 123.80089774980866
+          },
+          "blue_side": [
+            "elo"
+          ],
+          "red_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.41362768598110333,
+            "elo": 0.552037420620465,
+            "random_forest": 0.43259311018545105,
+            "xgboost": 0.4409184753894806
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.12933791080811763,
+              "xpdiffat10": -0.04235967740698787,
+              "csdiffat10": 0.03118532734314733,
+              "kill_diff": 0.03513223276823041,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.11442502406461219,
+              "xpdiffat10": -0.04128597864308936,
+              "csdiffat10": 0.02196587050767662,
+              "kill_diff": 0.022275503789558226,
+              "elo_diff": 0.14312783567479087
+            },
+            "random_forest": {
+              "golddiffat10": -0.05008724283927174,
+              "xpdiffat10": -0.0328547492807964,
+              "csdiffat10": 0.046580747374990294,
+              "kill_diff": -0.00925727399951437,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.06504294276237488,
+              "xpdiffat10": -0.03935191035270691,
+              "csdiffat10": 0.037657231092453,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.45908596090146053,
+            "elo": 0.5484943066157134,
+            "random_forest": 0.46485525382846143,
+            "xgboost": 0.4617782307170189
+          },
+          "blue_evidence": 0.05708445788258437,
+          "red_evidence": 0.19653865110777363,
+          "judge_context_independent": 0.5369314649210924,
+          "court_probabilities": {
+            "mean": 0.459794173044125,
+            "weighted": 0.5200551264565478,
+            "stacking": 0.531564879749624,
+            "gating": 0.46342003360064415,
+            "evidence_only": 0.4639506768379465,
+            "judge_context": 0.5004410708795195,
+            "judge_stacking": 0.4977577782937852
+          }
+        }
+      ],
+      "mean_spoiled": [
+        {
+          "game_id": "LOLTMNT02_442117",
+          "date": "2026-07-27 20:51:56",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": -631.0,
+            "xpdiffat10": 971.0,
+            "csdiffat10": 28.0,
+            "kill_diff": 0.0,
+            "elo_diff": -88.4275319247813
+          },
+          "blue_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "red_side": [
+            "elo"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.5810426263461381,
+            "elo": 0.4619808189385294,
+            "random_forest": 0.6082389072759761,
+            "xgboost": 0.5643599629402161
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.08136062570861446,
+              "xpdiffat10": 0.08525381225641115,
+              "csdiffat10": 0.05292274298591426,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.08025184396776519,
+              "xpdiffat10": 0.08184253224548615,
+              "csdiffat10": 0.03595725540057426,
+              "kill_diff": 0.0,
+              "elo_diff": -0.10266441188713471
+            },
+            "random_forest": {
+              "golddiffat10": -0.02753768353910946,
+              "xpdiffat10": 0.11443509336374352,
+              "csdiffat10": 0.0758244222242378,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.037332117557525635,
+              "xpdiffat10": 0.0595056414604187,
+              "csdiffat10": 0.04025566577911377,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.4565701143682888,
+            "elo": 0.5361037335668879,
+            "random_forest": 0.43209626103467647,
+            "xgboost": 0.4442427254136877
+          },
+          "blue_evidence": 0.2247254273121532,
+          "red_evidence": 0.04076444982841983,
+          "judge_context_independent": 0.4675064717174211,
+          "court_probabilities": {
+            "mean": 0.553905578875215,
+            "weighted": 0.4968803863723964,
+            "stacking": 0.5090388639084225,
+            "gating": 0.5506120455033489,
+            "evidence_only": 0.5492134066977687,
+            "judge_context": 0.5083599392075949,
+            "judge_stacking": 0.5291261353030956
+          }
+        },
+        {
+          "game_id": "LOLTMNT05_214606",
+          "date": "2026-07-29 16:32:32",
+          "blue_win": 1,
+          "evidence_inputs": {
+            "golddiffat10": -604.0,
+            "xpdiffat10": -105.0,
+            "csdiffat10": -19.0,
+            "kill_diff": 1.0,
+            "elo_diff": 145.88576076519394
+          },
+          "blue_side": [
+            "elo"
+          ],
+          "red_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.3816679321713645,
+            "elo": 0.538463085102148,
+            "random_forest": 0.41983912941698764,
+            "xgboost": 0.42296990752220154
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.08081428883389219,
+              "xpdiffat10": -0.00881403693094418,
+              "csdiffat10": -0.03488247520419896,
+              "kill_diff": -0.011625041993066743,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.07504828706933209,
+              "xpdiffat10": -0.009031893753555509,
+              "csdiffat10": -0.024461586210888564,
+              "kill_diff": -0.007423129198998235,
+              "elo_diff": 0.16706490242737204
+            },
+            "random_forest": {
+              "golddiffat10": -0.032559989464761074,
+              "xpdiffat10": -0.004717269098986898,
+              "csdiffat10": -0.0276937491876304,
+              "kill_diff": -0.0035912533988243234,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.04117828607559204,
+              "xpdiffat10": -0.0025288760662078857,
+              "csdiffat10": -0.035409748554229736,
+              "kill_diff": -0.0013020336627960205,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.42671086639492145,
+            "elo": 0.5491093441339719,
+            "random_forest": 0.4282724791894206,
+            "xgboost": 0.43031702123581617
+          },
+          "blue_evidence": 0.04224087886761929,
+          "red_evidence": 0.23594326780918867,
+          "judge_context_independent": 0.574137289566416,
+          "court_probabilities": {
+            "mean": 0.44073501355317546,
+            "weighted": 0.5050658117702064,
+            "stacking": 0.5151171318388442,
+            "gating": 0.44474483381755114,
+            "evidence_only": 0.44720307361412215,
+            "judge_context": 0.510670181590269,
+            "judge_stacking": 0.4811601027264832
+          }
+        }
+      ],
+      "weighted_rescued": [
+        {
+          "game_id": "LOLTMNT02_442438",
+          "date": "2026-07-28 14:04:16",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": -1504.0,
+            "xpdiffat10": 191.0,
+            "csdiffat10": -1.0,
+            "kill_diff": -4.0,
+            "elo_diff": 125.18409679427464
+          },
+          "blue_side": [
+            "elo"
+          ],
+          "red_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.37511518644523584,
+            "elo": 0.5197271195374156,
+            "random_forest": 0.41643863297101036,
+            "xgboost": 0.39323073625564575
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.20339706927470796,
+              "xpdiffat10": 0.015717856676423836,
+              "csdiffat10": -0.0017970471462483983,
+              "kill_diff": 0.044691226540891915,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.17994543711951416,
+              "xpdiffat10": 0.01654200662553662,
+              "csdiffat10": -0.0012989352180845515,
+              "kill_diff": 0.029894208964728886,
+              "elo_diff": 0.14333317886623942
+            },
+            "random_forest": {
+              "golddiffat10": -0.06530464389377122,
+              "xpdiffat10": 0.053786860970196415,
+              "csdiffat10": -0.00327905053861155,
+              "kill_diff": -0.017116884062925053,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.13281488418579102,
+              "xpdiffat10": 0.041685253381729126,
+              "csdiffat10": -0.0028788745403289795,
+              "kill_diff": 0.0007279813289642334,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.47863089982896473,
+            "elo": 0.5305428458746764,
+            "random_forest": 0.4687045991875007,
+            "xgboost": 0.48927794184605067
+          },
+          "blue_evidence": 0.020932164280580774,
+          "red_evidence": 0.3023583466896546,
+          "judge_context_independent": 0.5134273356485627,
+          "court_probabilities": {
+            "mean": 0.42612791880232687,
+            "weighted": 0.4899637220122969,
+            "stacking": 0.4989032733223903,
+            "gating": 0.4297219823355578,
+            "evidence_only": 0.4284687789408286,
+            "judge_context": 0.47094805729469563,
+            "judge_stacking": 0.4636860261316095
+          }
+        },
+        {
+          "game_id": "LOLTMNT02_444279",
+          "date": "2026-07-30 12:29:55",
+          "blue_win": 1,
+          "evidence_inputs": {
+            "golddiffat10": 463.0,
+            "xpdiffat10": 751.0,
+            "csdiffat10": 25.0,
+            "kill_diff": 0.0,
+            "elo_diff": -127.48976088837367
+          },
+          "blue_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "red_side": [
+            "elo"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.67816233777084,
+            "elo": 0.4816579152065945,
+            "random_forest": 0.6488371241730501,
+            "xgboost": 0.6515977382659912
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": 0.05787923847915022,
+              "xpdiffat10": 0.06056631456672146,
+              "csdiffat10": 0.043131585259651994,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": 0.05840994771494051,
+              "xpdiffat10": 0.06432464448893133,
+              "csdiffat10": 0.03236078075007892,
+              "kill_diff": 0.0,
+              "elo_diff": -0.14576663423005087
+            },
+            "random_forest": {
+              "golddiffat10": 0.04971982957236054,
+              "xpdiffat10": 0.06462069498938017,
+              "csdiffat10": 0.030791406011963174,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": 0.059098005294799805,
+              "xpdiffat10": 0.056131064891815186,
+              "csdiffat10": 0.029597461223602295,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.5164547909281745,
+            "elo": 0.5199299338595857,
+            "random_forest": 0.5069982745589425,
+            "xgboost": 0.5154643632301751
+          },
+          "blue_evidence": 0.4912323793463587,
+          "red_evidence": 0.01907319786696446,
+          "judge_context_independent": 0.5269923242785256,
+          "court_probabilities": {
+            "mean": 0.6150637788541189,
+            "weighted": 0.5266567122467603,
+            "stacking": 0.5383672626507567,
+            "gating": 0.6077328158717459,
+            "evidence_only": 0.6146659024028945,
+            "judge_context": 0.5708291133407101,
+            "judge_stacking": 0.5765165825268257
+          }
+        }
+      ],
+      "weighted_spoiled": [
+        {
+          "game_id": "13389-13389_game_2",
+          "date": "2026-08-02 08:07:20",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": 292.0,
+            "xpdiffat10": -211.0,
+            "csdiffat10": 24.0,
+            "kill_diff": 1.0,
+            "elo_diff": -54.03240134423663
+          },
+          "blue_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "red_side": [
+            "elo"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.5782855960510808,
+            "elo": 0.49733231920439064,
+            "random_forest": 0.5768034198498762,
+            "xgboost": 0.586313009262085
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": 0.03956882085828173,
+              "xpdiffat10": -0.01811015207890665,
+              "csdiffat10": 0.045353440688643554,
+              "kill_diff": -0.011897669417982093,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": 0.03713348495276475,
+              "xpdiffat10": -0.018280322224669188,
+              "csdiffat10": 0.03117452796319581,
+              "kill_diff": -0.007476290468480695,
+              "elo_diff": -0.06270778142013739
+            },
+            "random_forest": {
+              "golddiffat10": 0.06952697319535317,
+              "xpdiffat10": -0.017450130029372124,
+              "csdiffat10": 0.04106374898361553,
+              "kill_diff": 0.0015342015484588467,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": 0.06208616495132446,
+              "xpdiffat10": -0.016423940658569336,
+              "csdiffat10": 0.03283637762069702,
+              "kill_diff": 0.0013607144355773926,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.4999561342401141,
+            "elo": 0.523220903711971,
+            "random_forest": 0.48280283529134216,
+            "xgboost": 0.4787300886525647
+          },
+          "blue_evidence": 0.23508181481576124,
+          "red_evidence": 0.0027915727133876003,
+          "judge_context_independent": 0.5002448226987215,
+          "court_probabilities": {
+            "mean": 0.5596835860918581,
+            "weighted": 0.5176699817070254,
+            "stacking": 0.528446097902095,
+            "gating": 0.5583169931998113,
+            "evidence_only": 0.5585199466325212,
+            "judge_context": 0.5293823846656214,
+            "judge_stacking": 0.5434830222673082
+          }
+        },
+        {
+          "game_id": "LOLTMNT04_182364",
+          "date": "2026-08-05 17:15:54",
+          "blue_win": 1,
+          "evidence_inputs": {
+            "golddiffat10": -530.0,
+            "xpdiffat10": -155.0,
+            "csdiffat10": 9.0,
+            "kill_diff": -2.0,
+            "elo_diff": 53.06070717154944
+          },
+          "blue_side": [
+            "elo"
+          ],
+          "red_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.4669458534648433,
+            "elo": 0.5083738240714589,
+            "random_forest": 0.4472232468145735,
+            "xgboost": 0.4390653073787689
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.07272582022987861,
+              "xpdiffat10": -0.013685545698615409,
+              "csdiffat10": 0.017112039874759233,
+              "kill_diff": 0.024286645383503003,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.0669754305578627,
+              "xpdiffat10": -0.013419387541315442,
+              "csdiffat10": 0.011709039088917184,
+              "kill_diff": 0.014951765506032777,
+              "elo_diff": 0.061662035521511616
+            },
+            "random_forest": {
+              "golddiffat10": -0.020162818324652443,
+              "xpdiffat10": -0.02087227769962785,
+              "csdiffat10": 0.011579135366950877,
+              "kill_diff": -0.0018403968198175136,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.050940752029418945,
+              "xpdiffat10": -0.01876455545425415,
+              "csdiffat10": 0.0,
+              "kill_diff": 0.0029940903186798096,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.48336201551598484,
+            "elo": 0.5290997992032458,
+            "random_forest": 0.4713477812206834,
+            "xgboost": 0.4733349147617379
+          },
+          "blue_evidence": 0.008861177269544445,
+          "red_evidence": 0.13939168388455916,
+          "judge_context_independent": 0.520957293362098,
+          "court_probabilities": {
+            "mean": 0.4654020579324112,
+            "weighted": 0.4944883481373452,
+            "stacking": 0.49975083721377517,
+            "gating": 0.46623290508435944,
+            "evidence_only": 0.4666528184553376,
+            "judge_context": 0.4938050559087178,
+            "judge_stacking": 0.4832018278345564
+          }
+        }
+      ],
+      "stacking_rescued": [
+        {
+          "game_id": "LOLTMNT02_442438",
+          "date": "2026-07-28 14:04:16",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": -1504.0,
+            "xpdiffat10": 191.0,
+            "csdiffat10": -1.0,
+            "kill_diff": -4.0,
+            "elo_diff": 125.18409679427464
+          },
+          "blue_side": [
+            "elo"
+          ],
+          "red_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.37511518644523584,
+            "elo": 0.5197271195374156,
+            "random_forest": 0.41643863297101036,
+            "xgboost": 0.39323073625564575
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.20339706927470796,
+              "xpdiffat10": 0.015717856676423836,
+              "csdiffat10": -0.0017970471462483983,
+              "kill_diff": 0.044691226540891915,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.17994543711951416,
+              "xpdiffat10": 0.01654200662553662,
+              "csdiffat10": -0.0012989352180845515,
+              "kill_diff": 0.029894208964728886,
+              "elo_diff": 0.14333317886623942
+            },
+            "random_forest": {
+              "golddiffat10": -0.06530464389377122,
+              "xpdiffat10": 0.053786860970196415,
+              "csdiffat10": -0.00327905053861155,
+              "kill_diff": -0.017116884062925053,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.13281488418579102,
+              "xpdiffat10": 0.041685253381729126,
+              "csdiffat10": -0.0028788745403289795,
+              "kill_diff": 0.0007279813289642334,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.47863089982896473,
+            "elo": 0.5305428458746764,
+            "random_forest": 0.4687045991875007,
+            "xgboost": 0.48927794184605067
+          },
+          "blue_evidence": 0.020932164280580774,
+          "red_evidence": 0.3023583466896546,
+          "judge_context_independent": 0.5134273356485627,
+          "court_probabilities": {
+            "mean": 0.42612791880232687,
+            "weighted": 0.4899637220122969,
+            "stacking": 0.4989032733223903,
+            "gating": 0.4297219823355578,
+            "evidence_only": 0.4284687789408286,
+            "judge_context": 0.47094805729469563,
+            "judge_stacking": 0.4636860261316095
+          }
+        },
+        {
+          "game_id": "LOLTMNT02_443318",
+          "date": "2026-07-30 09:18:14",
+          "blue_win": 1,
+          "evidence_inputs": {
+            "golddiffat10": 733.0,
+            "xpdiffat10": 603.0,
+            "csdiffat10": 9.0,
+            "kill_diff": 1.0,
+            "elo_diff": -145.31075716237615
+          },
+          "blue_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "red_side": [
+            "elo"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.6630065646425166,
+            "elo": 0.44642395138070007,
+            "random_forest": 0.6331659190771617,
+            "xgboost": 0.64827561378479
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": 0.09501355462973082,
+              "xpdiffat10": 0.04924389342697166,
+              "csdiffat10": 0.01557029446699787,
+              "kill_diff": -0.01085547940308007,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": 0.08952244813964316,
+              "xpdiffat10": 0.050901237254136034,
+              "csdiffat10": 0.0115443430732311,
+              "kill_diff": -0.007401930474626894,
+              "elo_diff": -0.1671993420561197
+            },
+            "random_forest": {
+              "golddiffat10": 0.0752573097314081,
+              "xpdiffat10": 0.0380976883980928,
+              "csdiffat10": 0.014791150096591488,
+              "kill_diff": 0.001658796586942235,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": 0.09231573343276978,
+              "xpdiffat10": 0.05050396919250488,
+              "csdiffat10": 0.0,
+              "kill_diff": 0.0006098747253417969,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.49238463878764827,
+            "elo": 0.5409389401002925,
+            "random_forest": 0.4835713176059645,
+            "xgboost": 0.4876099710886721
+          },
+          "blue_evidence": 0.43391563030125974,
+          "red_evidence": 0.057962741909771694,
+          "judge_context_independent": 0.5004513371912231,
+          "court_probabilities": {
+            "mean": 0.5977180122212922,
+            "weighted": 0.49644183597751473,
+            "stacking": 0.5013724960705144,
+            "gating": 0.5884292481720872,
+            "evidence_only": 0.5937769956240828,
+            "judge_context": 0.547114166407653,
+            "judge_stacking": 0.5475747458472986
+          }
+        }
+      ],
+      "stacking_spoiled": [
+        {
+          "game_id": "LOLTMNT02_442117",
+          "date": "2026-07-27 20:51:56",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": -631.0,
+            "xpdiffat10": 971.0,
+            "csdiffat10": 28.0,
+            "kill_diff": 0.0,
+            "elo_diff": -88.4275319247813
+          },
+          "blue_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "red_side": [
+            "elo"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.5810426263461381,
+            "elo": 0.4619808189385294,
+            "random_forest": 0.6082389072759761,
+            "xgboost": 0.5643599629402161
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.08136062570861446,
+              "xpdiffat10": 0.08525381225641115,
+              "csdiffat10": 0.05292274298591426,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.08025184396776519,
+              "xpdiffat10": 0.08184253224548615,
+              "csdiffat10": 0.03595725540057426,
+              "kill_diff": 0.0,
+              "elo_diff": -0.10266441188713471
+            },
+            "random_forest": {
+              "golddiffat10": -0.02753768353910946,
+              "xpdiffat10": 0.11443509336374352,
+              "csdiffat10": 0.0758244222242378,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.037332117557525635,
+              "xpdiffat10": 0.0595056414604187,
+              "csdiffat10": 0.04025566577911377,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.4565701143682888,
+            "elo": 0.5361037335668879,
+            "random_forest": 0.43209626103467647,
+            "xgboost": 0.4442427254136877
+          },
+          "blue_evidence": 0.2247254273121532,
+          "red_evidence": 0.04076444982841983,
+          "judge_context_independent": 0.4675064717174211,
+          "court_probabilities": {
+            "mean": 0.553905578875215,
+            "weighted": 0.4968803863723964,
+            "stacking": 0.5090388639084225,
+            "gating": 0.5506120455033489,
+            "evidence_only": 0.5492134066977687,
+            "judge_context": 0.5083599392075949,
+            "judge_stacking": 0.5291261353030956
+          }
+        },
+        {
+          "game_id": "13389-13389_game_2",
+          "date": "2026-08-02 08:07:20",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": 292.0,
+            "xpdiffat10": -211.0,
+            "csdiffat10": 24.0,
+            "kill_diff": 1.0,
+            "elo_diff": -54.03240134423663
+          },
+          "blue_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "red_side": [
+            "elo"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.5782855960510808,
+            "elo": 0.49733231920439064,
+            "random_forest": 0.5768034198498762,
+            "xgboost": 0.586313009262085
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": 0.03956882085828173,
+              "xpdiffat10": -0.01811015207890665,
+              "csdiffat10": 0.045353440688643554,
+              "kill_diff": -0.011897669417982093,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": 0.03713348495276475,
+              "xpdiffat10": -0.018280322224669188,
+              "csdiffat10": 0.03117452796319581,
+              "kill_diff": -0.007476290468480695,
+              "elo_diff": -0.06270778142013739
+            },
+            "random_forest": {
+              "golddiffat10": 0.06952697319535317,
+              "xpdiffat10": -0.017450130029372124,
+              "csdiffat10": 0.04106374898361553,
+              "kill_diff": 0.0015342015484588467,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": 0.06208616495132446,
+              "xpdiffat10": -0.016423940658569336,
+              "csdiffat10": 0.03283637762069702,
+              "kill_diff": 0.0013607144355773926,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.4999561342401141,
+            "elo": 0.523220903711971,
+            "random_forest": 0.48280283529134216,
+            "xgboost": 0.4787300886525647
+          },
+          "blue_evidence": 0.23508181481576124,
+          "red_evidence": 0.0027915727133876003,
+          "judge_context_independent": 0.5002448226987215,
+          "court_probabilities": {
+            "mean": 0.5596835860918581,
+            "weighted": 0.5176699817070254,
+            "stacking": 0.528446097902095,
+            "gating": 0.5583169931998113,
+            "evidence_only": 0.5585199466325212,
+            "judge_context": 0.5293823846656214,
+            "judge_stacking": 0.5434830222673082
+          }
+        }
+      ],
+      "gating_rescued": [
+        {
+          "game_id": "LOLTMNT02_442438",
+          "date": "2026-07-28 14:04:16",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": -1504.0,
+            "xpdiffat10": 191.0,
+            "csdiffat10": -1.0,
+            "kill_diff": -4.0,
+            "elo_diff": 125.18409679427464
+          },
+          "blue_side": [
+            "elo"
+          ],
+          "red_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.37511518644523584,
+            "elo": 0.5197271195374156,
+            "random_forest": 0.41643863297101036,
+            "xgboost": 0.39323073625564575
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.20339706927470796,
+              "xpdiffat10": 0.015717856676423836,
+              "csdiffat10": -0.0017970471462483983,
+              "kill_diff": 0.044691226540891915,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.17994543711951416,
+              "xpdiffat10": 0.01654200662553662,
+              "csdiffat10": -0.0012989352180845515,
+              "kill_diff": 0.029894208964728886,
+              "elo_diff": 0.14333317886623942
+            },
+            "random_forest": {
+              "golddiffat10": -0.06530464389377122,
+              "xpdiffat10": 0.053786860970196415,
+              "csdiffat10": -0.00327905053861155,
+              "kill_diff": -0.017116884062925053,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.13281488418579102,
+              "xpdiffat10": 0.041685253381729126,
+              "csdiffat10": -0.0028788745403289795,
+              "kill_diff": 0.0007279813289642334,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.47863089982896473,
+            "elo": 0.5305428458746764,
+            "random_forest": 0.4687045991875007,
+            "xgboost": 0.48927794184605067
+          },
+          "blue_evidence": 0.020932164280580774,
+          "red_evidence": 0.3023583466896546,
+          "judge_context_independent": 0.5134273356485627,
+          "court_probabilities": {
+            "mean": 0.42612791880232687,
+            "weighted": 0.4899637220122969,
+            "stacking": 0.4989032733223903,
+            "gating": 0.4297219823355578,
+            "evidence_only": 0.4284687789408286,
+            "judge_context": 0.47094805729469563,
+            "judge_stacking": 0.4636860261316095
+          }
+        },
+        {
+          "game_id": "LOLTMNT05_214624",
+          "date": "2026-07-29 17:49:26",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": -948.0,
+            "xpdiffat10": -487.0,
+            "csdiffat10": 17.0,
+            "kill_diff": -3.0,
+            "elo_diff": 123.80089774980866
+          },
+          "blue_side": [
+            "elo"
+          ],
+          "red_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.41362768598110333,
+            "elo": 0.552037420620465,
+            "random_forest": 0.43259311018545105,
+            "xgboost": 0.4409184753894806
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.12933791080811763,
+              "xpdiffat10": -0.04235967740698787,
+              "csdiffat10": 0.03118532734314733,
+              "kill_diff": 0.03513223276823041,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.11442502406461219,
+              "xpdiffat10": -0.04128597864308936,
+              "csdiffat10": 0.02196587050767662,
+              "kill_diff": 0.022275503789558226,
+              "elo_diff": 0.14312783567479087
+            },
+            "random_forest": {
+              "golddiffat10": -0.05008724283927174,
+              "xpdiffat10": -0.0328547492807964,
+              "csdiffat10": 0.046580747374990294,
+              "kill_diff": -0.00925727399951437,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.06504294276237488,
+              "xpdiffat10": -0.03935191035270691,
+              "csdiffat10": 0.037657231092453,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.45908596090146053,
+            "elo": 0.5484943066157134,
+            "random_forest": 0.46485525382846143,
+            "xgboost": 0.4617782307170189
+          },
+          "blue_evidence": 0.05708445788258437,
+          "red_evidence": 0.19653865110777363,
+          "judge_context_independent": 0.5369314649210924,
+          "court_probabilities": {
+            "mean": 0.459794173044125,
+            "weighted": 0.5200551264565478,
+            "stacking": 0.531564879749624,
+            "gating": 0.46342003360064415,
+            "evidence_only": 0.4639506768379465,
+            "judge_context": 0.5004410708795195,
+            "judge_stacking": 0.4977577782937852
+          }
+        }
+      ],
+      "gating_spoiled": [
+        {
+          "game_id": "LOLTMNT02_442117",
+          "date": "2026-07-27 20:51:56",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": -631.0,
+            "xpdiffat10": 971.0,
+            "csdiffat10": 28.0,
+            "kill_diff": 0.0,
+            "elo_diff": -88.4275319247813
+          },
+          "blue_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "red_side": [
+            "elo"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.5810426263461381,
+            "elo": 0.4619808189385294,
+            "random_forest": 0.6082389072759761,
+            "xgboost": 0.5643599629402161
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.08136062570861446,
+              "xpdiffat10": 0.08525381225641115,
+              "csdiffat10": 0.05292274298591426,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.08025184396776519,
+              "xpdiffat10": 0.08184253224548615,
+              "csdiffat10": 0.03595725540057426,
+              "kill_diff": 0.0,
+              "elo_diff": -0.10266441188713471
+            },
+            "random_forest": {
+              "golddiffat10": -0.02753768353910946,
+              "xpdiffat10": 0.11443509336374352,
+              "csdiffat10": 0.0758244222242378,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.037332117557525635,
+              "xpdiffat10": 0.0595056414604187,
+              "csdiffat10": 0.04025566577911377,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.4565701143682888,
+            "elo": 0.5361037335668879,
+            "random_forest": 0.43209626103467647,
+            "xgboost": 0.4442427254136877
+          },
+          "blue_evidence": 0.2247254273121532,
+          "red_evidence": 0.04076444982841983,
+          "judge_context_independent": 0.4675064717174211,
+          "court_probabilities": {
+            "mean": 0.553905578875215,
+            "weighted": 0.4968803863723964,
+            "stacking": 0.5090388639084225,
+            "gating": 0.5506120455033489,
+            "evidence_only": 0.5492134066977687,
+            "judge_context": 0.5083599392075949,
+            "judge_stacking": 0.5291261353030956
+          }
+        },
+        {
+          "game_id": "LOLTMNT05_214606",
+          "date": "2026-07-29 16:32:32",
+          "blue_win": 1,
+          "evidence_inputs": {
+            "golddiffat10": -604.0,
+            "xpdiffat10": -105.0,
+            "csdiffat10": -19.0,
+            "kill_diff": 1.0,
+            "elo_diff": 145.88576076519394
+          },
+          "blue_side": [
+            "elo"
+          ],
+          "red_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.3816679321713645,
+            "elo": 0.538463085102148,
+            "random_forest": 0.41983912941698764,
+            "xgboost": 0.42296990752220154
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.08081428883389219,
+              "xpdiffat10": -0.00881403693094418,
+              "csdiffat10": -0.03488247520419896,
+              "kill_diff": -0.011625041993066743,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.07504828706933209,
+              "xpdiffat10": -0.009031893753555509,
+              "csdiffat10": -0.024461586210888564,
+              "kill_diff": -0.007423129198998235,
+              "elo_diff": 0.16706490242737204
+            },
+            "random_forest": {
+              "golddiffat10": -0.032559989464761074,
+              "xpdiffat10": -0.004717269098986898,
+              "csdiffat10": -0.0276937491876304,
+              "kill_diff": -0.0035912533988243234,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.04117828607559204,
+              "xpdiffat10": -0.0025288760662078857,
+              "csdiffat10": -0.035409748554229736,
+              "kill_diff": -0.0013020336627960205,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.42671086639492145,
+            "elo": 0.5491093441339719,
+            "random_forest": 0.4282724791894206,
+            "xgboost": 0.43031702123581617
+          },
+          "blue_evidence": 0.04224087886761929,
+          "red_evidence": 0.23594326780918867,
+          "judge_context_independent": 0.574137289566416,
+          "court_probabilities": {
+            "mean": 0.44073501355317546,
+            "weighted": 0.5050658117702064,
+            "stacking": 0.5151171318388442,
+            "gating": 0.44474483381755114,
+            "evidence_only": 0.44720307361412215,
+            "judge_context": 0.510670181590269,
+            "judge_stacking": 0.4811601027264832
+          }
+        }
+      ],
+      "evidence_only_rescued": [
+        {
+          "game_id": "LOLTMNT02_442438",
+          "date": "2026-07-28 14:04:16",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": -1504.0,
+            "xpdiffat10": 191.0,
+            "csdiffat10": -1.0,
+            "kill_diff": -4.0,
+            "elo_diff": 125.18409679427464
+          },
+          "blue_side": [
+            "elo"
+          ],
+          "red_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.37511518644523584,
+            "elo": 0.5197271195374156,
+            "random_forest": 0.41643863297101036,
+            "xgboost": 0.39323073625564575
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.20339706927470796,
+              "xpdiffat10": 0.015717856676423836,
+              "csdiffat10": -0.0017970471462483983,
+              "kill_diff": 0.044691226540891915,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.17994543711951416,
+              "xpdiffat10": 0.01654200662553662,
+              "csdiffat10": -0.0012989352180845515,
+              "kill_diff": 0.029894208964728886,
+              "elo_diff": 0.14333317886623942
+            },
+            "random_forest": {
+              "golddiffat10": -0.06530464389377122,
+              "xpdiffat10": 0.053786860970196415,
+              "csdiffat10": -0.00327905053861155,
+              "kill_diff": -0.017116884062925053,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.13281488418579102,
+              "xpdiffat10": 0.041685253381729126,
+              "csdiffat10": -0.0028788745403289795,
+              "kill_diff": 0.0007279813289642334,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.47863089982896473,
+            "elo": 0.5305428458746764,
+            "random_forest": 0.4687045991875007,
+            "xgboost": 0.48927794184605067
+          },
+          "blue_evidence": 0.020932164280580774,
+          "red_evidence": 0.3023583466896546,
+          "judge_context_independent": 0.5134273356485627,
+          "court_probabilities": {
+            "mean": 0.42612791880232687,
+            "weighted": 0.4899637220122969,
+            "stacking": 0.4989032733223903,
+            "gating": 0.4297219823355578,
+            "evidence_only": 0.4284687789408286,
+            "judge_context": 0.47094805729469563,
+            "judge_stacking": 0.4636860261316095
+          }
+        },
+        {
+          "game_id": "LOLTMNT05_214624",
+          "date": "2026-07-29 17:49:26",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": -948.0,
+            "xpdiffat10": -487.0,
+            "csdiffat10": 17.0,
+            "kill_diff": -3.0,
+            "elo_diff": 123.80089774980866
+          },
+          "blue_side": [
+            "elo"
+          ],
+          "red_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.41362768598110333,
+            "elo": 0.552037420620465,
+            "random_forest": 0.43259311018545105,
+            "xgboost": 0.4409184753894806
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.12933791080811763,
+              "xpdiffat10": -0.04235967740698787,
+              "csdiffat10": 0.03118532734314733,
+              "kill_diff": 0.03513223276823041,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.11442502406461219,
+              "xpdiffat10": -0.04128597864308936,
+              "csdiffat10": 0.02196587050767662,
+              "kill_diff": 0.022275503789558226,
+              "elo_diff": 0.14312783567479087
+            },
+            "random_forest": {
+              "golddiffat10": -0.05008724283927174,
+              "xpdiffat10": -0.0328547492807964,
+              "csdiffat10": 0.046580747374990294,
+              "kill_diff": -0.00925727399951437,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.06504294276237488,
+              "xpdiffat10": -0.03935191035270691,
+              "csdiffat10": 0.037657231092453,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.45908596090146053,
+            "elo": 0.5484943066157134,
+            "random_forest": 0.46485525382846143,
+            "xgboost": 0.4617782307170189
+          },
+          "blue_evidence": 0.05708445788258437,
+          "red_evidence": 0.19653865110777363,
+          "judge_context_independent": 0.5369314649210924,
+          "court_probabilities": {
+            "mean": 0.459794173044125,
+            "weighted": 0.5200551264565478,
+            "stacking": 0.531564879749624,
+            "gating": 0.46342003360064415,
+            "evidence_only": 0.4639506768379465,
+            "judge_context": 0.5004410708795195,
+            "judge_stacking": 0.4977577782937852
+          }
+        }
+      ],
+      "evidence_only_spoiled": [
+        {
+          "game_id": "LOLTMNT02_442117",
+          "date": "2026-07-27 20:51:56",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": -631.0,
+            "xpdiffat10": 971.0,
+            "csdiffat10": 28.0,
+            "kill_diff": 0.0,
+            "elo_diff": -88.4275319247813
+          },
+          "blue_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "red_side": [
+            "elo"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.5810426263461381,
+            "elo": 0.4619808189385294,
+            "random_forest": 0.6082389072759761,
+            "xgboost": 0.5643599629402161
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.08136062570861446,
+              "xpdiffat10": 0.08525381225641115,
+              "csdiffat10": 0.05292274298591426,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.08025184396776519,
+              "xpdiffat10": 0.08184253224548615,
+              "csdiffat10": 0.03595725540057426,
+              "kill_diff": 0.0,
+              "elo_diff": -0.10266441188713471
+            },
+            "random_forest": {
+              "golddiffat10": -0.02753768353910946,
+              "xpdiffat10": 0.11443509336374352,
+              "csdiffat10": 0.0758244222242378,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.037332117557525635,
+              "xpdiffat10": 0.0595056414604187,
+              "csdiffat10": 0.04025566577911377,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.4565701143682888,
+            "elo": 0.5361037335668879,
+            "random_forest": 0.43209626103467647,
+            "xgboost": 0.4442427254136877
+          },
+          "blue_evidence": 0.2247254273121532,
+          "red_evidence": 0.04076444982841983,
+          "judge_context_independent": 0.4675064717174211,
+          "court_probabilities": {
+            "mean": 0.553905578875215,
+            "weighted": 0.4968803863723964,
+            "stacking": 0.5090388639084225,
+            "gating": 0.5506120455033489,
+            "evidence_only": 0.5492134066977687,
+            "judge_context": 0.5083599392075949,
+            "judge_stacking": 0.5291261353030956
+          }
+        },
+        {
+          "game_id": "LOLTMNT05_214606",
+          "date": "2026-07-29 16:32:32",
+          "blue_win": 1,
+          "evidence_inputs": {
+            "golddiffat10": -604.0,
+            "xpdiffat10": -105.0,
+            "csdiffat10": -19.0,
+            "kill_diff": 1.0,
+            "elo_diff": 145.88576076519394
+          },
+          "blue_side": [
+            "elo"
+          ],
+          "red_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.3816679321713645,
+            "elo": 0.538463085102148,
+            "random_forest": 0.41983912941698764,
+            "xgboost": 0.42296990752220154
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.08081428883389219,
+              "xpdiffat10": -0.00881403693094418,
+              "csdiffat10": -0.03488247520419896,
+              "kill_diff": -0.011625041993066743,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.07504828706933209,
+              "xpdiffat10": -0.009031893753555509,
+              "csdiffat10": -0.024461586210888564,
+              "kill_diff": -0.007423129198998235,
+              "elo_diff": 0.16706490242737204
+            },
+            "random_forest": {
+              "golddiffat10": -0.032559989464761074,
+              "xpdiffat10": -0.004717269098986898,
+              "csdiffat10": -0.0276937491876304,
+              "kill_diff": -0.0035912533988243234,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.04117828607559204,
+              "xpdiffat10": -0.0025288760662078857,
+              "csdiffat10": -0.035409748554229736,
+              "kill_diff": -0.0013020336627960205,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.42671086639492145,
+            "elo": 0.5491093441339719,
+            "random_forest": 0.4282724791894206,
+            "xgboost": 0.43031702123581617
+          },
+          "blue_evidence": 0.04224087886761929,
+          "red_evidence": 0.23594326780918867,
+          "judge_context_independent": 0.574137289566416,
+          "court_probabilities": {
+            "mean": 0.44073501355317546,
+            "weighted": 0.5050658117702064,
+            "stacking": 0.5151171318388442,
+            "gating": 0.44474483381755114,
+            "evidence_only": 0.44720307361412215,
+            "judge_context": 0.510670181590269,
+            "judge_stacking": 0.4811601027264832
+          }
+        }
+      ],
+      "judge_context_rescued": [
+        {
+          "game_id": "LOLTMNT02_442438",
+          "date": "2026-07-28 14:04:16",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": -1504.0,
+            "xpdiffat10": 191.0,
+            "csdiffat10": -1.0,
+            "kill_diff": -4.0,
+            "elo_diff": 125.18409679427464
+          },
+          "blue_side": [
+            "elo"
+          ],
+          "red_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.37511518644523584,
+            "elo": 0.5197271195374156,
+            "random_forest": 0.41643863297101036,
+            "xgboost": 0.39323073625564575
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.20339706927470796,
+              "xpdiffat10": 0.015717856676423836,
+              "csdiffat10": -0.0017970471462483983,
+              "kill_diff": 0.044691226540891915,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.17994543711951416,
+              "xpdiffat10": 0.01654200662553662,
+              "csdiffat10": -0.0012989352180845515,
+              "kill_diff": 0.029894208964728886,
+              "elo_diff": 0.14333317886623942
+            },
+            "random_forest": {
+              "golddiffat10": -0.06530464389377122,
+              "xpdiffat10": 0.053786860970196415,
+              "csdiffat10": -0.00327905053861155,
+              "kill_diff": -0.017116884062925053,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.13281488418579102,
+              "xpdiffat10": 0.041685253381729126,
+              "csdiffat10": -0.0028788745403289795,
+              "kill_diff": 0.0007279813289642334,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.47863089982896473,
+            "elo": 0.5305428458746764,
+            "random_forest": 0.4687045991875007,
+            "xgboost": 0.48927794184605067
+          },
+          "blue_evidence": 0.020932164280580774,
+          "red_evidence": 0.3023583466896546,
+          "judge_context_independent": 0.5134273356485627,
+          "court_probabilities": {
+            "mean": 0.42612791880232687,
+            "weighted": 0.4899637220122969,
+            "stacking": 0.4989032733223903,
+            "gating": 0.4297219823355578,
+            "evidence_only": 0.4284687789408286,
+            "judge_context": 0.47094805729469563,
+            "judge_stacking": 0.4636860261316095
+          }
+        },
+        {
+          "game_id": "LOLTMNT02_443318",
+          "date": "2026-07-30 09:18:14",
+          "blue_win": 1,
+          "evidence_inputs": {
+            "golddiffat10": 733.0,
+            "xpdiffat10": 603.0,
+            "csdiffat10": 9.0,
+            "kill_diff": 1.0,
+            "elo_diff": -145.31075716237615
+          },
+          "blue_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "red_side": [
+            "elo"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.6630065646425166,
+            "elo": 0.44642395138070007,
+            "random_forest": 0.6331659190771617,
+            "xgboost": 0.64827561378479
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": 0.09501355462973082,
+              "xpdiffat10": 0.04924389342697166,
+              "csdiffat10": 0.01557029446699787,
+              "kill_diff": -0.01085547940308007,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": 0.08952244813964316,
+              "xpdiffat10": 0.050901237254136034,
+              "csdiffat10": 0.0115443430732311,
+              "kill_diff": -0.007401930474626894,
+              "elo_diff": -0.1671993420561197
+            },
+            "random_forest": {
+              "golddiffat10": 0.0752573097314081,
+              "xpdiffat10": 0.0380976883980928,
+              "csdiffat10": 0.014791150096591488,
+              "kill_diff": 0.001658796586942235,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": 0.09231573343276978,
+              "xpdiffat10": 0.05050396919250488,
+              "csdiffat10": 0.0,
+              "kill_diff": 0.0006098747253417969,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.49238463878764827,
+            "elo": 0.5409389401002925,
+            "random_forest": 0.4835713176059645,
+            "xgboost": 0.4876099710886721
+          },
+          "blue_evidence": 0.43391563030125974,
+          "red_evidence": 0.057962741909771694,
+          "judge_context_independent": 0.5004513371912231,
+          "court_probabilities": {
+            "mean": 0.5977180122212922,
+            "weighted": 0.49644183597751473,
+            "stacking": 0.5013724960705144,
+            "gating": 0.5884292481720872,
+            "evidence_only": 0.5937769956240828,
+            "judge_context": 0.547114166407653,
+            "judge_stacking": 0.5475747458472986
+          }
+        }
+      ],
+      "judge_context_spoiled": [
+        {
+          "game_id": "LOLTMNT02_442117",
+          "date": "2026-07-27 20:51:56",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": -631.0,
+            "xpdiffat10": 971.0,
+            "csdiffat10": 28.0,
+            "kill_diff": 0.0,
+            "elo_diff": -88.4275319247813
+          },
+          "blue_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "red_side": [
+            "elo"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.5810426263461381,
+            "elo": 0.4619808189385294,
+            "random_forest": 0.6082389072759761,
+            "xgboost": 0.5643599629402161
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.08136062570861446,
+              "xpdiffat10": 0.08525381225641115,
+              "csdiffat10": 0.05292274298591426,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.08025184396776519,
+              "xpdiffat10": 0.08184253224548615,
+              "csdiffat10": 0.03595725540057426,
+              "kill_diff": 0.0,
+              "elo_diff": -0.10266441188713471
+            },
+            "random_forest": {
+              "golddiffat10": -0.02753768353910946,
+              "xpdiffat10": 0.11443509336374352,
+              "csdiffat10": 0.0758244222242378,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.037332117557525635,
+              "xpdiffat10": 0.0595056414604187,
+              "csdiffat10": 0.04025566577911377,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.4565701143682888,
+            "elo": 0.5361037335668879,
+            "random_forest": 0.43209626103467647,
+            "xgboost": 0.4442427254136877
+          },
+          "blue_evidence": 0.2247254273121532,
+          "red_evidence": 0.04076444982841983,
+          "judge_context_independent": 0.4675064717174211,
+          "court_probabilities": {
+            "mean": 0.553905578875215,
+            "weighted": 0.4968803863723964,
+            "stacking": 0.5090388639084225,
+            "gating": 0.5506120455033489,
+            "evidence_only": 0.5492134066977687,
+            "judge_context": 0.5083599392075949,
+            "judge_stacking": 0.5291261353030956
+          }
+        },
+        {
+          "game_id": "LOLTMNT02_444423",
+          "date": "2026-07-31 05:08:01",
+          "blue_win": 1,
+          "evidence_inputs": {
+            "golddiffat10": -325.0,
+            "xpdiffat10": -380.0,
+            "csdiffat10": -2.0,
+            "kill_diff": 0.0,
+            "elo_diff": 58.32648868357592
+          },
+          "blue_side": [
+            "elo"
+          ],
+          "red_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.43680631218520566,
+            "elo": 0.5298312766270573,
+            "random_forest": 0.4333048888449975,
+            "xgboost": 0.44300660490989685
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.04434606164822347,
+              "xpdiffat10": -0.03334205097399745,
+              "csdiffat10": -0.0037719867766759507,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.04098024182452753,
+              "xpdiffat10": -0.03263844178732567,
+              "csdiffat10": -0.0025921025975328416,
+              "kill_diff": 0.0,
+              "elo_diff": 0.06789631718045391
+            },
+            "random_forest": {
+              "golddiffat10": -0.024782018719333887,
+              "xpdiffat10": -0.022121800755639576,
+              "csdiffat10": -0.005447090890592865,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.043371886014938354,
+              "xpdiffat10": -0.020072519779205322,
+              "csdiffat10": -0.002975374460220337,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.4933758757433153,
+            "elo": 0.5423325189604559,
+            "random_forest": 0.49302914830062766,
+            "xgboost": 0.49008523340579774
+          },
+          "blue_evidence": 0.03235694279391633,
+          "red_evidence": 0.1839849925019249,
+          "judge_context_independent": 0.5094767257556398,
+          "court_probabilities": {
+            "mean": 0.4607372706417893,
+            "weighted": 0.5055771460666125,
+            "stacking": 0.5127931530483592,
+            "gating": 0.46272623952975417,
+            "evidence_only": 0.46244641890319155,
+            "judge_context": 0.4859615723294157,
+            "judge_stacking": 0.4876197859757754
+          }
+        }
+      ],
+      "judge_stacking_rescued": [
+        {
+          "game_id": "LOLTMNT02_442438",
+          "date": "2026-07-28 14:04:16",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": -1504.0,
+            "xpdiffat10": 191.0,
+            "csdiffat10": -1.0,
+            "kill_diff": -4.0,
+            "elo_diff": 125.18409679427464
+          },
+          "blue_side": [
+            "elo"
+          ],
+          "red_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.37511518644523584,
+            "elo": 0.5197271195374156,
+            "random_forest": 0.41643863297101036,
+            "xgboost": 0.39323073625564575
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.20339706927470796,
+              "xpdiffat10": 0.015717856676423836,
+              "csdiffat10": -0.0017970471462483983,
+              "kill_diff": 0.044691226540891915,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.17994543711951416,
+              "xpdiffat10": 0.01654200662553662,
+              "csdiffat10": -0.0012989352180845515,
+              "kill_diff": 0.029894208964728886,
+              "elo_diff": 0.14333317886623942
+            },
+            "random_forest": {
+              "golddiffat10": -0.06530464389377122,
+              "xpdiffat10": 0.053786860970196415,
+              "csdiffat10": -0.00327905053861155,
+              "kill_diff": -0.017116884062925053,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.13281488418579102,
+              "xpdiffat10": 0.041685253381729126,
+              "csdiffat10": -0.0028788745403289795,
+              "kill_diff": 0.0007279813289642334,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.47863089982896473,
+            "elo": 0.5305428458746764,
+            "random_forest": 0.4687045991875007,
+            "xgboost": 0.48927794184605067
+          },
+          "blue_evidence": 0.020932164280580774,
+          "red_evidence": 0.3023583466896546,
+          "judge_context_independent": 0.5134273356485627,
+          "court_probabilities": {
+            "mean": 0.42612791880232687,
+            "weighted": 0.4899637220122969,
+            "stacking": 0.4989032733223903,
+            "gating": 0.4297219823355578,
+            "evidence_only": 0.4284687789408286,
+            "judge_context": 0.47094805729469563,
+            "judge_stacking": 0.4636860261316095
+          }
+        },
+        {
+          "game_id": "LOLTMNT05_214624",
+          "date": "2026-07-29 17:49:26",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": -948.0,
+            "xpdiffat10": -487.0,
+            "csdiffat10": 17.0,
+            "kill_diff": -3.0,
+            "elo_diff": 123.80089774980866
+          },
+          "blue_side": [
+            "elo"
+          ],
+          "red_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.41362768598110333,
+            "elo": 0.552037420620465,
+            "random_forest": 0.43259311018545105,
+            "xgboost": 0.4409184753894806
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.12933791080811763,
+              "xpdiffat10": -0.04235967740698787,
+              "csdiffat10": 0.03118532734314733,
+              "kill_diff": 0.03513223276823041,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.11442502406461219,
+              "xpdiffat10": -0.04128597864308936,
+              "csdiffat10": 0.02196587050767662,
+              "kill_diff": 0.022275503789558226,
+              "elo_diff": 0.14312783567479087
+            },
+            "random_forest": {
+              "golddiffat10": -0.05008724283927174,
+              "xpdiffat10": -0.0328547492807964,
+              "csdiffat10": 0.046580747374990294,
+              "kill_diff": -0.00925727399951437,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.06504294276237488,
+              "xpdiffat10": -0.03935191035270691,
+              "csdiffat10": 0.037657231092453,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.45908596090146053,
+            "elo": 0.5484943066157134,
+            "random_forest": 0.46485525382846143,
+            "xgboost": 0.4617782307170189
+          },
+          "blue_evidence": 0.05708445788258437,
+          "red_evidence": 0.19653865110777363,
+          "judge_context_independent": 0.5369314649210924,
+          "court_probabilities": {
+            "mean": 0.459794173044125,
+            "weighted": 0.5200551264565478,
+            "stacking": 0.531564879749624,
+            "gating": 0.46342003360064415,
+            "evidence_only": 0.4639506768379465,
+            "judge_context": 0.5004410708795195,
+            "judge_stacking": 0.4977577782937852
+          }
+        }
+      ],
+      "judge_stacking_spoiled": [
+        {
+          "game_id": "LOLTMNT02_442117",
+          "date": "2026-07-27 20:51:56",
+          "blue_win": 0,
+          "evidence_inputs": {
+            "golddiffat10": -631.0,
+            "xpdiffat10": 971.0,
+            "csdiffat10": 28.0,
+            "kill_diff": 0.0,
+            "elo_diff": -88.4275319247813
+          },
+          "blue_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "red_side": [
+            "elo"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.5810426263461381,
+            "elo": 0.4619808189385294,
+            "random_forest": 0.6082389072759761,
+            "xgboost": 0.5643599629402161
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.08136062570861446,
+              "xpdiffat10": 0.08525381225641115,
+              "csdiffat10": 0.05292274298591426,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.08025184396776519,
+              "xpdiffat10": 0.08184253224548615,
+              "csdiffat10": 0.03595725540057426,
+              "kill_diff": 0.0,
+              "elo_diff": -0.10266441188713471
+            },
+            "random_forest": {
+              "golddiffat10": -0.02753768353910946,
+              "xpdiffat10": 0.11443509336374352,
+              "csdiffat10": 0.0758244222242378,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.037332117557525635,
+              "xpdiffat10": 0.0595056414604187,
+              "csdiffat10": 0.04025566577911377,
+              "kill_diff": 0.0,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.4565701143682888,
+            "elo": 0.5361037335668879,
+            "random_forest": 0.43209626103467647,
+            "xgboost": 0.4442427254136877
+          },
+          "blue_evidence": 0.2247254273121532,
+          "red_evidence": 0.04076444982841983,
+          "judge_context_independent": 0.4675064717174211,
+          "court_probabilities": {
+            "mean": 0.553905578875215,
+            "weighted": 0.4968803863723964,
+            "stacking": 0.5090388639084225,
+            "gating": 0.5506120455033489,
+            "evidence_only": 0.5492134066977687,
+            "judge_context": 0.5083599392075949,
+            "judge_stacking": 0.5291261353030956
+          }
+        },
+        {
+          "game_id": "LOLTMNT05_214606",
+          "date": "2026-07-29 16:32:32",
+          "blue_win": 1,
+          "evidence_inputs": {
+            "golddiffat10": -604.0,
+            "xpdiffat10": -105.0,
+            "csdiffat10": -19.0,
+            "kill_diff": 1.0,
+            "elo_diff": 145.88576076519394
+          },
+          "blue_side": [
+            "elo"
+          ],
+          "red_side": [
+            "five_features",
+            "random_forest",
+            "xgboost"
+          ],
+          "expert_probabilities": {
+            "five_features": 0.3816679321713645,
+            "elo": 0.538463085102148,
+            "random_forest": 0.41983912941698764,
+            "xgboost": 0.42296990752220154
+          },
+          "expert_original_minus_neutralized_probability": {
+            "five_features": {
+              "golddiffat10": -0.08081428883389219,
+              "xpdiffat10": -0.00881403693094418,
+              "csdiffat10": -0.03488247520419896,
+              "kill_diff": -0.011625041993066743,
+              "elo_diff": 0.0
+            },
+            "elo": {
+              "golddiffat10": -0.07504828706933209,
+              "xpdiffat10": -0.009031893753555509,
+              "csdiffat10": -0.024461586210888564,
+              "kill_diff": -0.007423129198998235,
+              "elo_diff": 0.16706490242737204
+            },
+            "random_forest": {
+              "golddiffat10": -0.032559989464761074,
+              "xpdiffat10": -0.004717269098986898,
+              "csdiffat10": -0.0276937491876304,
+              "kill_diff": -0.0035912533988243234,
+              "elo_diff": 0.0
+            },
+            "xgboost": {
+              "golddiffat10": -0.04117828607559204,
+              "xpdiffat10": -0.0025288760662078857,
+              "csdiffat10": -0.035409748554229736,
+              "kill_diff": -0.0013020336627960205,
+              "elo_diff": 0.0
+            }
+          },
+          "evidence_coefficients": {
+            "five_features": 0.42671086639492145,
+            "elo": 0.5491093441339719,
+            "random_forest": 0.4282724791894206,
+            "xgboost": 0.43031702123581617
+          },
+          "blue_evidence": 0.04224087886761929,
+          "red_evidence": 0.23594326780918867,
+          "judge_context_independent": 0.574137289566416,
+          "court_probabilities": {
+            "mean": 0.44073501355317546,
+            "weighted": 0.5050658117702064,
+            "stacking": 0.5151171318388442,
+            "gating": 0.44474483381755114,
+            "evidence_only": 0.44720307361412215,
+            "judge_context": 0.510670181590269,
+            "judge_stacking": 0.4811601027264832
+          }
+        }
+      ]
+    }
+  }
+}
