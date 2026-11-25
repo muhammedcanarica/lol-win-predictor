@@ -20,6 +20,15 @@ def predict_blue_win(bundle: dict, stats: dict) -> float:
     return float(bundle["pipeline"].predict_proba(X)[0, 1])
 
 
+def xp_levels(xp_diff: float) -> tuple[int, int]:
+    """Arayüz için kaba (Blue, Red) seviye gösterimi; modele girmez. 10. dakikada ~9. seviye varsayılır."""
+    lead, drop = round(abs(xp_diff) / 1300), round(abs(xp_diff) / 3250)
+    ahead, behind = min(18, 9 + lead), max(1, 9 - drop)
+    if xp_diff > 0:
+        return ahead, behind
+    return (behind, ahead) if xp_diff < 0 else (9, 9)
+
+
 if __name__ == "__main__":
     b = load_model()
     for s in [dict(golddiffat10=0, xpdiffat10=0, csdiffat10=0, killsat10=2, deathsat10=2),
