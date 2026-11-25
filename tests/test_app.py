@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 from streamlit.testing.v1 import AppTest
 
-from src.predict import load_model, predict_blue_win
+from src.predict import load_model, predict_blue_win, xp_levels
 from src import train
 
 APP_PATH = str(Path(__file__).resolve().parents[1] / "app.py")
@@ -15,6 +15,13 @@ SCENARIOS = [(0, 0, 0, 0, 0), (5, 1, 3000, 1500, 30), (1, 6, -4000, -2500, -50),
 
 def _pct(metric):
     return float(metric.value.strip("%"))
+
+
+def test_xp_levels_are_symmetric_and_bounded():
+    assert xp_levels(0) == (9, 9)
+    assert xp_levels(6500) == (14, 7)
+    assert xp_levels(-6500) == (7, 14)
+    assert all(1 <= level <= 18 for diff in range(-20000, 20001, 500) for level in xp_levels(diff))
 
 
 def test_app_runs_with_defaults():

@@ -1,12 +1,13 @@
 """LoL Win Predictor – Streamlit arayüzü. Çalıştırma: streamlit run app.py"""
 import json
+import time
 from base64 import b64encode
 from pathlib import Path
 
 import pandas as pd
 import streamlit as st
 
-from src.predict import load_model, predict_blue_win
+from src.predict import load_model, predict_blue_win, xp_levels
 from src.train import FIG_DIR, METRICS_PATH
 
 ESPORTS_METRICS_PATH = METRICS_PATH.parent / "esports" / "esports_metrics.json"
@@ -42,6 +43,86 @@ def select_preset(values):
     for key, value in zip(INPUTS, values):
         st.session_state[key] = value
     st.session_state.match_stats = dict(zip(INPUTS, values))
+
+
+def cast_prediction():
+    """Tahmini güncel girdilerle hesaplar; efektler sırayla ışık huzmesi / bıçak lotusu olur."""
+    st.session_state.match_stats = {key: st.session_state[key] for key in INPUTS}
+    count = st.session_state.get("casts", 0)
+    st.session_state.casts = count + 1
+    st.session_state.pending_cast = "lux" if count % 2 == 0 else "kata"
+
+
+def fmt(value):
+    return f"{abs(value):,.0f}".replace(",", ".")
+
+
+def lead_html(value, unit, side):
+    ahead = value > 0 if side == "blue" else value < 0
+    text = f"{side.capitalize()} +{fmt(value)} {unit} önde" if ahead else "—"
+    return f'<div class="sb-lead {side}{"" if ahead else " muted"}">{text}</div>'
+
+
+def lead_text(value, unit, even_text):
+    side = "blue" if value > 0 else "red" if value < 0 else "even"
+    text = even_text if value == 0 else f"{side.capitalize()} +{fmt(value)} {unit}"
+    return f'<p class="lead-text {side}">{text}</p>'
+
+
+def team_badge(side):
+    name, sub = ("MAVİ TARAF", "Blue · sol üs") if side == "blue" else ("KIRMIZI TARAF", "Red · sağ üs")
+    return (f'<div class="team-badge {side}"><span class="team-portrait"><img src="{image_uri(f"minion-{side}.webp")}" '
+            f'alt="{name} minyonu"></span><div><strong>{name}</strong><span>{sub}</span></div></div>')
+
+
+def portrait(side, level):
+    # st.html <svg> etiketlerini temizlediği için halka ve siluet CSS ile çizilir.
+    return (f'<div class="xp-side {side}"><div class="xp-portrait" style="--p:{level / 18 * 100:.1f}%" aria-hidden="true">'
+            f'<span class="xp-face"></span><span class="xp-badge">{level}</span></div>'
+            f'<div class="xp-level"><span>{side.capitalize()} seviyesi</span><b>{level}</b></div></div>')
+
+
+def cs_track(cs):
+    pos = 50 + max(-1, min(1, cs / 160)) * 46
+    side = "blue" if cs > 0 else "red" if cs < 0 else "even"
+    return (f'<div class="cs-track {side}" aria-hidden="true"><span class="cs-line"></span><span class="cs-mid"></span>'
+            f'<span class="cs-fill" style="left:{min(50, pos):.1f}%;width:{abs(pos - 50):.1f}%"></span>'
+            f'<span class="cs-marker" style="left:{pos:.1f}%"><img src="{image_uri("minion.png")}" alt=""></span></div>')
+
+
+CAST_SECONDS = {"lux": 1.7, "kata": 1.9}
+
+
+def cast_effect(kind):
+    """Tam ekran, yalnız CSS ile oynayan efekt katmanı (assets/dashboard.css: .cast-fx)."""
+    if kind == "lux":
+        sparks = "".join(f'<i style="left:{6 + i * 7.5}%;top:{20 + i * 37 % 60}%;animation-delay:{450 + i * 45}ms"></i>'
+                         for i in range(12))
+        return (f'<div class="cast-fx lux" aria-hidden="true"><div class="fx-veil"></div><div class="fx-orb"></div>'
+                f'<div class="fx-beam"><div class="fx-glow"></div><div class="fx-core"></div>{sparks}</div>'
+                f'<div class="fx-flash"></div></div>')
+    blades = "".join(f'<i style="--r:{i * 30}deg"></i>' for i in range(12))
+    petals = "".join(f'<i style="--r:{i * 30 + 15}deg"></i>' for i in range(12))
+    return (f'<div class="cast-fx kata" aria-hidden="true"><div class="fx-veil"></div><div class="fx-bloom"></div>'
+            f'<div class="fx-shock"></div><div class="fx-shock late"></div>'
+            f'<div class="fx-lotus">{blades}</div><div class="fx-petals">{petals}</div></div>')
+
+
+# Fareyi izleyen parıltı: imleç konumunu --gx/--gy olarak yazar, CSS radial-gradient çizer.
+GLOW_SCRIPT = """<script>
+if (!window.__lolGlow) {
+  window.__lolGlow = true;
+  document.addEventListener('pointermove', (e) => {
+    const el = e.target.closest && e.target.closest('.st-key-cast button, .st-key-gold-row');
+    document.querySelectorAll('.glow-on').forEach((x) => { if (x !== el) x.classList.remove('glow-on'); });
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty('--gx', `${e.clientX - r.left}px`);
+    el.style.setProperty('--gy', `${e.clientY - r.top}px`);
+    el.classList.add('glow-on');
+  }, { passive: true });
+}
+</script>"""
 
 
 def sensitivity(bundle, stats, probability):
@@ -101,66 +182,104 @@ with tab_pred:
     for key, value in DEFAULT_STATS.items():
         st.session_state.setdefault(key, value)
     st.session_state.setdefault("match_stats", DEFAULT_STATS.copy())
-    with st.container(horizontal=True, horizontal_alignment="center", key="match-presets"):
-        for label, values in PRESETS.items():
-            st.button(label, on_click=select_preset, args=(values,))
-
-    stats = st.session_state.match_stats
+    live = {key: st.session_state[key] for key in INPUTS}  # anlık girdiler: görseller bunları izler
+    st.html(GLOW_SCRIPT, unsafe_allow_javascript=True)
     with st.container(key="scoreboard"):
-        st.html(f'''<div class="sb-header">
-            <span class="sb-team team-blue">MAVİ TARAF</span>
-            <span class="sb-score"><b class="team-blue">{stats["killsat10"]}</b>
-            <img src="{image_uri("score.png")}" alt="kill"><b class="team-red">{stats["deathsat10"]}</b></span>
-            <span class="sb-team team-red">KIRMIZI TARAF</span></div>
-            <p class="sb-hint">10. dakika verileri · Farkları Blue − Red olarak gir. Pozitif değer Blue avantajını gösterir.</p>''')
-        with st.form("stats", border=False):
-            with st.container(key="sb-row-kill"):
-                c_blue, c_mid, c_red = st.columns([1, 0.7, 1], gap=None)
-                with c_blue:
-                    st.number_input("Blue kill sayısı", 0, 16, key="killsat10")
-                with c_mid:
-                    stat_icon("score.png", "Kill", "sb-label")
-                with c_red:
-                    st.number_input("Red kill sayısı", 0, 16, key="deathsat10")
-            for icon, label, unit, bound, step, key in zip(
-                ("gold.png", "xp.png", "minion.png"), ("Altın farkı", "XP farkı", "Minyon farkı"),
-                ("altın", "XP", "minyon"), (7500, 6500, 160), (100, 100, 1), INPUTS[2:],
-            ):
-                value = stats[key]
-                lead = f'<div class="sb-lead" style="--w:{abs(value) / bound * 100:.1f}%">+{abs(value):,} {unit} önde</div>'.replace(",", ".")
-                with st.container(key=f"sb-row-{key}"):
-                    c_blue, c_mid, c_red = st.columns([1, 0.7, 1], gap=None)
-                    with c_blue:
-                        st.html(lead if value > 0 else '<div class="sb-lead sb-none">—</div>')
-                    with c_mid:
-                        stat_icon(icon, label, "sb-label")
-                        st.number_input(label, -bound, bound, step=step, key=key, label_visibility="collapsed")
-                    with c_red:
-                        st.html(lead if value < 0 else '<div class="sb-lead sb-none">—</div>')
-            if st.form_submit_button("Tahmin et", type="primary", width="stretch"):
-                st.session_state.match_stats = stats = {key: st.session_state[key] for key in INPUTS}
-                st.rerun()  # başlık ve önde-çubukları yeni değerlerle çizilsin
+        left, mid, right = st.columns([1, 1.05, 1], vertical_alignment="center")
+        with left:
+            st.html(team_badge("blue"))
+        with mid, st.container(key="kill-score"):
+            k_blue, k_icon, k_red = st.columns([1, 0.8, 1], vertical_alignment="center", gap="small")
+            with k_blue:
+                st.number_input("Blue kill sayısı", 0, 16, key="killsat10", label_visibility="collapsed")
+            with k_icon:
+                st.html(f'<div class="kill-medal"><img src="{image_uri("score.png")}" alt="kill"></div>')
+            with k_red:
+                st.number_input("Red kill sayısı", 0, 16, key="deathsat10", label_visibility="collapsed")
+            st.html('<p class="sb-caption">KILL · 10. DAKİKA</p>')
+        with right:
+            st.html(team_badge("red"))
 
-    with st.container(key="match-result"):
-        p_blue = predict_blue_win(bundle, stats)
-        blue_pct, red_pct = p_blue * 100, (1 - p_blue) * 100
-        winner = "Blue" if p_blue >= 0.5 else "Red"
-        m1, m_mid, m2 = st.columns([1, 0.9, 1], vertical_alignment="center")
-        with m1, st.container(key="blue-result"):
-            st.metric("Blue", f"%{blue_pct:.1f}")
-        with m_mid:
-            st.markdown(f'<div class="match-verdict"><small>GALİBİYET OLASILIĞI</small>Tahmini kazanan '
-                        f'<span class="team-{winner.lower()}">{winner}</span></div>', unsafe_allow_html=True)
-        with m2, st.container(key="red-result"):
-            st.metric("Red", f"%{red_pct:.1f}")
-        st.html(f'<div class="duel-track" role="img" aria-label="Blue yüzde {blue_pct:.1f}, Red yüzde {red_pct:.1f}">'
-                f'<span style="width:{blue_pct:.4f}%"></span></div>')
-        if 0.4 < p_blue < 0.6:
-            st.caption("Maç dengeli görünüyor. İki tarafın da kazanma olasılığı %40–60 aralığında.")
-        st.caption(f"{bundle['name']} · Son hesaplanan senaryo")
+        with st.container(horizontal=True, horizontal_alignment="center", vertical_alignment="center", key="match-presets"):
+            st.html('<span class="sb-caption">SENARYO</span>', width="content")
+            for (label, values), key in zip(PRESETS.items(), ("preset-even", "preset-blue", "preset-red")):
+                st.button(label, key=key, on_click=select_preset, args=(values,))
+        st.html('<p class="sb-hint">Farkları Blue − Red olarak gir. Pozitif değer Blue, negatif değer Red avantajıdır.</p>')
+
+        gold = live["golddiffat10"]
+        tint = {side: f"{0.15 + min(1, abs(gold) / 7500) * 0.5:.2f}" if ahead else "0.06"
+                for side, ahead in (("blue", gold > 0), ("red", gold < 0))}
+        st.html(f'<style>.st-key-gold-row{{--blue-a:{tint["blue"]};--red-a:{tint["red"]}}}</style>')
+        with st.container(key="gold-row"):
+            g_blue, g_mid, g_red = st.columns(3, vertical_alignment="center")
+            with g_blue:
+                st.html(lead_html(gold, "altın", "blue"))
+            with g_mid, st.container(horizontal=True, horizontal_alignment="center", vertical_alignment="center", key="gold-input"):
+                st.html(f'<span class="coin-medal"><img src="{image_uri("gold.png")}" alt=""></span>', width="content")
+                st.number_input("Altın farkı", -7500, 7500, step=100, key="golddiffat10")
+            with g_red:
+                st.html(lead_html(gold, "altın", "red"))
+
+        xp = live["xpdiffat10"]
+        blue_lvl, red_lvl = xp_levels(xp)
+        with st.container(key="xp-row"):
+            x_blue, x_mid, x_red = st.columns([1, 0.8, 1], vertical_alignment="center")
+            with x_blue:
+                st.html(portrait("blue", blue_lvl))
+            with x_mid:
+                stat_icon("xp.png", "XP farkı", "sb-label")
+                st.number_input("XP farkı", -6500, 6500, step=100, key="xpdiffat10", label_visibility="collapsed")
+                st.html(lead_text(xp, "XP", "Seviyeler eşit"))
+            with x_red:
+                st.html(portrait("red", red_lvl))
+
+        cs = live["csdiffat10"]
+        with st.container(key="cs-row"):
+            c_blue, c_mid, c_red = st.columns([1, 1.2, 1], vertical_alignment="center")
+            with c_blue:
+                st.html(f'<span class="lane-label{" blue" if cs > 0 else ""}">Blue koridoru</span>')
+            with c_mid, st.container(horizontal=True, horizontal_alignment="center", vertical_alignment="center", key="cs-input"):
+                st.html(f'<span class="stat-icon sb-label"><img src="{image_uri("minion.png")}" alt="">Minyon farkı</span>',
+                        width="content")
+                st.number_input("Minyon farkı", -160, 160, step=1, key="csdiffat10", label_visibility="collapsed")
+            with c_red:
+                st.html(f'<span class="lane-label right{" red" if cs < 0 else ""}">Red koridoru</span>')
+            st.html(cs_track(cs))
+            st.html(lead_text(cs, "minyon", "Koridor dengede"))
+
+        with st.container(key="match-result"):
+            cast = st.session_state.pop("pending_cast", None)
+            if cast:
+                st.html(cast_effect(cast))
+                time.sleep(CAST_SECONDS[cast])  # efekt ekrandan kalkınca sonuç çizilsin
+            stats = st.session_state.match_stats
+            p_blue = predict_blue_win(bundle, stats)
+            blue_pct, red_pct = p_blue * 100, (1 - p_blue) * 100
+            winner = "Blue" if p_blue >= 0.5 else "Red"
+            m1, m_mid, m2 = st.columns([1, 0.9, 1], vertical_alignment="center")
+            with m1, st.container(key="blue-result"):
+                st.metric("Blue", f"%{blue_pct:.1f}")
+            with m_mid:
+                st.markdown(f'<div class="match-verdict"><small>GALİBİYET OLASILIĞI</small>Tahmini kazanan '
+                            f'<span class="team-{winner.lower()}">{winner}</span></div>', unsafe_allow_html=True)
+            with m2, st.container(key="red-result"):
+                st.metric("Red", f"%{red_pct:.1f}")
+            st.html(f'<div class="duel-track" role="img" aria-label="Blue yüzde {blue_pct:.1f}, Red yüzde {red_pct:.1f}">'
+                    f'<span style="width:{blue_pct:.4f}%"></span></div>')
+            if 0.4 < p_blue < 0.6:
+                st.caption("Maç dengeli görünüyor. İki tarafın da kazanma olasılığı %40–60 aralığında.")
+            st.caption(f"{bundle['name']} · Son hesaplanan senaryo")
 
         pin_label = "Referansı güncelle" if "reference_stats" in st.session_state else "Referans olarak kaydet"
-        if st.button(pin_label, key="pin-match"):
+        with st.container(horizontal=True, vertical_alignment="center", key="cast-row"):
+            st.html(f'<div class="cast-emblem" aria-hidden="true"><img src="{image_uri("score.png")}" alt=""></div>',
+                    width="content")
+            with st.container(key="cast"):
+                st.button("Tahmin et", key="cast-button", width="stretch", on_click=cast_prediction)
+            pinned = st.button(pin_label, key="pin-match")
+
+    with st.container(key="match-extra"):
+        if pinned:
             st.session_state.reference_stats = stats.copy()
         if "reference_stats" in st.session_state:
             reference = st.session_state.reference_stats
