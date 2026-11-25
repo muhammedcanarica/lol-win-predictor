@@ -101,48 +101,60 @@ with tab_pred:
     for key, value in DEFAULT_STATS.items():
         st.session_state.setdefault(key, value)
     st.session_state.setdefault("match_stats", DEFAULT_STATS.copy())
-    controls, result = st.columns([1.16, 1], gap="large")
-    with controls, st.container(key="match-controls"):
-        st.subheader("10. dakika verileri")
-        st.caption("Başlamak için bir örnek seç veya maç istatistiklerini gir.")
-        with st.container(horizontal=True, key="match-presets"):
-            for label, values in PRESETS.items():
-                st.button(label, on_click=select_preset, args=(values,))
+    with st.container(horizontal=True, horizontal_alignment="center", key="match-presets"):
+        for label, values in PRESETS.items():
+            st.button(label, on_click=select_preset, args=(values,))
 
-        with st.form("stats"):
-            c_blue, c_red = st.columns(2)
-            with c_blue:
-                stat_icon("score.png", "Blue", "team-tag team-blue")
-                st.number_input("Blue kill sayısı", 0, 16, key="killsat10")
-            with c_red:
-                stat_icon("score.png", "Red", "team-tag team-red")
-                st.number_input("Red kill sayısı", 0, 16, key="deathsat10")
-            st.caption("Farkları Blue − Red olarak gir. Pozitif değer Blue avantajını gösterir.")
-            for column, icon, label, bound, step, key in zip(
-                st.columns(3), ("gold.png", "xp.png", "minion.png"), ("Altın farkı", "XP farkı", "Minyon farkı"),
-                (7500, 6500, 160), (100, 100, 1), INPUTS[2:],
+    stats = st.session_state.match_stats
+    with st.container(key="scoreboard"):
+        st.html(f'''<div class="sb-header">
+            <span class="sb-team team-blue">MAVİ TARAF</span>
+            <span class="sb-score"><b class="team-blue">{stats["killsat10"]}</b>
+            <img src="{image_uri("score.png")}" alt="kill"><b class="team-red">{stats["deathsat10"]}</b></span>
+            <span class="sb-team team-red">KIRMIZI TARAF</span></div>
+            <p class="sb-hint">10. dakika verileri · Farkları Blue − Red olarak gir. Pozitif değer Blue avantajını gösterir.</p>''')
+        with st.form("stats", border=False):
+            with st.container(key="sb-row-kill"):
+                c_blue, c_mid, c_red = st.columns([1, 0.7, 1], gap=None)
+                with c_blue:
+                    st.number_input("Blue kill sayısı", 0, 16, key="killsat10")
+                with c_mid:
+                    stat_icon("score.png", "Kill", "sb-label")
+                with c_red:
+                    st.number_input("Red kill sayısı", 0, 16, key="deathsat10")
+            for icon, label, unit, bound, step, key in zip(
+                ("gold.png", "xp.png", "minion.png"), ("Altın farkı", "XP farkı", "Minyon farkı"),
+                ("altın", "XP", "minyon"), (7500, 6500, 160), (100, 100, 1), INPUTS[2:],
             ):
-                with column:
-                    stat_icon(icon, label)
-                    st.number_input(label, -bound, bound, step=step, key=key, label_visibility="collapsed")
+                value = stats[key]
+                lead = f'<div class="sb-lead" style="--w:{abs(value) / bound * 100:.1f}%">+{abs(value):,} {unit} önde</div>'.replace(",", ".")
+                with st.container(key=f"sb-row-{key}"):
+                    c_blue, c_mid, c_red = st.columns([1, 0.7, 1], gap=None)
+                    with c_blue:
+                        st.html(lead if value > 0 else '<div class="sb-lead sb-none">—</div>')
+                    with c_mid:
+                        stat_icon(icon, label, "sb-label")
+                        st.number_input(label, -bound, bound, step=step, key=key, label_visibility="collapsed")
+                    with c_red:
+                        st.html(lead if value < 0 else '<div class="sb-lead sb-none">—</div>')
             if st.form_submit_button("Tahmin et", type="primary", width="stretch"):
-                st.session_state.match_stats = {key: st.session_state[key] for key in INPUTS}
+                st.session_state.match_stats = stats = {key: st.session_state[key] for key in INPUTS}
+                st.rerun()  # başlık ve önde-çubukları yeni değerlerle çizilsin
 
-    with result, st.container(key="match-result"):
-        st.subheader("Galibiyet olasılığı")
-        stats = st.session_state.match_stats
+    with st.container(key="match-result"):
         p_blue = predict_blue_win(bundle, stats)
         blue_pct, red_pct = p_blue * 100, (1 - p_blue) * 100
-        m1, m2 = st.columns(2)
+        winner = "Blue" if p_blue >= 0.5 else "Red"
+        m1, m_mid, m2 = st.columns([1, 0.9, 1], vertical_alignment="center")
         with m1, st.container(key="blue-result"):
             st.metric("Blue", f"%{blue_pct:.1f}")
+        with m_mid:
+            st.markdown(f'<div class="match-verdict"><small>GALİBİYET OLASILIĞI</small>Tahmini kazanan '
+                        f'<span class="team-{winner.lower()}">{winner}</span></div>', unsafe_allow_html=True)
         with m2, st.container(key="red-result"):
             st.metric("Red", f"%{red_pct:.1f}")
         st.html(f'<div class="duel-track" role="img" aria-label="Blue yüzde {blue_pct:.1f}, Red yüzde {red_pct:.1f}">'
                 f'<span style="width:{blue_pct:.4f}%"></span></div>')
-        winner = "Blue" if p_blue >= 0.5 else "Red"
-        st.markdown(f'<div class="match-verdict">Tahmini kazanan <span class="team-{winner.lower()}">{winner}</span></div>',
-                    unsafe_allow_html=True)
         if 0.4 < p_blue < 0.6:
             st.caption("Maç dengeli görünüyor. İki tarafın da kazanma olasılığı %40–60 aralığında.")
         st.caption(f"{bundle['name']} · Son hesaplanan senaryo")

@@ -22,32 +22,76 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 [data-testid="stTabs"] [role="tab"] { min-height: 2.8rem; }
 [data-testid="stTabs"] [role="tabpanel"] { padding-top: .75rem; }
 
-.st-key-match-controls h2, .st-key-match-result h2 { margin: 0; padding: 0; font-size: 1.37rem; letter-spacing: -.02em; }
-.st-key-match-controls [data-testid="stForm"] { border-color: #343d51; border-radius: 12px; }
-.st-key-match-controls [data-testid="stFormSubmitButton"] button { color: #171a23; }
-.st-key-match-controls [data-testid="stFormSubmitButton"] button:hover { background: #f0ce96; color: #171a23; }
-.st-key-match-controls [data-testid="stFormSubmitButton"] button::before {
+/* Tahmin sekmesi: oyun içi Tab skor tablosu (mavi sol, kırmızı sağ, altın çerçeve) */
+.team-blue { color: #6cc0ff; }
+.team-red { color: #ff7b7b; }
+.stat-icon { display: flex; height: 2.1rem; align-items: center; gap: .45rem; color: #c6cede; font-size: .78rem; }
+.stat-icon img { width: 22px; height: 22px; flex: 0 0 22px; object-fit: contain; }
+.st-key-match-presets button { min-height: 2.75rem; border-radius: 999px; border-color: #785a28; background: #0c1620; }
+
+.st-key-scoreboard, .st-key-match-result {
+  gap: 0; border: 1px solid #785a28; background: #0a1118; box-shadow: 0 0 0 3px #0a1118, 0 0 0 4px #463714;
+}
+.st-key-match-result { margin-top: 1rem; padding: 1.1rem 1.25rem .6rem; }
+.sb-header {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 1rem;
+  padding: .9rem 1.25rem; background: #0c1620; border-bottom: 1px solid #463714;
+}
+.sb-team { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.15rem; letter-spacing: .12em; }
+.sb-team.team-red { text-align: right; }
+.sb-team::before { content: '◆ '; font-size: .7em; }
+.sb-team.team-red::before { content: none; }
+.sb-team.team-red::after { content: ' ◆'; font-size: .7em; }
+.sb-score { display: flex; align-items: center; gap: .7rem; font-size: 2.1rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.sb-score img { width: 22px; height: 22px; }
+.sb-hint { margin: 0; padding: .55rem 1.25rem; color: #a09b8c; font-size: .82rem; border-bottom: 1px solid #1e2a33; }
+
+.st-key-scoreboard [data-testid="stForm"] { padding: 0; border: 0; gap: 0; }
+[class*="st-key-sb-row"] { border-bottom: 1px solid #16212a; }
+[class*="st-key-sb-row"] [data-testid="stHorizontalBlock"] { gap: 0; align-items: stretch; }
+[class*="st-key-sb-row"] [data-testid="stColumn"] { padding: .7rem 1.1rem; justify-content: center; box-shadow: inset 0 -1px #1e2a33; }
+[class*="st-key-sb-row"] [data-testid="stColumn"]:nth-child(1) { background: #0d2335; }
+[class*="st-key-sb-row"] [data-testid="stColumn"]:nth-child(2) { background: #0a1118; border-inline: 1px solid #463714; align-items: center; }
+[class*="st-key-sb-row"] [data-testid="stColumn"]:nth-child(3) { background: #2a1015; }
+.st-key-sb-row-kill [data-testid="stColumn"]:nth-child(1) [data-testid="stNumberInput"] label p { color: #8fb8d8; }
+.st-key-sb-row-kill [data-testid="stColumn"]:nth-child(3) [data-testid="stNumberInput"] label p { color: #d8a0a0; }
+.sb-label { justify-content: center; margin-bottom: .35rem; color: #c8aa6e; font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; height: 1.7rem; }
+.st-key-scoreboard [data-testid="stVerticalBlock"] { gap: 0; }
+/* önde-çubuğu satırın tüm yüksekliğini doldursun */
+[class*="st-key-sb-row"] [data-testid="stColumn"]:has(.sb-lead) { padding: 0; }
+[data-testid="stColumn"]:has(.sb-lead) :is([data-testid="stVerticalBlock"], .stElementContainer, .stHtml) { flex: 1 1 auto; height: 100%; }
+.sb-lead {
+  position: relative; height: 100%; min-height: 2.6rem; box-sizing: border-box; padding: 0 1.1rem;
+  display: flex; align-items: center; justify-content: flex-end;
+  color: #8fd0ff; font-weight: 700; font-size: 1.05rem; isolation: isolate;
+}
+.sb-lead::before { content: ''; position: absolute; z-index: -1; inset: 0 0 0 auto; width: var(--w); background: #1f5d8f; }
+[data-testid="stColumn"]:nth-child(3) .sb-lead { justify-content: flex-start; color: #ffb0b0; }
+[data-testid="stColumn"]:nth-child(3) .sb-lead::before { inset: 0 auto 0 0; background: #7a1f27; }
+.sb-lead.sb-none { color: #8a7f82; font-weight: 400; }
+.st-key-scoreboard [data-testid="stFormSubmitButton"] { padding: 1rem 1.25rem; background: #0c1620; }
+.st-key-scoreboard [data-testid="stFormSubmitButton"] button {
+  min-height: 3rem; border-radius: 0; border: 1px solid #c8aa6e; background: #1e2328; color: #f0e6d2;
+  font-family: 'Instrument Serif', Georgia, serif; font-size: 1.15rem; letter-spacing: .14em; text-transform: uppercase;
+}
+.st-key-scoreboard [data-testid="stFormSubmitButton"] button:hover { background: #2a2f35; border-color: #f0e6d2; color: #fff; }
+.st-key-scoreboard [data-testid="stFormSubmitButton"] button::before {
   content: ''; width: 20px; height: 20px; flex: 0 0 20px; background: var(--score-icon) center / contain no-repeat;
 }
-.st-key-match-controls [data-testid="stNumberInput"] label p { font-size: .87rem; }
-.st-key-match-controls [data-testid="stHorizontalBlock"] { gap: .75rem; }
-.st-key-match-result [data-testid="stMetricValue"] { font-size: 2.45rem; font-weight: 650; font-variant-numeric: tabular-nums; }
-.st-key-blue-result [data-testid="stMetricValue"] { color: #81c8ff; }
-.st-key-red-result [data-testid="stMetricValue"] { color: #ff9eaa; }
-.stat-icon { display: flex; height: 2.1rem; align-items: center; gap: .45rem; color: #c6cede; font-size: .78rem; }
-.stat-icon img { width: 26px; height: 26px; object-fit: contain; }
-.stat-icon img[src*="base64"] { flex: 0 0 26px; }
-.team-tag { font-weight: 700; letter-spacing: .04em; }
-.team-blue { color: #81c8ff; }
-.team-red { color: #ff9eaa; }
 
+.st-key-match-result [data-testid="stMetricValue"] { font-size: 2.6rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+.st-key-blue-result [data-testid="stMetricValue"] { color: #6cc0ff; }
+.st-key-red-result, .st-key-red-result * { text-align: right; justify-content: flex-end; }
+.st-key-red-result [data-testid="stMetric"] { display: flex; flex-direction: column; align-items: flex-end; }
+.st-key-red-result [data-testid="stMetricValue"] { color: #ff7b7b; }
+.match-verdict { text-align: center; color: #a09b8c; font-size: 1rem; }
+.match-verdict small { display: block; color: #c8aa6e; letter-spacing: .14em; font-size: .78rem; }
+.match-verdict span { margin-left: .35rem; font-weight: 700; }
 .duel-track {
-  display: flex; height: 9px; overflow: hidden; border: 1px solid #343d51;
-  border-radius: 7px; margin: .2rem 0 .8rem; background: #ef8292;
+  position: relative; display: flex; height: 12px; border: 1px solid #463714; margin: .4rem 0 .8rem; background: #b8323a;
 }
-.duel-track span { display: block; background: #82bdf8; height: 100%; }
-.match-verdict { color: #eef1f8; font-size: 1rem; font-weight: 650; }
-.match-verdict span { margin-left: .35rem; }
+.duel-track span { display: block; background: #2f8fe0; height: 100%; }
+.duel-track::after { content: ''; position: absolute; left: 50%; top: -5px; bottom: -5px; width: 2px; background: #c8aa6e; }
 
 @media (max-width: 720px) {
   .stMainBlockContainer { padding: 1.35rem 1rem 2.5rem; }
