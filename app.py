@@ -156,7 +156,11 @@ def optional_report(directory):
 
 
 st.html(f'''<style>
-    :root {{ --score-icon: url("{image_uri("score.png")}"); }}
+    :root {{
+        --score-icon: url("{image_uri("score.png")}");
+        --lux-art: url("{image_uri("lux.webp")}");
+        --kata-art: url("{image_uri("katarina.webp")}");
+    }}
     @font-face {{
         font-family: "Instrument Serif";
         src: url("{asset_uri("fonts/instrument-serif.woff2", "font/woff2")}") format("woff2");

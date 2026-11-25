@@ -14,6 +14,16 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
   background-attachment: fixed;
 }
 .stApp header { background: transparent; }
+/* Kenar görselleri: mavi tarafta Lux, kırmızı tarafta Katarina; düşük opaklık, yumuşak kenar */
+.stApp::before, .stApp::after {
+  content: ''; position: fixed; z-index: 0; pointer-events: none; top: 14vh; width: 42vw; height: 78vh;
+  opacity: .2; background-repeat: no-repeat; background-size: cover;
+  -webkit-mask-image: radial-gradient(ellipse 60% 65% at 50% 50%, #000 35%, transparent 75%);
+  mask-image: radial-gradient(ellipse 60% 65% at 50% 50%, #000 35%, transparent 75%);
+}
+.stApp::before { left: -8vw; background-image: var(--lux-art); background-position: 52% 30%; }
+.stApp::after { right: -8vw; background-image: var(--kata-art); background-position: 45% 25%; }
+.stMain { position: relative; z-index: 1; }
 
 .match-hero {
   position: relative; isolation: isolate; overflow: hidden;
