@@ -405,5 +405,6 @@ LoL Win Predictor, Riot Games tarafından onaylanmamıştır ve Riot Games'in ya
 League of Legends ve Riot Games, Riot Games, Inc.'in ticari markaları veya tescilli ticari markalarıdır.
 Altın, minyon, skor ikonları ve Kindred görseli Riot Games Data Dragon'dan alınmıştır.
 XP ikonu CommunityDragon üzerinden alınan League of Legends istemci varlığıdır.
+Tahmin sekmesindeki Lux ve Katarina görselleri League of Legends kostüm çizimleridir ve hakları Riot Games'e aittir.
 [Data Dragon](https://developer.riotgames.com/docs/lol#data-dragon) · [CommunityDragon](https://communitydragon.org/docs/assets)
 """)
