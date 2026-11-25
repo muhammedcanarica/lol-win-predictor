@@ -152,18 +152,11 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 .xp-side.blue .xp-portrait { background: conic-gradient(#6cc0ff var(--p), #2c2733 0); }
 .xp-side.red .xp-portrait { background: conic-gradient(#2c2733 calc(100% - var(--p)), #ff7b7b 0); }
 .xp-face {
-  position: absolute; inset: 6px; overflow: hidden; border-radius: 50%;
-  border: 3px solid #1e1b23; box-shadow: inset 0 0 0 2px #c8aa6e;
+  position: absolute; inset: 6px; width: calc(100% - 12px); height: calc(100% - 12px); box-sizing: border-box;
+  border-radius: 50%; object-fit: cover; border: 3px solid #1e1b23; outline: 2px solid #c8aa6e; outline-offset: -5px;
 }
-/* Özgün siluet: baş + omuzlar, merkeze dönük */
-.xp-face::before, .xp-face::after { content: ''; position: absolute; }
-.xp-face::before { width: 34%; height: 34%; top: 22%; left: 40%; border-radius: 50%; }
-.xp-face::after { width: 76%; height: 50%; top: 60%; left: 16%; border-radius: 50% 50% 0 0 / 70% 70% 0 0; }
-.xp-side.red .xp-face { transform: scaleX(-1); }
-.xp-side.blue .xp-face { background: radial-gradient(circle at 60% 35%, #2d5f93, #10213a 75%); }
-.xp-side.red .xp-face { background: radial-gradient(circle at 60% 35%, #8a2a35, #2a0d12 75%); }
-.xp-side.blue .xp-face::before, .xp-side.blue .xp-face::after { background: #0a1626; }
-.xp-side.red .xp-face::before, .xp-side.red .xp-face::after { background: #1f080c; }
+.xp-side.blue .xp-face { box-shadow: 0 0 18px rgba(108, 192, 255, .25); }
+.xp-side.red .xp-face { box-shadow: 0 0 18px rgba(255, 123, 123, .25); }
 .xp-badge {
   position: absolute; bottom: -2px; right: -2px; width: 34px; height: 34px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;

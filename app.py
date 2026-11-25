@@ -76,9 +76,10 @@ def team_badge(side):
 
 
 def portrait(side, level):
-    # st.html <svg> etiketlerini temizlediği için halka ve siluet CSS ile çizilir.
+    # st.html <svg> etiketlerini temizlediği için halka CSS conic-gradient ile çizilir.
+    face = image_uri("portrait-lux.webp" if side == "blue" else "portrait-katarina.webp")
     return (f'<div class="xp-side {side}"><div class="xp-portrait" style="--p:{level / 18 * 100:.1f}%" aria-hidden="true">'
-            f'<span class="xp-face"></span><span class="xp-badge">{level}</span></div>'
+            f'<img class="xp-face" src="{face}" alt=""><span class="xp-badge">{level}</span></div>'
             f'<div class="xp-level"><span>{side.capitalize()} seviyesi</span><b>{level}</b></div></div>')
 
 
